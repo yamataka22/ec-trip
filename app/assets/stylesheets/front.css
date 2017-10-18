@@ -1,0 +1,7 @@
+/*
+ *= require bootstrap-material-design/css/bootstrap-material-design
+ *
+ *= require common
+ *= require_tree ./front
+ *= require_self
+ */

@@ -1,4 +1,4 @@
-class TopController < ApplicationController
+class TopController < FrontBase
   def index
   end
 end

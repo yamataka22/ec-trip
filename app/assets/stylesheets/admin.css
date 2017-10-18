@@ -1,0 +1,7 @@
+/*
+ *= require css/coreui
+ *
+ *= require common
+ *= require_tree ./admin
+ *= require_self
+ */

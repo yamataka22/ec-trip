@@ -12,7 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery3
-//= require popper
-//= require bootstrap-sprockets
+//= require bootstrap-material-design/js/bootstrap-material-design
 //= require_tree .
