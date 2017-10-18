@@ -1,6 +1,6 @@
 /*
  *= require bootstrap-material-design/css/bootstrap-material-design
- *
+ *= require fontawesome/css/font-awesome
  *= require common
  *= require_tree ./front
  *= require_self
