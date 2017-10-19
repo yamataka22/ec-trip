@@ -24,6 +24,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_hash (1.5.2)
+      activesupport (>= 2.2.2)
     activejob (5.0.6)
       activesupport (= 5.0.6)
       globalid (>= 0.3.6)
@@ -367,6 +369,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_hash (~> 1.5.2)
   awesome_print
   aws-sdk (~> 2.9.18)
   bower-rails
