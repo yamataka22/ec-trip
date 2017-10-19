@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019080954) do
+ActiveRecord::Schema.define(version: 20171019091216) do
 
   create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",              null: false
     t.integer  "item_id",                null: false
-    t.integer  "volume",     default: 0, null: false
+    t.integer  "quantity",   default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.index ["item_id"], name: "index_carts_on_item_id", using: :btree
@@ -27,6 +27,54 @@ ActiveRecord::Schema.define(version: 20171019080954) do
     t.integer  "sequence",   default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "about",      limit: 65535, null: false
+    t.string   "email",                    null: false
+    t.string   "last_name",                null: false
+    t.string   "first_name"
+    t.string   "phone"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "credit_cards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "member_id",                      null: false
+    t.string   "stripe_card_id",                 null: false
+    t.string   "brand",                          null: false
+    t.string   "last4",                          null: false
+    t.string   "exp_month",                      null: false
+    t.string   "exp_year",                       null: false
+    t.string   "holder",                         null: false
+    t.boolean  "main",           default: false, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["member_id"], name: "index_credit_cards_on_member_id", using: :btree
+  end
+
+  create_table "delivery_addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "member_id",                     null: false
+    t.boolean  "main",          default: false, null: false
+    t.string   "last_name",                     null: false
+    t.string   "first_name",                    null: false
+    t.string   "postal_code",                   null: false
+    t.integer  "prefecture_id",                 null: false
+    t.string   "address1",                      null: false
+    t.string   "address2"
+    t.string   "phone",                         null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["member_id"], name: "index_delivery_addresses_on_member_id", using: :btree
+  end
+
+  create_table "favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "member_id",  null: false
+    t.integer  "item_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_favorites_on_item_id", using: :btree
+    t.index ["member_id"], name: "index_favorites_on_member_id", using: :btree
   end
 
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -112,6 +160,45 @@ ActiveRecord::Schema.define(version: 20171019080954) do
     t.index ["stripe_customer_id"], name: "index_members_on_stripe_customer_id", unique: true, using: :btree
   end
 
+  create_table "purchase_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "purchase_id", null: false
+    t.integer  "item_id",     null: false
+    t.string   "item_name",   null: false
+    t.integer  "price",       null: false
+    t.integer  "quantity",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["item_id"], name: "index_purchase_details_on_item_id", using: :btree
+    t.index ["purchase_id"], name: "index_purchase_details_on_purchase_id", using: :btree
+  end
+
+  create_table "purchases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "member_id",              null: false
+    t.integer  "credit_card_id",         null: false
+    t.integer  "item_amount",            null: false
+    t.integer  "tax",                    null: false
+    t.integer  "delivery_fee",           null: false
+    t.string   "delivery_last_name",     null: false
+    t.string   "delivery_first_name",    null: false
+    t.string   "delivery_phone",         null: false
+    t.string   "delivery_postal_code",   null: false
+    t.integer  "delivery_prefecture_id", null: false
+    t.string   "delivery_address1",      null: false
+    t.string   "delivery_address2"
+    t.string   "invoice_last_name",      null: false
+    t.string   "invoice_first_name",     null: false
+    t.string   "invoice_phone",          null: false
+    t.string   "invoice_postal_code",    null: false
+    t.integer  "invoice_prefecture_id",  null: false
+    t.string   "invoice_address1",       null: false
+    t.string   "invoice_address2"
+    t.string   "stripe_payment_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["credit_card_id"], name: "index_purchases_on_credit_card_id", using: :btree
+    t.index ["member_id"], name: "index_purchases_on_member_id", using: :btree
+  end
+
   create_table "taxes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "rate"
     t.date     "start_date"
@@ -121,6 +208,14 @@ ActiveRecord::Schema.define(version: 20171019080954) do
 
   add_foreign_key "carts", "items"
   add_foreign_key "carts", "members"
+  add_foreign_key "credit_cards", "members"
+  add_foreign_key "delivery_addresses", "members"
+  add_foreign_key "favorites", "items"
+  add_foreign_key "favorites", "members"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "images", column: "caption_image_id"
+  add_foreign_key "purchase_details", "items"
+  add_foreign_key "purchase_details", "purchases"
+  add_foreign_key "purchases", "credit_cards"
+  add_foreign_key "purchases", "members"
 end

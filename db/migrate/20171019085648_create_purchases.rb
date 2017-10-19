@@ -1,6 +1,6 @@
 class CreatePurchases < ActiveRecord::Migration[5.0]
   def change
-    create_table :purchages do |t|
+    create_table :purchases do |t|
       t.references :member, foreign_key: true, null: false
       t.references :credit_card, foreign_key: true, null: false
       t.integer :item_amount, null: false
