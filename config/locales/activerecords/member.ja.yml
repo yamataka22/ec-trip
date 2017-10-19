@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    models:
+      member: 会員
+    attributes:
+      member:
+        account_name: ユーザー名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード(確認)
+        profile_image_id: プロフィール画像
+        last_name: お名前(姓)
+        first_name: お名前(名)
+        phone: 電話番号
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        address1: 住所
+        address2: 建物名
+        leave_at: 退会日時
+        leave_reason: 退会理由
+        stripe_customer_id: StripeカスタマーID

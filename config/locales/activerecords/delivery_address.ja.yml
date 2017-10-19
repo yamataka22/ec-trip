@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      delivery_address: 配送先住所
+    attributes:
+      delivery_address:
+        member_id: 会員
+        last_name: お名前(姓)
+        first_name: お名前(名)
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        address1: 住所
+        address2: 建物名
+        phone: 電話番号

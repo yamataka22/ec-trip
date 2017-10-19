@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      tax: 消費税
+    attributes:
+      tax:
+        rate: 税率
+        start_date: 開始日

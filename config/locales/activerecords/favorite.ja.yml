@@ -1,0 +1,4 @@
+ja:
+  activerecord:
+    models:
+      favorite: お気に入り

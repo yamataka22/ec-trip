@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    models:
+      purchase: 購入
+    attributes:
+      purchase:
+        member_id: 会員
+        credit_card_id: クレジットカード
+        item_amount: 購入価格
+        tax: 消費税
+        delivery_fee: 配送料
+        delivery_last_name: 氏名(姓)
+        delivery_first_name: 氏名(名)
+        delivery_phone: 電話番号
+        delivery_postal_code: 郵便番号
+        delivery_prefecture_id: 都道府県
+        delivery_address1: 住所
+        delivery_address2: 建物名
+        invoice_last_name: 氏名(姓)
+        invoice_first_name: 氏名(名)
+        invoice_phone: 電話番号
+        invoice_postal_code: 郵便番号
+        invoice_prefecture_id: 都道府県
+        invoice_address1: 住所
+        invoice_address2: 建物名
+        stripe_payment_id: Stripe支払いID

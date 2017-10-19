@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    models:
+      item: 商品
+    attributes:
+      item:
+        name: 商品名
+        description: 紹介文
+        caption_image_id: キャプション画像
+        category_id: カテゴリー
+        about: 詳細
+        price: 価格(税抜)
+        stock_quantity: 在庫数
+        remarks: 備考
+        status: ステータス

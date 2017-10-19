@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      manager: 管理者
+    attributes:
+      manager:
+        email: メールアドレス
+        last_name: 氏名(姓)
+        first_name: 氏名(名)

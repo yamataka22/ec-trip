@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      cart: カート
+    attributes:
+      cart:
+        item_id: 商品
+        member_id: 会員
+        quantity: 数量

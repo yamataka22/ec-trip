@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.text     "about",            limit: 65535
     t.integer  "category_id"
     t.integer  "price"
-    t.integer  "stock"
-    t.string   "attention"
+    t.integer  "stock_quantity"
+    t.string   "remarks"
     t.integer  "status",                         default: 0, null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.string   "last_name"
     t.string   "first_name"
     t.string   "postal_code"
+    t.integer  "prefecture_id"
     t.string   "address1"
     t.string   "address2"
     t.string   "phone"

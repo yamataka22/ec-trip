@@ -7,8 +7,8 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.text :about
       t.references :category, foreign_key: true
       t.integer :price
-      t.integer :stock
-      t.string :attention
+      t.integer :stock_quantity
+      t.string :remarks
       t.integer :status, null: false, default: 0
 
       t.timestamps

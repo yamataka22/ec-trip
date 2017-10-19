@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      purchase_detail: 購入明細
+    attributes:
+      purchase_detail:
+        item_name: 商品名
+        price: 単価
+        quantity: 数量

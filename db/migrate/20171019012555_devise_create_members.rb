@@ -37,6 +37,7 @@ class DeviseCreateMembers < ActiveRecord::Migration[5.0]
       t.string :last_name
       t.string :first_name
       t.string :postal_code
+      t.integer :prefecture_id
       t.string :address1
       t.string :address2
       t.string :phone

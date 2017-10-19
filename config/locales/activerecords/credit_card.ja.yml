@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      credit_card: クレジットカード
+    attributes:
+        credit_card:
+          stripe_card_id: StripeカードID

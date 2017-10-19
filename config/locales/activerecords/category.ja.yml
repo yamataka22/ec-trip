@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      category: カテゴリー
+    attributes:
+      category:
+        name: 名称
+        sequence: 表示順
