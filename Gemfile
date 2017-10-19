@@ -49,6 +49,7 @@ gem 'tinymce-rails', '~> 4.6.1'
 gem 'delayed_job_active_record', '~> 4.1.1'
 gem 'enum_help', '~> 0.0.17'
 gem 'haml-rails'
+gem 'erb2haml'
 gem 'bower-rails'
 
 group :production do
