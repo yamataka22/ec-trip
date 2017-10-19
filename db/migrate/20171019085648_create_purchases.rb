@@ -1,4 +1,4 @@
-class CreatePurchages < ActiveRecord::Migration[5.0]
+class CreatePurchases < ActiveRecord::Migration[5.0]
   def change
     create_table :purchages do |t|
       t.references :member, foreign_key: true, null: false
