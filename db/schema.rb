@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019073258) do
+ActiveRecord::Schema.define(version: 20171019080954) do
+
+  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "member_id",              null: false
+    t.integer  "item_id",                null: false
+    t.integer  "volume",     default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["item_id"], name: "index_carts_on_item_id", using: :btree
+    t.index ["member_id"], name: "index_carts_on_member_id", using: :btree
+  end
+
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",                   null: false
+    t.integer  "sequence",   default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at",         null: false
@@ -19,6 +36,22 @@ ActiveRecord::Schema.define(version: 20171019073258) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+  end
+
+  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",                                       null: false
+    t.string   "description"
+    t.integer  "caption_image_id"
+    t.text     "about",            limit: 65535
+    t.integer  "category_id"
+    t.integer  "price"
+    t.integer  "stock"
+    t.string   "attention"
+    t.integer  "status",                         default: 0, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.index ["caption_image_id"], name: "fk_rails_812ccc6369", using: :btree
+    t.index ["category_id"], name: "index_items_on_category_id", using: :btree
   end
 
   create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -79,4 +112,15 @@ ActiveRecord::Schema.define(version: 20171019073258) do
     t.index ["stripe_customer_id"], name: "index_members_on_stripe_customer_id", unique: true, using: :btree
   end
 
+  create_table "taxes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "rate"
+    t.date     "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "carts", "items"
+  add_foreign_key "carts", "members"
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "images", column: "caption_image_id"
 end
