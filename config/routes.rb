@@ -7,6 +7,12 @@ Rails.application.routes.draw do
       omniauth_callbacks: 'members/omniauth_callbacks'
   }
 
+  devise_for :managers, controllers: {
+      sessions:      'managers/sessions',
+      passwords:     'managers/passwords',
+      registrations: 'managers/registrations'
+  }
+
   namespace :admin, path: 'admin' do
     root 'top#index'
   end
