@@ -9,6 +9,15 @@ RSpec.describe Category, type: :model do
     end
   end
 
+  describe 'create' do
+    it 'カテゴリー初回作成時はSequenceが1で登録され、その後追加登録するとSequenceの最大値+1で作成されること' do
+      category = Category.create(name: 'テスト')
+      expect(category.sequence).to eq(1)
+      category = Category.create(name: 'テスト2')
+      expect(category.sequence).to eq(2)
+    end
+  end
+
   describe 'change_sequence' do
     it '前方のシーケンスのカテゴリーと入れ替えができること' do
       category1 = create(:category, sequence: 1)
@@ -39,17 +48,17 @@ RSpec.describe Category, type: :model do
     end
   end
 
-  describe 'before_destroy' do
+  describe 'can_destroy?' do
     it 'Itemが登録されているカテゴリーは削除できないこと' do
       category = create(:category)
       create(:item, category_id: category.id)
-      expect(category.before_destroy).to be false
+      expect(category.can_destroy?).to be false
       expect(category.errors[:base]).to be_present
     end
 
     it 'Itemが登録されていないカテゴリーは削除できること' do
       category = create(:category)
-      expect(category.before_destroy).to be true
+      expect(category.can_destroy?).to be true
       category.destroy
       expect{category.reload}.to raise_error(ActiveRecord::RecordNotFound)
     end

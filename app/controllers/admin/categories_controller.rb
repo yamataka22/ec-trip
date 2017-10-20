@@ -8,14 +8,13 @@ class Admin::CategoriesController < Admin::AdminBase
   end
 
   def create
-    @category = Category.new(post_params)
-    @category.sequence = Category.maximum(:sequence).to_i + 1
-    if @category.save
-      flash[:success] = '登録が完了しました'
-      redirect_to admin_categories_path
-    else
+    @category = Category.create(post_params)
+    if @category.errors.present?
       flash.now[:error] = '入力内容をご確認ください'
       render action: :new
+    else
+      flash[:success] = '登録が完了しました'
+      redirect_to admin_categories_path
     end
   end
 
