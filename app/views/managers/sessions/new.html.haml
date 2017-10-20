@@ -2,9 +2,12 @@
   .row.justify-content-center
     .col-xl-4.col-lg-5.col-md-4
       .card
-        %h2.card-header.text-center
-          Ec-Trip Admin
         .card-body
+          .text-center.lead
+            = image_tag 'logo.png', width: '80%'
+            %br/
+            %span.text-muted Admin Login
+          %hr.mb-4
           - if notice
             .alert.alert-info
               = notice
@@ -18,6 +21,6 @@
             .form-group
               = f.label :password
               = f.password_field :password, autocomplete: 'off', class: 'form-control'
-            %hr.mt-4.mb-3/
-            = f.submit 'ログイン', class: 'btn btn-primary'
+            .mt-4.mb-3
+              = f.submit 'ログイン', class: 'btn btn-primary btn-block'
 
