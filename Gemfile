@@ -49,8 +49,6 @@ gem 'tinymce-rails', '~> 4.6.1'
 gem 'delayed_job_active_record', '~> 4.1.1'
 gem 'enum_help', '~> 0.0.17'
 gem 'active_hash', '~> 1.5.2'
-gem 'haml-rails'
-gem 'erb2haml'
 gem 'bower-rails'
 
 group :production do
@@ -90,6 +88,7 @@ group :development do
   gem 'hirb'
   gem 'hirb-unicode'
 
+  gem 'haml-rails'
   gem 'erb2haml'
 
   # Capistrano

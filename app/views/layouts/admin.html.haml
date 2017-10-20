@@ -8,50 +8,42 @@
     %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %title
       = "#{@crumbs.last[:title]} | " if @crumbs.present?
-      RailUp Admin
+      EcTrip Admin
     = csrf_meta_tags
     %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :integrity => "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", :rel => "stylesheet"}/
     = stylesheet_link_tag    'admin', media: 'all'
-  %body.app.header-fixed.sidebar-fixed.aside-menu-fixed.aside-menu-hidden
-    %header.app-header.navbar
-      %button.navbar-toggler.mobile-sidebar-toggler.d-lg-none.mr-auto{:type => "button"}
-        %span.navbar-toggler-icon
-      %a.navbar-brand{:href => "#"}
-      %button.navbar-toggler.sidebar-toggler.d-md-down-none{:type => "button"}
-        %span.navbar-toggler-icon
-    .app-body
-      .sidebar
-        %nav.sidebar-nav
-          %ul.nav
-            %li.nav-item
-              %a.nav-link{:href => "index.html"}
-                %i.icon-speedometer
-                Dashboard
-                %span.badge.badge-primary NEW
-        %button.sidebar-minimizer.brand-minimizer{:type => "button"}
-      / Main content
-      %main.main
-        .container-fluid
-        / /.conainer-fluid
-    %footer.app-footer
-      %span
-        %a{:href => "http://coreui.io"} CoreUI
-        © 2017 creativeLabs.
-      %span.ml-auto
-        Powered by
-        %a{:href => "http://coreui.io"} CoreUI
-    / 画像選択ダイアログ
-    #image_select_dialog.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "image_select_label", "data-backdrop" => "static", :role => "dialog", :tabindex => "-1"}
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-            %h4#image_select_label.modal-title ファイル選択ダイアログ
-          .modal-body
-            .form-group.mt15
-              %input.image_file{:type => "file"}/
-          .modal-footer
-            %button.btn.btn-primary.btn_select{:onclick => "image_select.upload()"} 選択
-            %button.btn.btn-default{"data-dismiss" => "modal"} キャンセル
+    = yield :stylesheet
+  %body
+    - if manager_signed_in?
+      .app.header-fixed.sidebar-fixed.aside-menu-fixed.aside-menu-hidden
+        %header.app-header.navbar
+          %button.navbar-toggler.mobile-sidebar-toggler.d-lg-none.mr-auto{:type => "button"}
+            %span.navbar-toggler-icon
+          %a.navbar-brand{:href => "#"}
+          %button.navbar-toggler.sidebar-toggler.d-md-down-none{:type => "button"}
+            %span.navbar-toggler-icon
+        .app-body
+          .sidebar
+            %nav.sidebar-nav
+              %ul.nav
+                %li.nav-item
+                  %a.nav-link{:href => "index.html"}
+                    %i.icon-speedometer
+                    Dashboard
+                    %span.badge.badge-primary NEW
+            %button.sidebar-minimizer.brand-minimizer{:type => "button"}
+          / Main content
+          %main.main
+            .container-fluid
+            / /.conainer-fluid
+        %footer.app-footer
+          %span
+            %a{:href => "http://coreui.io"} CoreUI
+            © 2017 creativeLabs.
+          %span.ml-auto
+            Powered by
+            %a{:href => "http://coreui.io"} CoreUI
+    - else
+      = yield
     = javascript_include_tag 'admin'
-    = yield :inline_js
+    = yield :javascript

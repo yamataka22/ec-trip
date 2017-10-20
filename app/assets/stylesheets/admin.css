@@ -1,7 +1,5 @@
 /*
  *= require css/coreui
- *= require fontawesome/css/font-awesome
- *= require common
  *= require_tree ./admin
  *= require_self
  */

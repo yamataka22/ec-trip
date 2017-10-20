@@ -1,3 +1,2 @@
 asset 'bootstrap-material-design', '~> 4.0.0-beta.3'
-asset 'fontawesome'
 asset 'scrollup'
