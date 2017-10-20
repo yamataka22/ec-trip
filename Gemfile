@@ -50,6 +50,7 @@ gem 'delayed_job_active_record', '~> 4.1.1'
 gem 'enum_help', '~> 0.0.17'
 gem 'active_hash', '~> 1.5.2'
 gem 'bower-rails'
+gem 'bootstrap', '~> 4.0.0.beta2'
 
 group :production do
   gem 'unicorn', '~> 5.3.0'

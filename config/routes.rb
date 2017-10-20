@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   }
 
   namespace :admin, path: 'admin' do
-    root 'top#index'
+    root 'dashboard#index', as: :root
   end
 
   root 'top#index'

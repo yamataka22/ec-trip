@@ -2,7 +2,10 @@
   "name": "dsl-generated-dependencies",
   "dependencies": {
     "bootstrap-material-design": "~> 4.0.0-beta.3",
-    "fontawesome": "latest",
-    "scrollup": "latest"
+    "scrollup": "latest",
+    "popper.js": "latest",
+    "bootstrap": "~> 4.0.0-alpha.6"
+  },
+  "resolutions": {
   }
 }

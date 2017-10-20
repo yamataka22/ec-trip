@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require popper.js/dist/umd/popper.js
+//= require bootstrap
 //= require js/coreui
-//= require_tree .
