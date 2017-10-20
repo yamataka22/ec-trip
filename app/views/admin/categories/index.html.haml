@@ -6,19 +6,18 @@
   .card-body
     %table.table.table-bordered.table-sm.table-hover
       %tr.table-active
-        %th{width: '10%'} 表示順
+        %th{width: '15%'} 表示順
         %th{width: '50%'} 名称
-        %th{width: '40%'}
+        %th{width: '35%'}
       - @categories.each.with_index(1) do |category, i|
         %tr
-          %td= i
-          %td= category.name
           %td
+            = i
             - if i > 1
-              = link_to admin_category_path(category, seq_type: :up), method: :put do
+              = link_to admin_category_path(category, seq_type: :up), method: :put, class: 'ml-3' do
                 %i.fa.fa-arrow-up
             - else
-              %span.text-muted
+              %span.text-muted.ml-3
                 %i.fa.fa-arrow-up
             &nbsp;/&nbsp;
             - if i < @categories.size
@@ -27,7 +26,8 @@
             - else
               %span.text-muted
                 %i.fa.fa-arrow-down
-            &nbsp;/&nbsp;
+          %td= category.name
+          %td
             = link_to '名称変更', edit_admin_category_path(category)
             &nbsp;/&nbsp;
             = link_to '削除', admin_category_path(category), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
