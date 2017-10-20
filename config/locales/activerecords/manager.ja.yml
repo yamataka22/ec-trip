@@ -5,5 +5,6 @@ ja:
     attributes:
       manager:
         email: メールアドレス
+        password: パスワード
         last_name: 氏名(姓)
         first_name: 氏名(名)

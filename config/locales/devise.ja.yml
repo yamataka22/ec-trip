@@ -1,0 +1,65 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+ja:
+  devise:
+    confirmations:
+      confirmed: "アカウントが確認されました。ログインをしてください。"
+      send_instructions: "アカウントの確認方法を数分以内にメールでご連絡します。"
+      send_paranoid_instructions: "ご登録のメールアドレスが保存されている場合、アカウントの確認方法をメールでご連絡します。"
+    failure:
+      already_authenticated: "既にログインしています。"
+      inactive: "Your account is not activated yet."
+      invalid: "メールアドレスまたはパスワードが不正です。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "あなたのアカウントがロックされる前に、もう1つの試みを持っています。"
+      not_found_in_database: "メールアドレスまたはパスワードが無効です。"
+      timeout: "一定時間が経過したため、再度ログインが必要です"
+      unauthenticated: "ログインまたは登録が必要です。"
+      unconfirmed: "登録時に送られたメールのリンクをクリックして本登録を行ってください。"
+    mailer:
+      confirmation_instructions:
+        subject: "【ANA WonderFLY】WonderFLY 会員登録"
+      reset_password_instructions:
+        subject: "【ANA WonderFLY】パスワードの再発行"
+      unlock_instructions:
+        subject: "【ANA WonderFLY】アカウントのロック解除"
+    omniauth_callbacks:
+      failure: "%{kind} から承認されませんでした。理由：%{reason}"
+      success: "%{kind} から承認されました。"
+    passwords:
+      no_token: "このページにアクセスする事が出来ません。正しいURLでアクセスしている事を確認して下さい。"
+      send_instructions: "パスワードのリセット方法を数分以内にメールでご連絡します。"
+      send_paranoid_instructions: ""
+      updated: "パスワードを変更しました。"
+      updated_not_active: "パスワードを変更しました。"
+    registrations:
+      destroyed: "アカウントを削除しました。またのご利用をお待ちしております。"
+      signed_up: "アカウント登録を受け付けました。"
+      signed_up_but_inactive: "アカウントは登録されていますが、アクティブになっていないため利用できません。"
+      signed_up_but_locked: "アカウントは登録されていますが、ロックされているため利用できません。"
+      signed_up_but_unconfirmed: "確認メールを登録したメールアドレス宛に送信しました。リンクを開いてアカウントを有効にして下さい。"
+      update_needs_confirmation: "アカウント情報が更新されました。更新の確認メールを新しいメールアドレス宛に送信しましたので、リンクを開いて更新を有効にして下さい。"
+      updated: "アカウントが更新されました。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+    unlocks:
+      send_instructions: "アカウントのロックを解除する方法を数分以内にメールでご連絡します。"
+      send_paranoid_instructions: "アカウントが存在する場合、ロックを解除する方法をメールでご連絡します。"
+      unlocked: "アカウントのロックが解除されました。ログインしています。"
+  errors:
+    messages:
+      already_confirmed: "は既に登録済みです。ログインしてください"
+      confirmation_period_expired: "%{period}以内に確認する必要がありますので、新しくリクエストしてください。"
+      expired: "有効期限切れです。新規登録してください。"
+      not_found: "は見つかりませんでした。"
+      not_locked: "ロックされていません。"
+      not_saved:
+        one: "エラーにより、この %{resource} を保存できません："
+        other: "%{count} 個のエラーにより、この %{resource} を保存できません："
+      taken: "は既に使用されています。"
+      blank: "が入力されていません。"
+      too_short: "は%{count}文字以上に設定して下さい。"
+      too_long: "は%{count}文字以下に設定して下さい。"
+      invalid: "は有効でありません。"
+      confirmation: "が内容とあっていません。"
