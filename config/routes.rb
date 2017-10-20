@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :members, controllers: {
       sessions:      'members/sessions',
       passwords:     'members/passwords',
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   }
 
   namespace :admin, path: 'admin' do
+    resources :categories, except: :show
     root 'dashboard#index', as: :root
   end
 

@@ -1,0 +1,4 @@
+.form-group
+  = f.label :name
+  = f.text_field :name, size: 30, class: 'form-control ml-2 mr-2'
+  = error_label_tag(f.object, :name)

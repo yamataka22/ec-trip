@@ -1,0 +1,8 @@
+- @crumbs = [{title: 'カテゴリー管理', path: admin_categories_path}, {title: '編集'}]
+
+.card
+  .card-body
+    = form_for @category, url: admin_category_path(@category), html: {class: 'form-inline'} do |f|
+      = render 'form', f: f
+      = f.submit '更新', class: 'btn btn-primary mr-2'
+      = link_to 'キャンセル', admin_categories_path, class: 'btn btn-light'
