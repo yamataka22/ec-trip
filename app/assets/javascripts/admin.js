@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require popper.js/dist/umd/popper.js
-//= require bootstrap
+//= require bootstrap.min
 //= require js/coreui
 //= require jquery.remotipart
