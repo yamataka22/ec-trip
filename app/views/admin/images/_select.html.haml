@@ -1,0 +1,12 @@
+- image_id = eval("f.object.#{target_id}")
+- target_class ||= target_id
+= link_to 'ファイルを選択', new_admin_image_path(target_id: target_id, target_class: target_class), remote: true, class: 'btn btn-info btn-sm btn-block'
+= f.hidden_field target_id, class: target_class
+.preview.mt-1{style: "display: #{image_id ? 'block' : 'none'}"}
+  - if image_id
+    = image_tag eval("f.object.#{target_id.to_s.slice(0, str.size-3)}".public_url), width: '100%'
+  - else
+    %img{style: 'width: 100%;'}
+  %p.text-right
+    %a.image_clear{href: '#', onclick: 'file_clear(this);'}
+      %i.fa.fa-times クリア

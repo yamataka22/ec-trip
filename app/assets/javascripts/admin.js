@@ -15,3 +15,4 @@
 //= require popper.js/dist/umd/popper.js
 //= require bootstrap
 //= require js/coreui
+//= require jquery.remotipart

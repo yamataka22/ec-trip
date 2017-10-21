@@ -1,0 +1,11 @@
+var modal = $('.image_select_dialog');
+modal.find('.input_file').val('');
+modal.find('.target_class').val('<%= @image.target_class %>');
+var error_message = modal.find('.error_message');
+<% if @image.errors.present? %>
+    error_message.html('<%= @image.errors.full_messages[0] %>');
+    error_message.css('display', 'block');
+<% else %>
+    error_message.css('display', 'none');
+<% end %>
+modal.modal();

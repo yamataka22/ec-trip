@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
   namespace :admin, path: 'admin' do
     resources :categories, except: :show
+    resources :items, except: :show
+
+    resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root
   end
 

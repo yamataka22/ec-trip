@@ -49,9 +49,13 @@
                   %i.icon-speedometer
                   ダッシュボード
               %li.nav-item
-                = link_to admin_categories_path, class: 'nav-link' do
-                  %i.icon-book-open
+                = link_to admin_categories_path, class: "nav-link #{'active' if controller.controller_name == 'categories'}" do
+                  %i.icon-folder-alt
                   カテゴリー管理
+              %li.nav-item
+                = link_to admin_items_path, class: "nav-link #{'active' if controller.controller_name == 'items'}" do
+                  %i.icon-book-open
+                  商品管理
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?

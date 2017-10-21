@@ -1,12 +1,14 @@
 class Image < ApplicationRecord
 
-  attr_accessor :error_message
+  attr_accessor :target_class
+
+  validates :image_file_name, presence: true
 
   if Rails.env.development?
     has_attached_file :image,
                       :styles => { :caption => '450x300#', :thumb => '150x150#' },
-                      :default_url => '/images/:style/missing.png',
-                      :path => '/images/:id/:style.:extension'
+                      :url  => '/assets/paperclip/:id/:style.:extension',
+                      :path => "#{Rails.root}/public/assets/paperclip/:id/:style.:extension"
   else
     has_attached_file :image,
                       :styles => { :caption => '450x300#', :thumb => '150x150#' },

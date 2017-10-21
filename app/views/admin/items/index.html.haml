@@ -1,0 +1,19 @@
+- @crumbs = [{title: '商品管理'}]
+
+.card
+  .card-header
+    商品一覧
+    = link_to new_admin_item_path, class: 'btn btn-success btn-sm float-right mb-0' do
+      %i.fa.fa-plus
+      新規作成
+  .card-body
+    %table.table.table-bordered.table-sm.table-hover
+      %tr.table-active
+        %th{width: '5%'} #
+        %th{width: '40%'}= t('activerecord.attributes.item.name')
+        %th{width: '25%'}= t('activerecord.attributes.item.category_id')
+        %th{width: '15%'}= t('activerecord.attributes.item.price')
+        %th{width: '10%'}= t('activerecord.attributes.item.stock_quantity')
+        %th{width: '10%'}
+      - @items.each.with_index(1) do |item, i|
+        %tr
