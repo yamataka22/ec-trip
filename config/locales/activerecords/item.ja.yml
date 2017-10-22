@@ -13,3 +13,9 @@ ja:
         stock_quantity: 在庫数
         remarks: 備考
         status: ステータス
+  enums:
+    item:
+      status:
+        unpublished: 未公開
+        selling: 販売中
+        end_of_sell: 販売終了

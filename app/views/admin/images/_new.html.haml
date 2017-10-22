@@ -1,7 +1,7 @@
 .modal.fade.image_select_dialog
   .modal-dialog
     .modal-content
-      = form_for @image, url: admin_images_path, method: :post, remote: true, authenticity_token: true, multipart: true, html: {class: 'image_upload_form'} do |f|
+      = form_for Image.new, url: admin_images_path, method: :post, remote: true, authenticity_token: true, multipart: true, html: {class: 'image_upload_form'} do |f|
         .modal-header
           %h5.modal-title ファイル選択
           %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
@@ -14,7 +14,7 @@
           = f.submit '選択', class: 'btn btn-primary', data: {disable_with: '処理中...'}
           %button.btn.btn-light{'data-dismiss' => 'modal'} キャンセル
 - content_for :javascript do
-  = javascript_include_tag 'image.js'
+  = javascript_include_tag 'image_upload.js'
   :javascript
     $('.image_select_dialog').find('.image_upload_form').submit(function() {
       var file = $('.image_select_dialog').find('.input_file');

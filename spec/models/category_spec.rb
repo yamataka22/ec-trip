@@ -7,6 +7,18 @@ RSpec.describe Category, type: :model do
       expect(category).not_to be_valid
       expect(category.errors[:name]).to be_present
     end
+
+    it 'Itemが登録されているカテゴリーは削除できないこと' do
+      category = create(:category)
+      create(:item, category_id: category.id)
+      expect(category.destroy).to be false
+    end
+
+    it 'Itemが登録されていないカテゴリーは削除できること' do
+      category = create(:category)
+      category.destroy
+      expect{category.reload}.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe 'create' do
@@ -45,22 +57,6 @@ RSpec.describe Category, type: :model do
       category = create(:category, sequence: 1)
       category.change_sequence(:down)
       expect(category.reload.sequence).to eq(1)
-    end
-  end
-
-  describe 'can_destroy?' do
-    it 'Itemが登録されているカテゴリーは削除できないこと' do
-      category = create(:category)
-      create(:item, category_id: category.id)
-      expect(category.can_destroy?).to be false
-      expect(category.errors[:base]).to be_present
-    end
-
-    it 'Itemが登録されていないカテゴリーは削除できること' do
-      category = create(:category)
-      expect(category.can_destroy?).to be true
-      category.destroy
-      expect{category.reload}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

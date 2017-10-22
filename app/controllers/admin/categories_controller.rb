@@ -41,14 +41,13 @@ class Admin::CategoriesController < Admin::AdminBase
   end
 
   def destroy
-    @category = Category.find(params[:id])
-    if @category.destroy
+    category = Category.find(params[:id])
+    if category.destroy
       flash[:success] = '削除が完了しました'
-      redirect_to admin_categories_path
     else
-      flash.now[:error] = @category.errors[:base]
-      render action: :index
+      flash[:error] = '対象のカテゴリには商品が登録されているため、削除できません'
     end
+    redirect_to admin_categories_path
   end
 
   private

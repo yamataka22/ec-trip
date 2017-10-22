@@ -1,0 +1,48 @@
+- label_class = 'col-sm-3 col-form-label text-right'
+.form-group.row
+  = f.label :name, class: label_class
+  .col-sm-9
+    = f.text_field :name, class: 'form-control'
+    = error_label_tag(f.object, :name)
+.form-group.row
+  = f.label :description, class: label_class
+  .col-sm-9
+    = f.text_field :description, class: 'form-control'
+    = error_label_tag(f.object, :description)
+.form-group.row
+  = f.label :category_id, class: label_class
+  .col-sm-6
+    = f.select :category_id, options_from_collection_for_select(Category.all.order(:sequence), :id, :name, @item.category_id),
+          {include_blank: true}, {class: 'form-control'}
+    = error_label_tag(f.object, :category_id)
+.form-group.row
+  = f.label :caption_image_id, class: label_class
+  .col-sm-3
+    = render 'admin/images/select', f: f, target_id: :caption_image_id
+.form-group.row
+  = f.label :about, class: label_class
+  .col-sm-9
+    = f.text_area :about, :class => 'tinymce form-control', :rows => 30
+    = error_label_tag(f.object, :about)
+.form-group.row
+  = f.label :remarks, class: label_class
+  .col-sm-9
+    = f.text_field :remarks, :class => 'form-control'
+    = error_label_tag(f.object, :remarks)
+.form-group.row
+  = f.label :price, class: label_class
+  .col-sm-3
+    = f.number_field :price, :class => 'form-control'
+    = error_label_tag(f.object, :price)
+.form-group.row
+  = f.label :stock_quantity, class: label_class
+  .col-sm-3
+    = f.number_field :stock_quantity, :class => 'form-control'
+    = error_label_tag(f.object, :stock_quantity)
+.form-group.row
+  = f.label :status, class: label_class
+  .col-sm-3
+    = f.select :status, options_for_select(Item.statuses_i18n.invert, @item.status),
+               {include_blank: false}, {class: 'form-control'}
+    = error_label_tag(f.object, :status)
+%hr/

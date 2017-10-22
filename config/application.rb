@@ -12,6 +12,9 @@ module EcTrip
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ja
 
+    # field_with_errors回避
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
     config.generators do |g|
       g.assets false
       g.helper false

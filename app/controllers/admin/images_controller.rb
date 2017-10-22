@@ -1,4 +1,5 @@
 class Admin::ImagesController < Admin::AdminBase
+
   def new
     @image = Image.new
     @image.target_class = params[:target_class]
@@ -28,7 +29,9 @@ class Admin::ImagesController < Admin::AdminBase
       }, content_type: 'text/html'
     else
       render json: {
-          error_message: image.errors.messages[0]
+          error: {
+              message: image.errors.messages[0]
+          }
       }, content_type: 'text/html'
     end
   end

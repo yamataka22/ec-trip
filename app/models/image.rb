@@ -37,16 +37,4 @@ class Image < ApplicationRecord
     end
   end
 
-  def upload
-    unless save
-      messages = self.errors.messages
-      if messages[:image_content_type].present?
-        self.error_message = messages[:image_content_type];
-      elsif messages[:image_less_than].present?
-        self.error_message = messages[:image_less_than];
-      else
-        self.error_message = messages[0];
-      end
-    end
-  end
 end

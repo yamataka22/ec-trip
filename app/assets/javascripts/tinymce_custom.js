@@ -2,8 +2,8 @@ $(document).ready(function() {
     if (typeof tinyMCE != 'undefined') {
         tinyMCE.init({
             selector: "textarea.tinymce",
-            toolbar: ["insertfile heading2 | bold italic | alignleft aligncenter alignright | outdent indent | link uploadimage | forecolor"],
-            plugins: "link,uploadimage,textcolor,paste",
+            toolbar: ["insertfile heading2 | bold italic | alignleft aligncenter alignright | outdent indent | link uploadimage | forecolor | code"],
+            plugins: "link,uploadimage,textcolor,paste,code",
             statusbar: false,
             menubar: false,
             setup: function (editor) {

@@ -14,4 +14,30 @@ class Item < ApplicationRecord
   validates :about, presence: true, on: :publish
   validates :stock_quantity, presence: true, on: :publish
   validates :price, presence: true, on: :publish
+
+  def save
+    # Tinymceのバグ？で、localに画像を保存すると相対パスに変換されてしまうため、
+    # それを絶対パスに置換する
+    if Rails.env.development? && self.about
+      loop do
+        break unless self.about.gsub!('src="../', 'src="')
+      end
+      self.about.gsub!('src="assets', 'src="/assets')
+    end
+    if self.unpublished? || valid?(:publish)
+      super
+    end
+  end
+
+  def price_include_tax
+    Util.calc_tax_included(self.price)
+  end
+
+  def caption_image_url
+    if self.caption_image
+      self.caption_image.public_url(:caption)
+    else
+      'no_img.jpg'
+    end
+  end
 end

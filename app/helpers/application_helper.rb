@@ -15,7 +15,7 @@ module ApplicationHelper
 
   def error_label_tag(object, field)
     if object.errors.present? && object.errors[field].present?
-      content_tag :label, object.errors.full_messages_for(field)[0], class: 'text-danger'
+      content_tag :span, object.errors.full_messages_for(field)[0], class: 'text-danger'
     end
   end
 end
