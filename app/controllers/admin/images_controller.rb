@@ -16,6 +16,23 @@ class Admin::ImagesController < Admin::AdminBase
     end
   end
 
+  def create_tinymce
+    image = Image.new(image: params[:file])
+
+    if image.save
+      render json: {
+          image: {
+              url: image.public_url(params[:size_type]).to_s,
+              width: '100%'
+          }
+      }, content_type: 'text/html'
+    else
+      render json: {
+          error_message: image.errors.messages[0]
+      }, content_type: 'text/html'
+    end
+  end
+
   private
   def post_params
     params.require(:image).permit(:image, :target_class)

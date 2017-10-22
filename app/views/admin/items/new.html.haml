@@ -1,24 +1,38 @@
 - @crumbs = [{title: '商品管理', link: admin_items_path}, {title: '新規作成'}]
-
+- label_class = 'col-sm-3 col-form-label text-right'
 .card
   .card-body
     = form_for @item, url: admin_items_path do |f|
       .form-group.row
-        = f.label :name, class: 'col-sm-3 col-form-label text-right'
+        = f.label :name, class: label_class
         .col-sm-9
           = f.text_field :name, class: 'form-control'
           = error_label_tag(f.object, :name)
       .form-group.row
-        = f.label :description, class: 'col-sm-3 col-form-label text-right'
+        = f.label :description, class: label_class
         .col-sm-9
           = f.text_field :description, class: 'form-control'
           = error_label_tag(f.object, :description)
       .form-group.row
-        = f.label :caption_image_id, class: 'col-sm-3 col-form-label text-right'
+        = f.label :category_id, class: label_class
+        .col-sm-6
+          = f.select :category_id, options_from_collection_for_select(Category.all.order(:sequence), :id, :name, @item.category_id),
+            {include_blank: true}, {class: 'form-control'}
+          = error_label_tag(f.object, :category_id)
+      .form-group.row
+        = f.label :caption_image_id, class: label_class
         .col-sm-3
           = render 'admin/images/select', f: f, target_id: :caption_image_id
+      .form-group.row
+        = f.label :about, class: label_class
+        .col-sm-9
+          = f.text_area :about, :class => 'tinymce form-control', :rows => 30
+          = error_label_tag(f.object, :about)
       %hr/
       .float-right
         = f.submit '登録', class: 'btn btn-primary mr-2'
         = link_to 'キャンセル', admin_categories_path, class: 'btn btn-light'
 = render 'admin/images/new'
+- content_for :javascript do
+  = javascript_include_tag 'tinymce'
+  = javascript_include_tag 'tinymce_custom'

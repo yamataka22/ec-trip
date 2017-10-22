@@ -22,5 +22,6 @@ Rails.application.routes.draw do
     root 'dashboard#index', as: :root
   end
 
+  post '/tinymce_assets' => 'admin/images#create_tinymce'
   root 'top#index'
 end

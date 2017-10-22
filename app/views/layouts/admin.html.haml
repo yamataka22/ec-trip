@@ -7,7 +7,7 @@
     %meta{:content => "width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0", :name => "viewport"}/
     %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %title
-      = "#{@crumbs.last[:title]} | " if @crumbs.present?
+      = "#{@crumbs.first[:title]} | " if @crumbs.present?
       EcTrip Admin
     = csrf_meta_tags
     %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :integrity => "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", :rel => "stylesheet"}/
