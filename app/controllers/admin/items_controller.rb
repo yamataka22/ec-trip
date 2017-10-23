@@ -1,6 +1,8 @@
 class Admin::ItemsController < Admin::AdminBase
   def index
-    @items = Item.all.order(id: :desc)
+    @search_form = Admin::ItemSearchForm.new(search_params)
+    @items = @search_form.search(params[:page])
+    session['search_params'] = view_context.search_conditions_keeper(params, [:category_id, :name, :order_type])
   end
 
   def new
@@ -35,6 +37,10 @@ class Admin::ItemsController < Admin::AdminBase
   end
 
   private
+  def search_params
+    return  nil if params[:search].nil?
+    params.require(:search).permit(:category_id, :name, :sort_type)
+  end
   def post_params
     params.require(:item).permit(:name, :description, :caption_image_id, :about, :category_id,
                                     :price, :stock_quantity, :remarks, :status)

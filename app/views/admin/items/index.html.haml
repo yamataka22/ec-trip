@@ -7,10 +7,31 @@
       %i.fa.fa-plus
       新規作成
   .card-body
+    = form_for @search_form, as: 'search', url: admin_items_path, method: :get, html: {class: 'form-horizontal', id: 'form_item_search'} do |f|
+      .form-group.row
+        = f.label :category_id, 'カテゴリ', class: 'col-2 col-form-label'
+        .col-3
+          = f.select :category_id, options_from_collection_for_select(Category.all.order(:sequence), :id, :name, @search_form.category_id),
+            {include_blank: true}, {class: 'form-control'} 
+        = f.label :name, '商品名', class: 'col-1 col-form-label'
+        .col-4
+          = f.text_field :name, class: 'form-control', placeholder: 'あいまい検索' 
+        .col-2
+          .btn-group
+            = f.submit '検索', class: 'btn btn-primary' 
+            %button.btn.btn-primary.dropdown-toggle{'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false'}
+              %span.caret
+              %span.sr-only Toggle Dropdown
+            .dropdown-menu
+              %a.dropdown-item{href: '#', onclick: 'search_with_sort("desc")'} 登録日が新しい順
+              %a.dropdown-item{href: '#', onclick: 'search_with_sort("asc")'} 登録日が古い順
+              %a.dropdown-item{href: '#', onclick: 'search_with_sort("stock_ask")'} 在庫が少ない順
+              %a.dropdown-item{href: '#', onclick: 'search_with_sort("stock_desc")'} 在庫が多い順
+          = f.hidden_field :sort_type
     %table.table.table-bordered.table-sm.table-striped
       %thead
         %tr
-          %th{width: '5%'} #
+          %th.text-right{width: '5%'} #
           %th{width: '35%'}= t('activerecord.attributes.item.name')
           %th{width: '20%'}= t('activerecord.attributes.item.category_id')
           %th{width: '10%'}= t('activerecord.attributes.item.status')
@@ -20,10 +41,17 @@
       %tbody
         - @items.each.with_index(1) do |item, i|
           %tr
-            %td= item.id
+            %td.text-right= item.id
             %td= item.name
             %td= item.category&.name
             %td= item.status_i18n
             %td.text-right= number_with_delimiter item.price
             %td.text-right= number_with_delimiter item.stock_quantity
             %td= link_to '編集', edit_admin_item_path(item)
+    = paginate @items
+- content_for :javascript do
+  :javascript
+    function search_with_sort(sort_type) {
+      $('#search_sort_type').val(sort_type);
+      $('#form_item_search').submit();
+    }

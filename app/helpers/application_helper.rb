@@ -18,4 +18,17 @@ module ApplicationHelper
       content_tag :span, object.errors.full_messages_for(field)[0], class: 'text-danger'
     end
   end
+
+  def search_conditions_keeper(params, conditions)
+    params_search = params[:search].present? ? params[:search] : {}
+    conditions ||= []
+    search = {}
+    conditions.each do |condition|
+      search[condition] = params_search[condition]
+    end
+    {
+        page: params[:page],
+        search: search
+    }
+  end
 end
