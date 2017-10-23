@@ -24,7 +24,7 @@ $(document).ready(function() {
                 })
             },
             language: "ja",
-            uploadimage_default_img_class: "img-responsive",
+            uploadimage_default_img_class: "img-fluid",
             init_instance_callback: "setcontent"
         });
     }

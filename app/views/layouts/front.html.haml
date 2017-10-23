@@ -1,10 +1,58 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
+    %meta{:content => 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0', :name => 'viewport'}/
+    %meta{:content => 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
+    %title
+      = "#{@crumbs.last[:title]} | " if @crumbs.present?
+      EC-TRIP
+    = csrf_meta_tags
+    %link{:href => '//fonts.googleapis.com/css?family=Roboto:300,400,500,700', :rel => 'stylesheet', :type => 'text/css'}/
+    %link{:href => '//fonts.googleapis.com/icon?family=Material+Icons', :rel => 'stylesheet', :type => 'text/css'}/
+    %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :integrity => "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", :rel => "stylesheet"}/
     %title EcTrip
     = csrf_meta_tags
     = stylesheet_link_tag    'front', media: 'all'
-    = javascript_include_tag 'front'
   %body
+    %header.mb-5
+      %nav.navbar.navbar-expand-md.navbar-dark.bg-primary
+        %a.navbar-brand{href: '#'}
+          = image_tag 'logo-white.png', height: '18px'
+        %button.navbar-toggler{'aria-controls' => 'navbarSupportedContent', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbarSupportedContent', 'data-toggle' => 'collapse', :type => 'button'}
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+          %ul.navbar-nav.ml-auto
+            %li.nav-item.active= link_to 'お問い合わせ', '#', class: 'nav-link'
+            %li.nav-item.active= link_to '商品を探す', '#', class: 'nav-link'
+            - if member_signed_in?
+              %li.nav-item.dropdown.active
+                %a.nav-link.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', id: 'account_dropdown'}
+                  = "#{current_member.account_name} さん"
+                .dropdown-menu{'aria-labelledby' => 'account_dropdown'}
+                  = link_to '#', class: 'dropdown-item small' do
+                    %i.fa.fa-fw.fa-heart
+                    お気に入り
+                  = link_to '#', class: 'dropdown-item small' do
+                    %i.fa.fa-fw.fa-credit-card
+                    注文履歴
+                  = link_to '#', class: 'dropdown-item small' do
+                    %i.fa.fa-fw.fa-user
+                    会員情報
+                  .dropdown-divider
+                  = link_to destroy_member_session_path, method: :delete, class: 'dropdown-item small' do
+                    %i.fa.fa-fw.fa-lock
+                    ログアウト
+
+
+            - else
+              %li.nav-item.active= link_to 'ログイン', new_session_path(:member), class: 'nav-link'
+              %li.nav-item.active= link_to '会員登録', members_sign_up_select_path, class: 'nav-link'
     = yield
+    %footer.footer
+      .container
+        %span Footer
+    = javascript_include_tag 'front'
+    :javascript
+      $(document).ready(function() { $('body').bootstrapMaterialDesign(); });
+    = yield :javascript

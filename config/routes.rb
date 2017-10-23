@@ -7,6 +7,11 @@ Rails.application.routes.draw do
       confirmations: 'members/confirmations',
       omniauth_callbacks: 'members/omniauth_callbacks'
   }
+  devise_scope :member do
+    get '/members/sign_up/select', to: 'members/registrations#select'
+    get '/members/sign_up/inactive', to: 'members/registrations#inactive'
+    get '/members/signed_out', to: 'members/sessions#signed_out'
+  end
 
   devise_for :managers, controllers: {
       sessions:      'managers/sessions',

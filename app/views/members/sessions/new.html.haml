@@ -1,17 +1,46 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "members/shared/links"
+.container
+  .text-center
+    %h1 LOG IN
+    %h6.text-muted.mb-4 ログイン
+  .row.justify-content-md-center.mb-4
+    .col-md-8.col-lg-6.col-xl-5
+      .card
+        %h6.card-header.text-center
+          メールアドレスでログイン
+        .card-body
+          - flash_messages
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .form-group
+              = f.label :email, class: 'col-form-label'
+              = f.text_field :email, class: 'form-control'
+              = error_label_tag(f.object, :email)
+            .form-group
+              = f.label :password, class: 'col-form-label'
+              = f.password_field :password, class: 'form-control'
+              = error_label_tag(f.object, :password)
+              = link_to 'パスワードを忘れた方はコチラ', new_password_path(resource_name), class: 'small text-muted'
+            .float-left
+              .checkbox.mt-3
+                %label
+                  = f.check_box :remember_me
+                  ログインしたままにする
+            .float-right
+              = button_tag class: 'btn btn-primary bmd-btn-fab', id: 'btn_submit', onclick: '$(this).parent("form").submit();' do
+                %i.material-icons arrow_forward
+    .col-md-4
+      .card.mb-5
+        %h6.card-header.text-center
+          SNSでログイン
+        .card-body
+          .mb-4
+            = link_to member_facebook_omniauth_authorize_path do
+              = button_tag class: 'btn btn-primary btn-block btn-lg' do
+                %i.fa.fa-facebook.fa-fw
+                Facebook
+          .mb-1
+            = link_to member_twitter_omniauth_authorize_path do
+              = button_tag class: 'btn btn-primary btn-block btn-lg' do
+                %i.fa.fa-twitter.fa-fw
+                Twitter
+      .text-center
+        = link_to '新規会員登録はコチラ', members_sign_up_select_path, class: 'btn btn-sm btn-info'

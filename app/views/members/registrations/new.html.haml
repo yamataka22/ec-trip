@@ -1,21 +1,47 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .actions
-    = f.submit "Sign up"
-= render "members/shared/links"
+.container
+  .text-center
+    %h1 SIGN UP
+    %h6.text-muted.mb-4 新規会員登録
+  .row.justify-content-md-center.mb-4
+    .col-md-8.col-lg-6.col-xl-5
+      .card
+        .card-body
+          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            - if f.object.errors.size > 0
+              .alert.alert-danger 入力内容をご確認ください
+            .form-group
+              = f.label :account_name, class: 'col-form-label'
+              = f.text_field :account_name, class: 'form-control'
+              = error_label_tag(f.object, :account_name)
+            .form-group
+              = f.label :email, class: 'col-form-label'
+              = f.text_field :email, class: 'form-control'
+              = error_label_tag(f.object, :email)
+            .form-group
+              = f.label :password, class: 'col-form-label'
+              = f.password_field :password, class: 'form-control'
+              = error_label_tag(f.object, :password)
+            .form-group
+              = f.label :password_confirmation, class: 'col-form-label'
+              = f.password_field :password_confirmation, class: 'form-control'
+              = error_label_tag(f.object, :password_confirmation)
+            .float-left
+              .checkbox.mt-3
+                %label
+                  %input{type: 'checkbox', name: 'terms_agree', id: 'terms_agree'}
+                  = link_to '利用規約', root_path, class: 'ml-1'
+                  に同意する
+            .float-right
+              = button_tag class: 'btn btn-primary bmd-btn-fab', id: 'btn_submit', onclick: 'return check_submit()' do
+                %i.material-icons send
+- content_for :javascript do
+  :javascript
+    function check_submit() {
+      if(!$('#terms_agree').prop('checked')){
+        alert("利用規約に同意してください。");
+        return false;
+      }else{
+        $('#btn_submit').prop('disabled', true);
+        $("#new_member").submit();
+      }
+    }

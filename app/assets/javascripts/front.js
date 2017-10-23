@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery3
+//= require popper.js/dist/umd/popper.js
 //= require bootstrap-material-design/js/bootstrap-material-design
 //= require jquery.remotipart

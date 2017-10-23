@@ -1,16 +1,38 @@
 class Members::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  layout 'front'
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    super do
+      if session['omniauth']
+        resource.email = session['omniauth']['info']['email']
+        resource.account_name = session['omniauth']['info']['name']
+      end
+    end
+  end
 
-  # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do
+      if session['omniauth'].present?
+        resource.provider = session['omniauth']['provider']
+        resource.uid = session['omniauth']['uid']
+
+        # プロフィール画像画像
+        case resource.provider
+          when 'facebook' then
+            save_facebook_image
+          when 'twitter' then
+            save_twitter_image
+        end
+      else
+        # 通常SignUpでも任意の値をuidに設定しておく
+        resource.uid = SecureRandom.uuid
+      end
+
+      resource.save
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -21,6 +43,15 @@ class Members::RegistrationsController < Devise::RegistrationsController
   # def update
   #   super
   # end
+
+  def select
+    session['omniauth_data'] = nil
+  end
+
+  def inactive
+    @message = 'ご登録ありがとうござます。ご指定のメールアドレスにメールをお送りいたしました。<br>メール本文のリンクをクリックして登録を完了してください。'
+    render '/message'
+  end
 
   # DELETE /resource
   # def destroy
@@ -36,12 +67,12 @@ class Members::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:account_name])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
@@ -54,7 +85,28 @@ class Members::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    members_sign_up_inactive_path
+  end
+
+  private
+  def save_facebook_image
+    begin
+      client = HTTPClient.new
+      facebook_image_url = client.get("#{session['omniauth']['info']['image']}?type=large").header[:Location][0]
+      profile_image = Image.create(image: open(facebook_image_url))
+      resource.profile_image_id = profile_image.id
+    rescue => e
+      Rails.logger.error "Facebook画像保存失敗 uid: #{resource.uid} message: #{e.message}"
+    end
+  end
+
+  def save_twitter_image
+    begin
+      profile_image = Image.create(image: open(session['omniauth']['info']['image'].gsub('_normal', '')))
+      resource.profile_image_id = profile_image.id
+    rescue => e
+      Rails.logger.error "Twitter画像保存失敗 uid: #{resource.uid} message: #{e.message}"
+    end
+  end
 end

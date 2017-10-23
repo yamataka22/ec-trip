@@ -18,11 +18,11 @@ ja:
       unconfirmed: "登録時に送られたメールのリンクをクリックして本登録を行ってください。"
     mailer:
       confirmation_instructions:
-        subject: "【ANA WonderFLY】WonderFLY 会員登録"
+        subject: "【EC-TRIP】会員登録"
       reset_password_instructions:
-        subject: "【ANA WonderFLY】パスワードの再発行"
+        subject: "【EC-TRIP】パスワードの再発行"
       unlock_instructions:
-        subject: "【ANA WonderFLY】アカウントのロック解除"
+        subject: "【EC-TRIP】アカウントのロック解除"
     omniauth_callbacks:
       failure: "%{kind} から承認されませんでした。理由：%{reason}"
       success: "%{kind} から承認されました。"

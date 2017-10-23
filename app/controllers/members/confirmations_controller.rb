@@ -10,9 +10,20 @@ class Members::ConfirmationsController < Devise::ConfirmationsController
   # end
 
   # GET /resource/confirmation?confirmation_token=abcdef
-  # def show
-  #   super
-  # end
+  def show
+    # StripeCustomerを登録しておく
+    member = Member.where(confirmation_token: params[:confirmation_token]).first
+    if member && member.stripe_customer_id.nil?
+      stripe_customer = Stripe::Customer.create(
+          description: "member_id: #{member.id}",
+          email: member.email
+      )
+      member.stripe_customer_id = stripe_customer.id
+      member.save
+    end
+
+    super
+  end
 
   # protected
 

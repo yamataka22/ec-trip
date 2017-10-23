@@ -1,0 +1,29 @@
+.container.text-center
+  %h1 SIGN UP
+  %h6.text-muted.mb-4 新規会員登録
+  .row.justify-content-md-center.mb-4
+    .col-md-8.col-lg-6.col-xl-5
+      .card
+        .card-header
+          登録方法をお選びください
+        .card-body
+          .row.mb-3.mt-3
+            .col-sm-4.text-center
+              = link_to new_registration_path(:member) do
+                = button_tag class: 'btn btn-primary bmd-btn-fab' do
+                  %i.material-icons mail_outline
+              %br/
+              %span.small メールアドレス
+            .col-sm-4.text-center
+              = link_to member_facebook_omniauth_authorize_path do
+                = button_tag class: 'btn btn-primary bmd-btn-fab' do
+                  %i.fa.fa-facebook.fa-fw
+              %br/
+              %span.small Facebook
+            .col-sm-4.text-center
+              = link_to member_twitter_omniauth_authorize_path do
+                = button_tag class: 'btn btn-primary bmd-btn-fab' do
+                  %i.fa.fa-twitter.fa-fw
+              %br/
+              %span.small Twitter
+  %p= link_to 'ログインはコチラ', new_session_path(:member), class: 'btn btn-sm btn-info'
