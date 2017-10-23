@@ -15,6 +15,9 @@ class Item < ApplicationRecord
   validates :stock_quantity, presence: true, on: :publish
   validates :price, presence: true, on: :publish
 
+  scope :published, -> { where(status: [:selling, :end_of_sell]) }
+  scope :selling, -> { where(status: :selling) }
+
   def save
     # Tinymceのバグ？で、localに画像を保存すると相対パスに変換されてしまうため、
     # それを絶対パスに置換する

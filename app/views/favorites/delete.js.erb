@@ -1,0 +1,5 @@
+var element = $('.favorite_<%= @favorite.item_id %>');
+element.html('favorite_border');
+element.parent('button').removeClass('btn-info');
+element.parent('button').addClass('btn-secondary');
+document.activeElement.blur();

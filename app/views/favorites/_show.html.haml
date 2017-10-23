@@ -1,0 +1,4 @@
+- size_class ||= 'bmd-btn-fab-sm'
+= link_to favorite_path(@favorite), method: :delete, remote: true do
+  = button_tag class: "btn bmd-btn-fab #{size_class} btn-info" do
+    %i{class: "material-icons favorite_#{item_id}"} favorite

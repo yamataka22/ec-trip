@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       registrations: 'managers/registrations'
   }
 
+  resources :items, only: [:index, :show]
+  resources :favorites, only: [:index, :create, :destroy]
+
   namespace :admin, path: 'admin' do
     resources :categories, except: :show
     resources :items, except: :show

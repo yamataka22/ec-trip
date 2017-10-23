@@ -31,4 +31,19 @@ module ApplicationHelper
         search: search
     }
   end
+
+  def jpy(value, prefix: false, suffix: false, tax: :none)
+    value = number_with_delimiter value
+    if prefix
+      value = '¥' + value
+    elsif suffix
+      value += '円'
+    end
+    if tax == :include
+      value += '(税込)'
+    elsif tax == :exclude
+      value += '(税抜)'
+    end
+    value
+  end
 end

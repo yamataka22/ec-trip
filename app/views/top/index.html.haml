@@ -1,4 +1,40 @@
-%h1 Top#index
-%p Find me in app/views/top/index.html.haml
-.alert.alert-info
-  This is alert
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/item'
+#top_slider.carousel.slide{'data-ride' => 'carousel', style: 'margin-top: -5rem;'}
+  %ol.carousel-indicators
+    %li.active{'data-target' => '#top_slider', 'data-slide-to' => '0'}
+    %li{'data-target' => '#top_slider', 'data-slide-to' => '1'}
+  .carousel-inner
+    .carousel-item.active{style: 'max-height: 480px'}
+      = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
+      .container
+        .carousel-caption.d-none.d-md-block.text-left.pb-5
+          %h1{style: 'color: #fff'} EC-TRIP DEMO SHOP
+          %p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          %p
+            %a.btn.btn-lg.btn-raised.btn-primary{:href => "#", :role => "button"} Sign up today
+    .carousel-item{style: 'max-height: 480px'}
+      = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
+      .container
+        .carousel-caption.d-none.d-md-block.text-center.pb-5
+          %h1{style: 'color: #fff'} Example headline.
+          %p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+          %p
+            %a.btn.btn-lg.btn-primary{:href => "#", :role => "button"} Sign up today
+  %a.carousel-control-prev{"data-slide" => "prev", :href => "#top_slider", :role => "button"}
+    %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+    %span.sr-only Previous
+  %a.carousel-control-next{"data-slide" => "next", :href => "#top_slider", :role => "button"}
+    %span.carousel-control-next-icon{"aria-hidden" => "true"}
+    %span.sr-only Next
+.container.hidden-xs-down
+  .container
+    %ul.nav.nav-pills.nav-justified
+      - Category.all.order(:sequence).each do |category|
+        %li.nav-item
+          = link_to category.name, '#', class: 'btn nav-link mb-0'
+%hr.m-0
+.container
+  .row
+    - 10.times do
+      = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites}

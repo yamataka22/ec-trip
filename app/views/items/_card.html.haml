@@ -1,0 +1,14 @@
+.col-sm-6.col-lg-4.mt-3.mb-3
+  .card.item_card
+    .item_card_header
+      = link_to item_path(item) do
+        = image_tag item.caption_image_url, class: 'img-fluid', style: 'z-index: -1;'
+      .favorite_btn
+        = render 'favorites/button', item_id: item.id, favorite: favorites && favorites.find{|f| f.item_id == item.id}
+    .card-body.pt-4
+      = link_to item_path(item) do
+        %h6.item_name.mb-3
+          = item.name
+          %br/
+          %span.small.text-muted= jpy(item.price, prefix: true, tax: :exclude)
+        %p.mb-0.text-justify= item.description

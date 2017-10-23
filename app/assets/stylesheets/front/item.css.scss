@@ -1,0 +1,15 @@
+.item_card {
+  .item_card_header {
+    position: relative;
+    .favorite_btn {
+      position: absolute;
+      bottom: -35px;
+      right: 10px
+    }
+  }
+  .card_body {
+    .item_name {
+      line-height: 20px;
+    }
+  }
+}
