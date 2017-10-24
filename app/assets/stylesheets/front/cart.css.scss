@@ -1,4 +1,11 @@
 .cart_index {
+  .card-header {
+    padding-top: 30px;
+  }
+  .card-body {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .cart_list {
     tbody {
       td {vertical-align: middle;}

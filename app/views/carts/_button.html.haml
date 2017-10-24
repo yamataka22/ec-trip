@@ -1,4 +1,4 @@
-- path = member_signed_in? ? carts_path(item_id: item.id) : new_session_path(:member)
+- path = member_signed_in? ? member_carts_path(item_id: item.id) : new_session_path(:member)
 = link_to path, method: :post, class: 'ml-2' do
   = button_tag class: 'btn bmd-btn-fab btn-warning', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'カートに追加する' do
     %i.material-icons add_shopping_cart

@@ -1,5 +1,5 @@
 class Members::RegistrationsController < Devise::RegistrationsController
-  layout 'front'
+  layout :select_layout
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -76,7 +76,7 @@ class Members::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:account_update, keys: [:account_name, addresses: [:last_name, :first_name]])
   # end
 
   # The path used after sign up.
@@ -107,6 +107,14 @@ class Members::RegistrationsController < Devise::RegistrationsController
       resource.profile_image_id = profile_image.id
     rescue => e
       Rails.logger.error "Twitter画像保存失敗 uid: #{resource.uid} message: #{e.message}"
+    end
+  end
+
+  def select_layout
+    if resource&.id.present?
+      'mypage'
+    else
+      'front'
     end
   end
 end

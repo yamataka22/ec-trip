@@ -11,10 +11,13 @@ class Member < ApplicationRecord
   has_many :purchases
   has_many :carts
   has_many :credit_cards
-  has_many :delivery_addresses
+  has_many :addresses
 
-  accepts_nested_attributes_for :delivery_addresses
-  accepts_nested_attributes_for :credit_cards
+  has_one :main_address, class_name: 'Address'
+  has_one :main_credit_card, class_name: 'CreditCard'
+
+  # accepts_nested_attributes_for :addresses
+  # accepts_nested_attributes_for :credit_cards
 
   validates_uniqueness_of :account_name, :case_sensitive => false
   validates :account_name, presence: true, length: {maximum: 15}
@@ -53,12 +56,8 @@ class Member < ApplicationRecord
     amount
   end
 
-  def main_delivery_address
-    self.delivery_addresses.order(main: :desc, id: :asc).first
-  end
-
   def main_credit_card
-    self.credit_cards.order(main: :desc, id: :asc).first
+    self.credit_cards.find_by(main: true)
   end
 
   def info_collected?
@@ -69,14 +68,4 @@ class Member < ApplicationRecord
         self.phone.present?
   end
 
-  def update!
-    self.delivery_addresses.each{ |address| address.mark_for_destruction if address.is_member_info? }
-    if self.use_as_delivery_address?
-      address = self.delivery_addresses.build(last_name: self.last_name, first_name: self.first_name, phone: self.phone,
-                                              postal_code: self.postal_code, address1: self.address1,
-                                              address2: self.address2, is_member_info: true)
-      address.main = true if self.delivery_addresses.where(is_member_info: false, main: true).count == 0
-    end
-    self.save!
-  end
 end

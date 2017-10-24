@@ -1,8 +1,9 @@
-class CreateDeliveryAddresses < ActiveRecord::Migration[5.0]
+class CreateAddresses < ActiveRecord::Migration[5.0]
   def change
-    create_table :delivery_addresses do |t|
+    create_table :addresses do |t|
       t.references :member, foreign_key: true, null: false
-      t.boolean :main, null: false, default: false
+      t.boolean :invoice, null: false, default: false
+      t.boolean :delivery, null: false, default: true
       t.string :last_name, null: false
       t.string :first_name, null: false
       t.string :postal_code, null: false

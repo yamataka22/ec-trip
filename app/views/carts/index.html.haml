@@ -19,7 +19,7 @@
             - @carts.each do |cart|
               %tr
                 %td.text-center
-                  = link_to cart_path(cart), method: :delete do
+                  = link_to member_cart_path(cart), method: :delete do
                     %i.fa.fa-times.fa-lg
                 %td.img_td
                   = link_to item_path(cart.item) do
@@ -29,7 +29,7 @@
                   %p.text-muted= jpy(cart.item.price, prefix: true)
                   %p.view_pc= cart.item.description
                 %td
-                  = form_for cart, class: 'form-inline' do |f|
+                  = form_for cart, url: member_cart_path(cart), class: 'form-inline' do |f|
                     - max_quantity = cart.item.stock_quantity < 5 ? cart.item.stock_quantity : 5
                     = f.select :quantity, options_for_select((1..max_quantity).to_a, selected: cart.quantity), {}, {class: 'form-control quantity_select'}
   - else

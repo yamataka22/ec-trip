@@ -34,15 +34,9 @@ class DeviseCreateMembers < ActiveRecord::Migration[5.0]
       t.string :provider
       t.string :uid
       t.string :profile_image_id
-      t.string :last_name
-      t.string :first_name
-      t.string :postal_code
-      t.integer :prefecture_id
-      t.string :address1
-      t.string :address2
-      t.string :phone
-      t.boolean :using_delivery_address, null: false, default: false
       t.string :stripe_customer_id
+      t.integer :main_address_id
+      t.integer :main_credit_card_id
       t.string :leave_at
       t.string :leave_reason
 

@@ -1,0 +1,12 @@
+= form_for @address, url: member_invoice_address_path do |f|
+  .card
+    .card-header
+      ご請求先住所
+    .card-body
+      = render 'addresses/form', f: f
+      .checkbox
+        %label
+          = f.check_box :delivery
+          お届け先住所にも設定する
+    .card-footer.text-right
+      = f.submit '登録', class: 'btn btn-info btn-raised'

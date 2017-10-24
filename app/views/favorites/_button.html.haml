@@ -2,10 +2,10 @@
   %button{onclick: 'alert("ログインしてください"); document.activeElement.blur();', class: 'btn bmd-btn-fab btn-secondary'}
     %i.material-icons favorite_border
 - elsif favorite
-  = link_to favorites_path(item_id: item.id), method: :post, remote: true do
+  = link_to member_favorites_path(item_id: item.id), method: :post, remote: true do
     = button_tag class: 'btn bmd-btn-fab btn-info' do
       %i{class: "material-icons favorite_#{item.id}"} favorite
 - else
-  = link_to favorites_path(item_id: item.id), method: :post, remote: true do
+  = link_to member_favorites_path(item_id: item.id), method: :post, remote: true do
     = button_tag class: 'btn bmd-btn-fab btn-secondary' do
       %i{class: "material-icons favorite_#{item.id}"} favorite_border

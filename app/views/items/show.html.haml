@@ -23,7 +23,7 @@
               .card-body
                 = @item.about.try(:html_safe)
               .card-footer.text-center.pt-3
-                - cart_path = member_signed_in? ? carts_path(item_id: @item.id) : new_session_path(:member)
+                - cart_path = member_signed_in? ? member_carts_path(item_id: @item.id) : new_session_path(:member)
                 = link_to cart_path, method: :post, class: 'btn btn-outline-warning mr-3' do
                   %i.fa.fa-fw.fa-cart-plus
                   カートに追加する

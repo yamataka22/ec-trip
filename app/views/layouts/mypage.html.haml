@@ -2,17 +2,45 @@
   .container
     %ul.nav.nav-pills.nav-fill.mb-3
       %li.nav-item
-        = link_to favorites_path, class: "nav-link #{'active' if controller.controller_name == 'favorites'}" do
+        = link_to member_favorites_path, class: "nav-link #{'active' if controller.controller_name == 'favorites'}" do
           %i.fa.fa-heart.fa-fw.fa-lg
-          お気に入り商品
+          %span.view_pc お気に入り商品
       %li.nav-item
-        = link_to carts_path, class: "nav-link #{'active' if controller.controller_name == 'carts'}" do
+        = link_to member_carts_path, class: "nav-link #{'active' if controller.controller_name == 'carts'}" do
           %i.fa.fa-shopping-cart.fa-fw.fa-lg
-          カートの中身
+          %span.view_pc カートの中身
       %li.nav-item
-        = link_to '購入履歴', '#', class: "nav-link #{'active' if controller.controller_name == 'payments'}"
+        = link_to '#', class: "nav-link #{'active' if controller.controller_name == 'payments'}" do
+          %i.fa.fa-file-text.fa-fw.fa-lg
+          %span.view_pc 購入履歴
       %li.nav-item
-        = link_to 'アカウント情報', '#', class: "nav-link #{'active' if controller.controller_name == 'members'}"
-    - flash_messages
-    = yield
+        = link_to edit_member_registration_path, class: "nav-link #{'active' if %w(registrations).include?(controller.controller_name)}" do
+          %i.fa.fa-user.fa-fw.fa-lg
+          %span.view_pc アカウント情報
+    - if %w(registrations invoice_addresses delivery_addresses credit_cards).include? controller.controller_name
+      .row
+        - btn_class1 = controller.controller_name == 'registrations' ? 'btn-raised btn-info' : 'btn-outline-secondary'
+        - btn_class2 = controller.controller_name == 'invoice_addresses' ? 'btn-raised btn-info' : 'btn-outline-secondary'
+        - btn_class3 = controller.controller_name == 'delivery_addresses' ? 'btn-raised btn-info' : 'btn-outline-secondary'
+        - btn_class4 = controller.controller_name == 'credit_cards' ? 'btn-raised btn-info' : 'btn-outline-secondary'
+        .col-md-4.col-lg-3
+          = link_to edit_member_registration_path, class: "mb-3 btn btn-block #{btn_class1}" do
+            %i.fa.fa-user.fa-fw
+            基本情報
+          = link_to member_invoice_address_path, class: "mb-3 btn btn-block #{btn_class2}" do
+            %i.fa.fa-home.fa-fw
+            ご請求先
+          = link_to member_delivery_addresses_path, class: "mb-3 btn btn-block #{btn_class3}" do
+            %i.fa.fa-truck.fa-fw
+            お届け先
+          = link_to '#', class: "mb-3 btn btn-block #{btn_class4}" do
+            %i.fa.fa-credit-card.fa-fw
+            クレジットカード
+        .col-md-8.col-lg-9
+          .container
+            - flash_messages
+            = yield
+    - else
+      - flash_messages
+      = yield
 = render template: 'layouts/front'

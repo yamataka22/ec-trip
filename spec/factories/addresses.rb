@@ -1,6 +1,7 @@
 FactoryGirl.define do
-  factory :delivery_address do
+  factory :address do
     member nil
+    invoice false
     main false
     last_name "MyString"
     first_name "MyString"

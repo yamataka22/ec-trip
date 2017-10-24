@@ -142,8 +142,6 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
-    font-awesome-sass (4.7.0)
-      sass (>= 3.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -405,7 +403,6 @@ DEPENDENCIES
   enum_help (~> 0.0.17)
   erb2haml
   factory_girl_rails (~> 4.8)
-  font-awesome-sass
   haml-rails
   hirb
   hirb-unicode

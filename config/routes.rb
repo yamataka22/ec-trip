@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'addresses/index'
+
+  get 'addresses/new'
+
+  get 'addresses/edit'
+
   devise_for :members, controllers: {
       sessions:      'members/sessions',
       passwords:     'members/passwords',
@@ -20,8 +26,13 @@ Rails.application.routes.draw do
   }
 
   resources :items, only: [:index, :show]
-  resources :favorites, only: [:index, :create, :destroy]
-  resources :carts, only: [:index, :create, :update, :destroy]
+
+  resource :member do
+    resources :carts, only: [:index, :create, :update, :destroy]
+    resources :favorites, only: [:index, :create, :destroy]
+    resource :invoice_address, only: [:show, :create, :update]
+    resources :delivery_addresses
+  end
 
   namespace :admin, path: 'admin' do
     resources :categories, except: :show

@@ -12,6 +12,22 @@
 
 ActiveRecord::Schema.define(version: 20171019091216) do
 
+  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "member_id",                     null: false
+    t.boolean  "invoice",       default: false, null: false
+    t.boolean  "delivery",      default: true,  null: false
+    t.string   "last_name",                     null: false
+    t.string   "first_name",                    null: false
+    t.string   "postal_code",                   null: false
+    t.integer  "prefecture_id",                 null: false
+    t.string   "address1",                      null: false
+    t.string   "address2"
+    t.string   "phone",                         null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["member_id"], name: "index_addresses_on_member_id", using: :btree
+  end
+
   create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",              null: false
     t.integer  "item_id",                null: false
@@ -51,21 +67,6 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.index ["member_id"], name: "index_credit_cards_on_member_id", using: :btree
-  end
-
-  create_table "delivery_addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "member_id",                     null: false
-    t.boolean  "main",          default: false, null: false
-    t.string   "last_name",                     null: false
-    t.string   "first_name",                    null: false
-    t.string   "postal_code",                   null: false
-    t.integer  "prefecture_id",                 null: false
-    t.string   "address1",                      null: false
-    t.string   "address2"
-    t.string   "phone",                         null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["member_id"], name: "index_delivery_addresses_on_member_id", using: :btree
   end
 
   create_table "favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -123,12 +124,12 @@ ActiveRecord::Schema.define(version: 20171019091216) do
   end
 
   create_table "members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -137,23 +138,17 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "account_name",                           null: false
+    t.string   "account_name",                        null: false
     t.string   "provider"
     t.string   "uid"
     t.string   "profile_image_id"
-    t.string   "last_name"
-    t.string   "first_name"
-    t.string   "postal_code"
-    t.integer  "prefecture_id"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "phone"
-    t.boolean  "using_delivery_address", default: false, null: false
     t.string   "stripe_customer_id"
+    t.integer  "main_address_id"
+    t.integer  "main_credit_card_id"
     t.string   "leave_at"
     t.string   "leave_reason"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.index ["confirmation_token"], name: "index_members_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_members_on_email", unique: true, using: :btree
     t.index ["provider", "uid"], name: "index_members_on_provider_and_uid", unique: true, using: :btree
@@ -207,10 +202,10 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "addresses", "members"
   add_foreign_key "carts", "items"
   add_foreign_key "carts", "members"
   add_foreign_key "credit_cards", "members"
-  add_foreign_key "delivery_addresses", "members"
   add_foreign_key "favorites", "items"
   add_foreign_key "favorites", "members"
   add_foreign_key "items", "categories"

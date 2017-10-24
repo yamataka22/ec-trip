@@ -1,36 +1,25 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "off"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+  .card
+    .card-header
+      基本情報
+    .card-body
+      - if f.object.errors.size > 0
+        .alert.alert-danger 入力内容をご確認ください
+      .form-group
+        = f.label :account_name, class: 'form-control-label'
+        = f.text_field :account_name, class: 'form-control'
+        = error_label_tag(f.object, :account_name)
+      .form-group
+        = f.label :email, class: 'form-control-label'
+        = f.text_field :email, class: 'form-control'
+        = error_label_tag(f.object, :email)
+      .form-group
+        = f.label :password, class: 'form-control-label'
+        = f.password_field :password, class: 'form-control', placeholder: '変更する場合のみ入力してください'
+        = error_label_tag(f.object, :password)
+      .form-group
+        = f.label :password_confirmation, class: 'form-control-label'
+        = f.password_field :password_confirmation, class: 'form-control'
+        = error_label_tag(f.object, :password_confirmation)
+    .card-footer.text-right
+      = f.submit '変更', class: 'btn btn-info btn-raised'

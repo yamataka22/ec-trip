@@ -1,9 +1,9 @@
 ja:
   activerecord:
     models:
-      delivery_address: 配送先住所
+      address: 住所
     attributes:
-      delivery_address:
+      address:
         member_id: 会員
         last_name: お名前(姓)
         first_name: お名前(名)
