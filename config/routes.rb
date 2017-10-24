@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
   resources :favorites, only: [:index, :create, :destroy]
-  resources :carts, only: [:index, :create, :destroy]
+  resources :carts, only: [:index, :create, :update, :destroy]
 
   namespace :admin, path: 'admin' do
     resources :categories, except: :show

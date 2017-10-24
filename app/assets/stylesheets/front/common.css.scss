@@ -26,12 +26,10 @@ a:hover {
 }
 
 .view_pc {
-  display: block;
   @media (max-width: 767px) { display: none; }
 }
 .view_sp {
-  display: none;
-  @media (max-width: 767px) { display: block; }
+  @media (min-width: 768px) { display: none; }
 }
 
 /* Sticky footer styles

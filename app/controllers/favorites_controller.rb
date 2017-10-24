@@ -1,7 +1,9 @@
 class FavoritesController < FrontBase
   before_action :authenticate_member!
+  layout 'mypage'
 
   def index
+    @items = Item.joins(:favorites).where(favorites: {member_id: current_member.id})#.order(favorites: {created_at: :desc})
   end
 
   def create

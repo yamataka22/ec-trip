@@ -1,0 +1,18 @@
+= content_for :content do
+  .container
+    %ul.nav.nav-pills.nav-fill.mb-3
+      %li.nav-item
+        = link_to favorites_path, class: "nav-link #{'active' if controller.controller_name == 'favorites'}" do
+          %i.fa.fa-heart.fa-fw.fa-lg
+          お気に入り商品
+      %li.nav-item
+        = link_to carts_path, class: "nav-link #{'active' if controller.controller_name == 'carts'}" do
+          %i.fa.fa-shopping-cart.fa-fw.fa-lg
+          カートの中身
+      %li.nav-item
+        = link_to '購入履歴', '#', class: "nav-link #{'active' if controller.controller_name == 'payments'}"
+      %li.nav-item
+        = link_to 'アカウント情報', '#', class: "nav-link #{'active' if controller.controller_name == 'members'}"
+    - flash_messages
+    = yield
+= render template: 'layouts/front'

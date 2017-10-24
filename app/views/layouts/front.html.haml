@@ -11,9 +11,8 @@
     %link{:href => '//fonts.googleapis.com/css?family=Roboto:300,400,500,700', :rel => 'stylesheet', :type => 'text/css'}/
     %link{:href => '//fonts.googleapis.com/icon?family=Material+Icons', :rel => 'stylesheet', :type => 'text/css'}/
     %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :integrity => "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", :rel => "stylesheet"}/
-    %title EcTrip
-    = csrf_meta_tags
     = stylesheet_link_tag    'front', media: 'all'
+    = yield :stylesheet
   %body
     %header.mb-5
       %nav.navbar.navbar-expand-md.navbar-dark.bg-primary
@@ -43,12 +42,10 @@
                   = link_to destroy_member_session_path, method: :delete, class: 'dropdown-item small' do
                     %i.fa.fa-fw.fa-lock
                     ログアウト
-
-
             - else
               %li.nav-item.active= link_to 'ログイン', new_session_path(:member), class: 'nav-link'
               %li.nav-item.active= link_to '会員登録', members_sign_up_select_path, class: 'nav-link'
-    = yield
+    = content_for?(:content) ? yield(:content) : yield
     .mb-5 &nbsp;
     %footer.footer
       .container

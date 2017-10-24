@@ -34,22 +34,21 @@ class Member < ApplicationRecord
   end
 
   def counts_cart
-    Cart.where(member: self).sum(:volume)
+    self.carts.sum(:quantity)
   end
 
   def carts_sub_total
     amount = 0
     self.carts.each do |cart|
-      amount += cart.product.price * cart.volume
+      amount += cart.item.price * cart.quantity
     end
     amount
   end
 
   def total_cart_amount
     amount = 0
-    carts = Cart.where(member_id: self.id)
-    carts.each do |cart|
-      amount = amount + cart.product.price * cart.volume
+    self.carts.each do |cart|
+      amount = amount + cart.item.price * cart.quantity
     end
     amount
   end

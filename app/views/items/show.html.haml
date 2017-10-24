@@ -1,11 +1,13 @@
 - favorite = current_member&.favorites&.find{|favorite| favorite.item_id == @item.id}
 - cart_added = current_member&.carts&.find{|cart| cart.item_id == @item.id}
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/item'
 .item_show
   .container
     .row.justify-content-lg-center
       .col-lg-11.col-xl-10
         - if cart_added
-          .alert.alert-success
+          .alert.alert-primary
             .clearfix.pt-1
               .float-left
                 %p.pt-1.mb-0= params[:cart_added] ? 'カートに追加しました' : 'この商品はカートに追加されています'
@@ -32,7 +34,7 @@
             .sticky-top{style: 'z-index: 0'}
               .card.hidden-md-down
                 .card-body
-                  .alert.alert-info.text-center
+                  .alert.alert-primary.text-center
                     販売価格
                     %span.ml-3= jpy(@item.price, suffix: true)
                     %span.small (税抜)
@@ -46,7 +48,7 @@
       .card
         .card-body
           .pull-left
-            .alert.alert-info.mb-0.mt-2
+            .alert.alert-primary.mb-0.mt-2
               %span.small 販売価格:
               = jpy(@item.price, suffix: true)
               %span.small (税抜)
