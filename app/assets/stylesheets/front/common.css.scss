@@ -1,6 +1,8 @@
-html {
-  font-family: 'Roboto', 'Helvetica', "游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
-  background-color: #f9f9f9;
+body {
+  font-family: 'Roboto', 'Helvetica', "ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
+  p, span, label {
+    font-family: "游ゴシック",YuGothic,sans-serif;
+  }
 }
 
 .no-thank-yu, .navbar, .btn, .form-control, .input-gruop, .breadcrumb, .nav-tabs, .nav-pills, .panel-title, .list-group, .pagination, .pager, .alert, .label, .badge, .panel-heading, .lead, .tooltip, .popover {
@@ -21,6 +23,15 @@ p {
 
 a:hover {
   text-decoration: none;
+}
+
+.view_pc {
+  display: block;
+  @media (max-width: 767px) { display: none; }
+}
+.view_sp {
+  display: none;
+  @media (max-width: 767px) { display: block; }
 }
 
 /* Sticky footer styles

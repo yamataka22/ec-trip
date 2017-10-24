@@ -3,5 +3,6 @@ class ItemsController < FrontBase
   end
 
   def show
+    @item = Item.published.find(params[:id])
   end
 end

@@ -1,9 +1,0 @@
-- size_class ||= 'bmd-btn-fab-sm'
-- btn_class = "btn bmd-btn-fab #{size_class} btn-default"
-- if !member_signed_in?
-  %button{onclick: 'alert("ログインしてください"); document.activeElement.blur();', class: btn_class}
-    %i.material-icons favorite_border
-- else
-  = link_to favorites_path(item_id: item_id), method: :post, remote: true do
-    = button_tag class: btn_class do
-      %i.material-icons favorite_border
