@@ -1,5 +1,5 @@
 class Members::RegistrationsController < Devise::RegistrationsController
-  layout :select_layout
+  layout 'front'
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -35,14 +35,14 @@ class Members::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    redirect_to member_path
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    redirect_to member_path
+  end
 
   def select
     session['omniauth_data'] = nil
@@ -76,7 +76,7 @@ class Members::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:account_name, addresses: [:last_name, :first_name]])
+  #   devise_parameter_sanitizer.permit(:account_update, keys: [:account_name])
   # end
 
   # The path used after sign up.
@@ -110,11 +110,4 @@ class Members::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def select_layout
-    if resource&.id.present?
-      'mypage'
-    else
-      'front'
-    end
-  end
 end

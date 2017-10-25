@@ -1,0 +1,30 @@
+- %w()
+= content_for :mypage do
+  .row
+    - btn_active = 'btn-raised btn-info'
+    - btn_nonactive = 'btn-outline-secondary'
+    .col-md-4.col-lg-3
+      .row
+        .col-6.col-md-12.p-1
+          = link_to member_path, class: "btn btn-block #{%w(delivery_addresses credit_cards).include?(controller.controller_name) ? btn_nonactive : btn_active}" do
+            %i.fa.fa-user.fa-fw
+            プロフィール
+        .col-6.col-md-12.p-1
+          = link_to member_delivery_addresses_path, class: "btn btn-block #{controller.controller_name == 'delivery_addresses' ? btn_active : btn_nonactive}" do
+            %i.fa.fa-truck.fa-fw
+            お届け先
+        .col-6.col-md-12.p-1
+          = link_to '#', class: "btn btn-block #{controller.controller_name == 'credit_cards' ? btn_active : btn_nonactive}" do
+            %i.fa.fa-credit-card.fa-fw
+            クレジットカード
+    .col-md-8.col-lg-9
+      .container
+        - flash_messages
+        - unless %w(delivery_addresses credit_cards).include?(controller.controller_name)
+          %ul.nav.nav-tabs
+            %li.nav-item
+              = link_to 'アカウント', member_path, class: "nav-link #{'active' if @account_tab.blank?}"
+            %li.nav-item
+              = link_to '住所', member_invoice_address_path, class: "nav-link #{'active' if @account_tab == 'address'}"
+        = yield
+= render template: 'layouts/mypage'

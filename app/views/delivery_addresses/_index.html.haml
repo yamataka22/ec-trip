@@ -1,0 +1,29 @@
+- addresses.each do |address|
+  .col-lg-6.mb-3
+    .card
+      .card-header
+        = address.full_name
+        - if current_member.main_address_id == address.id
+          .pull-right
+            %span.badge.badge-info.p-1 規定の住所
+      .card-body.pb-0
+        %p
+          = "〒#{address.postal_code}"
+          %br/
+          = address.address1
+          %br/
+          = address.address2
+          %br/
+          = "電話番号：#{address.phone}"
+      .card-footer.text-right
+        = link_to '規定の住所にする', '#' unless current_member.main_address_id == address.id
+        &nbsp;/&nbsp;
+        = link_to '編集', edit_member_delivery_address_path(address), remote: true
+        &nbsp;/&nbsp;
+        = link_to '削除', member_delivery_address_path(address), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
+.col-lg-6
+  .card{style: 'height: 216px; padding-top: 55px;'}
+    .card-body.text-center
+      = link_to new_member_delivery_address_path, remote: true do
+        %button.btn.btn-info.bmd-btn-fab
+          %i.material-icons add

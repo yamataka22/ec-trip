@@ -1,0 +1,11 @@
+= form_for address, url: member_delivery_address_path(address), method: :put, remote: true, html: {class: 'mb-0 edit_delivery_address_form'} do |f|
+  .card
+    .card-header
+      住所
+    .card-body
+      = render 'addresses/form', f: f
+    .card-footer.text-right
+      = f.submit '更新', class: 'btn btn-info btn-raised'
+      = link_to 'キャンセル', member_delivery_addresses_path, class: 'btn btn-secondary ml-2'
+:javascript
+  $('.edit_delivery_address_form').bootstrapMaterialDesign();

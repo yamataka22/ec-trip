@@ -14,33 +14,8 @@
           %i.fa.fa-file-text.fa-fw.fa-lg
           %span.view_pc 購入履歴
       %li.nav-item
-        = link_to edit_member_registration_path, class: "nav-link #{'active' if %w(registrations).include?(controller.controller_name)}" do
+        = link_to edit_member_registration_path, class: "nav-link #{'active' unless %w(favorites carts payments).include?(controller.controller_name)}" do
           %i.fa.fa-user.fa-fw.fa-lg
           %span.view_pc アカウント情報
-    - if %w(registrations invoice_addresses delivery_addresses credit_cards).include? controller.controller_name
-      .row
-        - btn_class1 = controller.controller_name == 'registrations' ? 'btn-raised btn-info' : 'btn-outline-secondary'
-        - btn_class2 = controller.controller_name == 'invoice_addresses' ? 'btn-raised btn-info' : 'btn-outline-secondary'
-        - btn_class3 = controller.controller_name == 'delivery_addresses' ? 'btn-raised btn-info' : 'btn-outline-secondary'
-        - btn_class4 = controller.controller_name == 'credit_cards' ? 'btn-raised btn-info' : 'btn-outline-secondary'
-        .col-md-4.col-lg-3
-          = link_to edit_member_registration_path, class: "mb-3 btn btn-block #{btn_class1}" do
-            %i.fa.fa-user.fa-fw
-            基本情報
-          = link_to member_invoice_address_path, class: "mb-3 btn btn-block #{btn_class2}" do
-            %i.fa.fa-home.fa-fw
-            ご請求先
-          = link_to member_delivery_addresses_path, class: "mb-3 btn btn-block #{btn_class3}" do
-            %i.fa.fa-truck.fa-fw
-            お届け先
-          = link_to '#', class: "mb-3 btn btn-block #{btn_class4}" do
-            %i.fa.fa-credit-card.fa-fw
-            クレジットカード
-        .col-md-8.col-lg-9
-          .container
-            - flash_messages
-            = yield
-    - else
-      - flash_messages
-      = yield
+    = content_for?(:mypage) ? yield(:mypage) : yield
 = render template: 'layouts/front'

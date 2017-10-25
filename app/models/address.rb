@@ -11,6 +11,10 @@ class Address < ApplicationRecord
   validates :prefecture_id, presence: true
   validates :address1, presence: true
 
+  def full_name
+    "#{self.last_name} #{first_name}"
+  end
+
   def invoice_create
     self.invoice = true
     if self.valid?
@@ -22,4 +26,5 @@ class Address < ApplicationRecord
       false
     end
   end
+
 end

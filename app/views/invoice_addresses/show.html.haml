@@ -1,7 +1,6 @@
+- @account_tab = 'address'
 = form_for @address, url: member_invoice_address_path do |f|
   .card
-    .card-header
-      ご請求先住所
     .card-body
       = render 'addresses/form', f: f
       .checkbox

@@ -22,12 +22,6 @@ class Member < ApplicationRecord
   validates_uniqueness_of :account_name, :case_sensitive => false
   validates :account_name, presence: true, length: {maximum: 15}
 
-  validates :last_name, presence: true, on: :info_collect
-  validates :first_name, presence: true, on: :info_collect
-  validates :phone, presence: true, on: :info_collect
-  validates :postal_code, presence: true, on: :info_collect
-  validates :address1, presence: true, on: :info_collect
-
   def self.from_facebook_omniauth(auth)
     find_by(provider: auth.provider, uid: auth.uid)
   end
@@ -56,16 +50,18 @@ class Member < ApplicationRecord
     amount
   end
 
-  def main_credit_card
-    self.credit_cards.find_by(main: true)
+  def delivery_addresses
+    self.addresses.where(delivery: true)
   end
 
-  def info_collected?
-    self.last_name.present? &&
-        self.first_name.present? &&
-        self.postal_code.present? &&
-        self.address1.present? &&
-        self.phone.present?
+  def leave
+    self.skip_reconfirmation!
+    self.update_column(:email, "#{self.email}.leaved#{Util.random_string(10)}")
+
+    self.uid = "#{self.uid}?leaved#{Util.random_string(10)}" if self.uid.present?
+    self.password = SecureRandom.uuid
+    self.leave_at = Time.now
+    self.save!
   end
 
 end

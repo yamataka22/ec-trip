@@ -1,6 +1,6 @@
 class InvoiceAddressesController < FrontBase
   before_action :authenticate_member!
-  layout 'mypage'
+  layout 'account'
 
   def show
     @address = current_member.addresses.find_or_initialize_by(invoice: true)
