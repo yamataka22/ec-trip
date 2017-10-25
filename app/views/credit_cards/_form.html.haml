@@ -1,0 +1,22 @@
+.alert.alert-danger.stripe_err_message{style: 'display: none'}
+.form-group
+  %label.form-control-label{for: 'card_number'} カード番号
+  %input#card_number.form-control.card_input{type: 'number', placeholder: '0000 0000 0000 0000'}
+.form-group
+  %label.form-control-label{for: 'card_exp_month'} 有効期限
+  %table
+    %tr
+      %td{width: '25px'}
+        = select_tag :exp_month, options_for_select(select_months), include_blank: true, class: 'form-control card_input', id: 'card_exp_month'
+      %td.text-center{width: '40px'}
+        %span.ml-2.mr-2 月
+      %td{width: '40px'}
+        = select_tag :exp_year, options_for_select(select_years), include_blank: true, class: 'form-control card_input', id: 'card_exp_year'
+      %td{width: '40px'}
+        %span.ml-2 年
+.form-group
+  %label.form-control-label{for: 'card_cvc'} セキュリティコード
+  %input#card_cvc.form-control.card_input{type: 'number', placeholder: 'カード裏面に記載された3桁または4桁の番号'}
+.form-group
+  %label.form-control-label{for: 'card_name'} カード名義
+  %input#card_name.form-control.card_input{type: 'text', placeholder: 'TARO YAMADA'}

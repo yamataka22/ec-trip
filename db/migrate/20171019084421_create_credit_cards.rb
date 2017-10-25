@@ -7,7 +7,7 @@ class CreateCreditCards < ActiveRecord::Migration[5.0]
       t.string :last4, null: false
       t.string :exp_month, null: false
       t.string :exp_year, null: false
-      t.string :holder, null: false
+      t.string :name, null: false
       t.boolean :main, null: false, default: false
 
       t.timestamps

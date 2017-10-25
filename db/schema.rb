@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.string   "last4",                          null: false
     t.string   "exp_month",                      null: false
     t.string   "exp_year",                       null: false
-    t.string   "holder",                         null: false
+    t.string   "name",                           null: false
     t.boolean  "main",           default: false, null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false

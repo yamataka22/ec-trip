@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :favorites, only: [:index, :create, :destroy]
     resource :invoice_address, only: [:show, :create, :update]
     resources :delivery_addresses
+    resources :credit_cards, only: [:index, :new, :create, :destroy]
     collection do
       get :leave
       get :left

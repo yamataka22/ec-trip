@@ -1,0 +1,12 @@
+.card#stripe_form
+  .card-header
+    クレジットカード情報
+  .card-body
+    = render 'form'
+  .card-footer.text-right
+    = form_tag member_credit_cards_path, method: :post, remote: true, class: 'mb-0' do
+      = submit_tag '', style: 'display: none', id: 'stripe_submit'
+      = button_tag '登録', class: 'btn btn-info btn-raised', onclick: 'stripe_js.createToken(); return false;'
+      = link_to 'キャンセル', member_credit_cards_path, class: 'btn btn-secondary ml-2'
+:javascript
+  $('#stripe_form').bootstrapMaterialDesign();

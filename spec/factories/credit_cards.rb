@@ -6,7 +6,7 @@ FactoryGirl.define do
     last4 "MyString"
     exp_month "MyString"
     exp_year "MyString"
-    card_holder "MyString"
+    name "MyString"
     main false
   end
 end

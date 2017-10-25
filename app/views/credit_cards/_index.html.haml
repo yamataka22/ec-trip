@@ -1,0 +1,16 @@
+- if credit_cards.blank?
+  .alert.alert-info
+    クレジットカードは未登録です
+- credit_cards.each do |card|
+  .card.mb-3
+    .card-body
+      %span.fa.fa-fw.fa-lg{class: fa_card(card.brand)}
+      %span.ml-2= card.brand
+      %span.ml-2= card.last4
+      %span.ml-2= "#{card.exp_month}/#{card.exp_year}"
+      %span.ml-2= card.name
+      .pull-right
+        = link_to member_credit_card_path(card), method: :delete, data: {confirm: '削除してよろしいでしょうか？'} do
+          %i.fa.fa-times.fa-lg
+%div
+  = link_to '別のカードを追加する', new_member_credit_card_path, class: 'btn btn-info btn-raised', remote: true
