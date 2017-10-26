@@ -13,9 +13,6 @@ class Member < ApplicationRecord
   has_many :credit_cards
   has_many :addresses
 
-  has_one :main_address, class_name: 'Address'
-  has_one :main_credit_card, class_name: 'CreditCard'
-
   # accepts_nested_attributes_for :addresses
   # accepts_nested_attributes_for :credit_cards
 
@@ -56,6 +53,30 @@ class Member < ApplicationRecord
 
   def delivery_addresses
     self.addresses.where(delivery: true)
+  end
+
+  def main_credit_card
+    if self.main_credit_card_id.present?
+      main_card = self.credit_cards.find_by(id: self.main_credit_card_id)
+    else
+      main_card = nil
+    end
+    if main_card.nil?
+      main_card = self.credit_cards.all.order(:id).first
+    end
+    main_card
+  end
+
+  def main_address
+    if self.main_address_id.present?
+      main_address = self.delivery_addresses.find_by(id: self.main_address_id)
+    else
+      main_address = nil
+    end
+    if main_address.nil?
+      main_address = self.delivery_addresses.all.order(:id).first
+    end
+    main_address
   end
 
   def leave

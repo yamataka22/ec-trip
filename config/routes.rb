@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   }
 
   resources :items, only: [:index, :show]
-  resources :purchases, only: [:index, :show, :new, :create]
+  resources :purchases, only: [:index, :show, :new, :create] do
+    collection do
+      get :complete
+    end
+  end
 
   resource :member, only: [:show, :update, :destroy] do
     resources :carts, only: [:index, :create, :update, :destroy]

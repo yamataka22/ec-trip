@@ -1,8 +1,7 @@
 .text-center
   %h4.mb-2
     お届け先
-  %p.text-muted.mb-3 商品のお届け先住所を選択してください
-
+  %p.text-muted.mb-5 商品のお届け先住所を選択してください
 .row.justify-content-lg-center
   .col-lg-10.col-lx-8
     .row
@@ -11,16 +10,9 @@
           = link_to new_purchase_path(delivery_address_id: address.id) do
             .card
               .card-header
-                = address.full_name
+                = render 'addresses/head', address: address
               .card-body
-                %p
-                  = "〒#{address.postal_code}"
-                  %br/
-                  = address.address1
-                  %br/
-                  = address.address2
-                  %br/
-                  = "電話番号：#{address.phone}"
+                %p= render 'addresses/body', address: address
       .col-md-6
         = link_to new_member_delivery_address_path(purchase: true), remote: true do
           .card{style: 'height: 190px; padding-top: 60px;'}

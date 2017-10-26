@@ -29,4 +29,13 @@ class CreditCard < ApplicationRecord
       false
     end
   end
+
+  def destroy
+    if super
+      # メインカードIDもクリアする
+      self.member.main_credit_card_id = nil if self.member.main_credit_card_id == self.id
+    else
+      false
+    end
+  end
 end

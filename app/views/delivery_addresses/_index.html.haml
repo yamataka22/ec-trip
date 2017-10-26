@@ -2,19 +2,9 @@
   .col-lg-6.mb-3
     .card
       .card-header
-        = address.full_name
-        - if current_member.main_address_id == address.id
-          .pull-right
-            %span.badge.badge-info.p-1 規定の住所
+        = render 'addresses/head', address: address
       .card-body.pb-0
-        %p
-          = "〒#{address.postal_code}"
-          %br/
-          = address.address1
-          %br/
-          = address.address2
-          %br/
-          = "電話番号：#{address.phone}"
+        %p= render 'addresses/body', address: address
       .card-footer.text-right
         = link_to '規定の住所にする', '#' unless current_member.main_address_id == address.id
         &nbsp;/&nbsp;

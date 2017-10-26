@@ -27,4 +27,13 @@ class Address < ApplicationRecord
     end
   end
 
+  def destroy
+    if super
+      # メイン住所IDもクリアする
+      self.member.main_address_id = nil if self.member.main_address_id == self.id
+    else
+      false
+    end
+  end
+
 end

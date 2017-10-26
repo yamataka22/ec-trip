@@ -169,28 +169,28 @@ ActiveRecord::Schema.define(version: 20171019091216) do
   end
 
   create_table "purchases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "member_id",              null: false
-    t.integer  "item_amount",            null: false
-    t.integer  "tax",                    null: false
-    t.integer  "delivery_fee",           null: false
-    t.string   "delivery_last_name",     null: false
-    t.string   "delivery_first_name",    null: false
-    t.string   "delivery_phone",         null: false
-    t.string   "delivery_postal_code",   null: false
-    t.integer  "delivery_prefecture_id", null: false
-    t.string   "delivery_address1",      null: false
+    t.integer  "member_id",                          null: false
+    t.integer  "item_amount",            default: 0, null: false
+    t.integer  "tax",                                null: false
+    t.integer  "delivery_fee",                       null: false
+    t.string   "delivery_last_name",                 null: false
+    t.string   "delivery_first_name",                null: false
+    t.string   "delivery_phone",                     null: false
+    t.string   "delivery_postal_code",               null: false
+    t.integer  "delivery_prefecture_id",             null: false
+    t.string   "delivery_address1",                  null: false
     t.string   "delivery_address2"
-    t.string   "invoice_last_name",      null: false
-    t.string   "invoice_first_name",     null: false
-    t.string   "invoice_phone",          null: false
-    t.string   "invoice_postal_code",    null: false
-    t.integer  "invoice_prefecture_id",  null: false
-    t.string   "invoice_address1",       null: false
+    t.string   "invoice_last_name",                  null: false
+    t.string   "invoice_first_name",                 null: false
+    t.string   "invoice_phone",                      null: false
+    t.string   "invoice_postal_code",                null: false
+    t.integer  "invoice_prefecture_id",              null: false
+    t.string   "invoice_address1",                   null: false
     t.string   "invoice_address2"
-    t.string   "credit_card_info",       null: false
-    t.string   "stripe_payment_id",      null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "credit_card_info",                   null: false
+    t.string   "stripe_charge_id",                   null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["member_id"], name: "index_purchases_on_member_id", using: :btree
   end
 
