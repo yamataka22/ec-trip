@@ -15,27 +15,36 @@
     = yield :stylesheet
   %body
     %header.mb-5
-      %nav.navbar.navbar-expand-md.navbar-dark.bg-primary
+      %nav.navbar.navbar-expand-md.navbar-light.bg-primary
         = link_to root_path, class: 'navbar-brand' do
           = image_tag 'logo-white.png', height: '18px'
         %button.navbar-toggler{'aria-controls' => 'navbarSupportedContent', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbarSupportedContent', 'data-toggle' => 'collapse', :type => 'button'}
           %span.navbar-toggler-icon
         .collapse.navbar-collapse#navbarSupportedContent
           %ul.navbar-nav.ml-auto
-            %li.nav-item.active= link_to 'お問い合わせ', '#', class: 'nav-link'
-            %li.nav-item.active= link_to '商品を探す', '#', class: 'nav-link'
+            %form.form-inline.my-2.my-lg-0.mr-3
+              %input.form-control.mr-sm-2{"aria-label" => "Search", :placeholder => "Search", :type => "text"}/
+              %button.btn.btn-outline-secondary.my-2.my-sm-0{:type => "submit"} Search
             - if member_signed_in?
-              %li.nav-item.dropdown.active
+              %li.nav-item.active
+                = link_to member_carts_path, class: 'nav-link' do
+                  %i.fa.fa-shopping-cart.fa-fw.fa-lg
+                  カート
+                  - cart_quantity = current_member.carts.sum(:quantity)
+                  - if cart_quantity > 0
+                    %span.badge.badge-warning.py-1= cart_quantity
+              %li.nav-item.dropdown.active{style: 'height: 40px;'}
                 %a.nav-link.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', id: 'account_dropdown'}
+                  %i.fa.fa-user.fa-lg.fa-fw
                   = "#{current_member.account_name} さん"
                 .dropdown-menu{'aria-labelledby' => 'account_dropdown'}
-                  = link_to '#', class: 'dropdown-item small' do
+                  = link_to member_favorites_path, class: 'dropdown-item small' do
                     %i.fa.fa-fw.fa-heart
                     お気に入り
-                  = link_to '#', class: 'dropdown-item small' do
+                  = link_to member_purchases_path, class: 'dropdown-item small' do
                     %i.fa.fa-fw.fa-credit-card
-                    注文履歴
-                  = link_to '#', class: 'dropdown-item small' do
+                    購入履歴
+                  = link_to member_path, class: 'dropdown-item small' do
                     %i.fa.fa-fw.fa-user
                     会員情報
                   .dropdown-divider

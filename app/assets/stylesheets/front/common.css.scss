@@ -32,6 +32,19 @@ a:hover {
   @media (min-width: 768px) { display: none; }
 }
 
+header nav {
+  input::-webkit-input-placeholder {
+    color: #fff !important;
+  }
+  input::-moz-placeholder {
+    color: #fff !important;
+    opacity: 1;
+  }
+  input:-ms-input-placeholder {
+    color: #fff !important;
+  }
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

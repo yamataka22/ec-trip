@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   }
 
   resources :items, only: [:index, :show]
-  resources :purchases, only: [:index, :show, :new, :create] do
+  resources :purchases, only: [:new, :create] do
     collection do
       get :complete
     end
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resource :invoice_address, only: [:show, :create, :update]
     resources :delivery_addresses
     resources :credit_cards, only: [:index, :new, :create, :destroy]
+    resources :purchases, only: [:index, :show]
     collection do
       get :leave
       get :left
