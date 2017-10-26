@@ -1,0 +1,31 @@
+.text-center
+  %h4.mb-2
+    お届け先
+  %p.text-muted.mb-3 商品のお届け先住所を選択してください
+
+.row.justify-content-lg-center
+  .col-lg-10.col-lx-8
+    .row
+      - @addresses.each do |address|
+        .col-md-6.mb-3
+          = link_to new_purchase_path(delivery_address_id: address.id) do
+            .card
+              .card-header
+                = address.full_name
+              .card-body
+                %p
+                  = "〒#{address.postal_code}"
+                  %br/
+                  = address.address1
+                  %br/
+                  = address.address2
+                  %br/
+                  = "電話番号：#{address.phone}"
+      .col-md-6
+        = link_to new_member_delivery_address_path(purchase: true), remote: true do
+          .card{style: 'height: 190px; padding-top: 60px;'}
+            .card-body.text-center
+              他の住所を指定する
+.modal.fade.address_form_dialog
+  .modal-dialog
+    .modal-content

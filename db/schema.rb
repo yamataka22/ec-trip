@@ -170,7 +170,6 @@ ActiveRecord::Schema.define(version: 20171019091216) do
 
   create_table "purchases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",              null: false
-    t.integer  "credit_card_id",         null: false
     t.integer  "item_amount",            null: false
     t.integer  "tax",                    null: false
     t.integer  "delivery_fee",           null: false
@@ -188,10 +187,10 @@ ActiveRecord::Schema.define(version: 20171019091216) do
     t.integer  "invoice_prefecture_id",  null: false
     t.string   "invoice_address1",       null: false
     t.string   "invoice_address2"
-    t.string   "stripe_payment_id"
+    t.string   "credit_card_info",       null: false
+    t.string   "stripe_payment_id",      null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.index ["credit_card_id"], name: "index_purchases_on_credit_card_id", using: :btree
     t.index ["member_id"], name: "index_purchases_on_member_id", using: :btree
   end
 
@@ -212,6 +211,5 @@ ActiveRecord::Schema.define(version: 20171019091216) do
   add_foreign_key "items", "images", column: "caption_image_id"
   add_foreign_key "purchase_details", "items"
   add_foreign_key "purchase_details", "purchases"
-  add_foreign_key "purchases", "credit_cards"
   add_foreign_key "purchases", "members"
 end

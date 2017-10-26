@@ -4,7 +4,11 @@ class DeliveryAddressesController < FrontBase
   layout 'account'
 
   def index
+    if current_member.delivery_addresses.blank?
+      redirect_to new_member_delivery_address_path(purchase: params[:purchase]) and return
+    end
     @addresses = current_member.delivery_addresses
+    render '/purchases/delivery_addresses/index', layout: 'purchase' if params[:purchase].present?
   end
 
   def new
@@ -14,12 +18,33 @@ class DeliveryAddressesController < FrontBase
   def create
     @address = current_member.addresses.build(post_params)
     @address.delivery = true
-    respond_to do |format|
-      if @address.save
-        @addresses = current_member.delivery_addresses
-        format.js
+    save_success = @address.save
+    if params[:purchase].present?
+      if save_success
+        respond_to do |format|
+          format.js {render '/purchases/delivery_addresses/create' }
+          format.html {redirect_to new_purchase_path(delivery_address_id: @address.id)}
+        end
       else
-        format.js {render :new}
+        respond_to do |format|
+          format.js {render '/purchases/delivery_addresses/new' }
+          format.html {render '/purchases/delivery_addresses/new', layout: 'purchase' }
+        end
+      end
+    else
+      if save_success
+        respond_to do |format|
+          format.js {@addresses = current_member.delivery_addresses}
+          format.html do
+            flash[:success] = '登録が完了しました'
+            redirect_to member_delivery_addresses_path
+          end
+        end
+      else
+        respond_to do |format|
+          format.js {render :new}
+          format.html {render :new}
+        end
       end
     end
   end

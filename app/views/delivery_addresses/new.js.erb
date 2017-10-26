@@ -1,5 +1,7 @@
-var modal = $('.address_form_dialog')
+var modal = $('.address_form_dialog');
 modal.find('.modal-content').html("<%= escape_javascript(render 'new', address: @address) %>");
-modal.modal({
-    backdrop: 'static'
-});
+if (modal.css('display') == 'none') {
+    modal.modal({
+        backdrop: 'static'
+    });
+}

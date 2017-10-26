@@ -50,6 +50,10 @@ class Member < ApplicationRecord
     amount
   end
 
+  def invoice_address
+    self.addresses.find_by(invoice: true)
+  end
+
   def delivery_addresses
     self.addresses.where(delivery: true)
   end

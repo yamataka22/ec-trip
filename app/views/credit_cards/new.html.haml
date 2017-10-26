@@ -4,10 +4,11 @@
   .card-body
     = render 'form'
   .card-footer.text-right
-    = form_tag member_credit_cards_path, method: :post, remote: true, class: 'mb-0' do
-      = hidden_field_tag :purchase, params[:purchase]
+    = form_tag member_credit_cards_path, method: :post, class: 'mb-0' do
       = submit_tag '', style: 'display: none', id: 'stripe_submit'
       = button_tag '登録', class: 'btn btn-info btn-raised', onclick: 'stripe_js.createToken(); return false;'
-      %button.btn.btn-secondary.ml-2{'data-dismiss' => 'modal', 'aria-label' => 'Close'} キャンセル
-:javascript
-  $('#stripe_form').bootstrapMaterialDesign();
+- content_for :javascript do
+  %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}
+  :javascript
+    Stripe.setPublishableKey('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
+  = javascript_include_tag 'stripe_operate'

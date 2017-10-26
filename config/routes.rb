@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   }
 
   resources :items, only: [:index, :show]
+  resources :purchases, only: [:index, :show, :new, :create]
 
   resource :member, only: [:show, :update, :destroy] do
     resources :carts, only: [:index, :create, :update, :destroy]

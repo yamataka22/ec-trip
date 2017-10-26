@@ -1,0 +1,58 @@
+.purchase_wrap {
+  .purchase_flow {
+    margin-bottom: 40px;
+    .flow_line.step5 ul::before {
+      width: 80%;
+      left: 10%;
+    }
+    .flow_line ul::before {
+      content: "";
+      height: 4px;
+      background: #D3D3D3;
+      position: absolute;
+      top: 121px;
+      margin: 0;
+      border-radius: 2px;
+      z-index: 0;
+    }
+    .flow_line.step5 ul li {
+      width: 20%;
+    }
+    .flow_line li {
+      float: left;
+      position: relative;
+      text-align: center;
+      white-space: nowrap;
+      z-index: 0;
+      font-size: 1.2rem;
+      color: #D3D3D3;
+      a {
+        color: #D3D3D3;
+      }
+      span {
+        font-size: 0.8rem;
+      }
+    }
+    .flow_line li .flow_number {
+      line-height: 40px;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 5px;
+      margin-left: 8px;
+      background: #D3D3D3;
+      color: #fff;
+      top: 0;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      border-radius: 50%;
+    }
+    .flow_line li.active {
+      color: #4496EC;
+      span {color: #4496EC !important;}
+    }
+    .flow_line li.active .flow_number {
+      background: #4496EC;
+    }
+  }
+}

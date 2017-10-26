@@ -1,0 +1,8 @@
+= form_for @address, url: member_delivery_addresses_path, method: :post, html: {class: 'mb-0'} do |f|
+  .card
+    .card-header
+      住所
+    .card-body
+      = render 'addresses/form', f: f
+    .card-footer.text-right
+      = f.submit '登録', class: 'btn btn-info btn-raised'

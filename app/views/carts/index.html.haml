@@ -1,6 +1,7 @@
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/cart'
 .cart_index
+  - flash_messages
   - if current_member.carts&.size > 0
     .card
       .card-header.text-center

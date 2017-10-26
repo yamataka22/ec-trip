@@ -6,6 +6,6 @@
       = render 'addresses/form', f: f
     .card-footer.text-right
       = f.submit '更新', class: 'btn btn-info btn-raised'
-      = link_to 'キャンセル', member_delivery_addresses_path, class: 'btn btn-secondary ml-2'
+      %button.btn.btn-secondary.ml-2{'data-dismiss' => 'modal', 'aria-label' => 'Close'} キャンセル
 :javascript
   $('.edit_delivery_address_form').bootstrapMaterialDesign();

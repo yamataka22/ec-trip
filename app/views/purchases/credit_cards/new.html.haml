@@ -1,0 +1,17 @@
+.card#stripe_form
+  .card-header
+    クレジットカード情報
+  .card-body
+    = render '/credit_cards/form'
+  .card-footer.text-right
+    = form_tag member_credit_cards_path, method: :post, class: 'mb-0' do
+      = hidden_field_tag :purchase, true
+      = submit_tag '', style: 'display: none', id: 'stripe_submit'
+      .text-right
+        = button_tag class: 'btn btn-info bmd-btn-fab', onclick: 'stripe_js.createToken(); return false;' do
+          %i.material-icons arrow_forward
+- content_for :javascript do
+  %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}
+  :javascript
+    Stripe.setPublishableKey('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
+  = javascript_include_tag 'stripe_operate'
