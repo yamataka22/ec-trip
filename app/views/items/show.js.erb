@@ -1,0 +1,3 @@
+var modal = $('.item_detail_dialog');
+modal.find('.modal-content').html("<%= escape_javascript(render 'show', item: @item) %>");
+modal.modal();

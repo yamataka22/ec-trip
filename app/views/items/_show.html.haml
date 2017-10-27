@@ -1,0 +1,9 @@
+.modal-header
+  %h5.modal-title.text-center= item.name
+  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+    %i.fa.fa-times{"aria-hidden" => "true"}
+.modal-body
+  = item.about.try(:html_safe)
+  .text-center.mt-4
+    %button.btn.btn-outline-secondary{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+      閉じる

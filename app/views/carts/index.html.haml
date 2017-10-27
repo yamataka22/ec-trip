@@ -26,9 +26,10 @@
                   = link_to item_path(cart.item) do
                     = image_tag cart.item.caption_image_url
                 %td
-                  %h4.item_title= cart.item.name
-                  %p.text-muted= jpy(cart.item.price, prefix: true)
-                  %p.view_pc= cart.item.description
+                  = link_to item_path(cart.item) do
+                    %h4.item_title= cart.item.name
+                    %p.text-muted= jpy(cart.item.price, prefix: true)
+                    %p.view_pc= cart.item.description
                 %td
                   = form_for cart, url: member_cart_path(cart), class: 'form-inline' do |f|
                     - max_quantity = cart.item.stock_quantity < 5 ? cart.item.stock_quantity : 5

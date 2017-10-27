@@ -1,3 +1,5 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/item'
 .text-center
   %h4.mb-2
     ご注文内容の確認
@@ -39,13 +41,14 @@
         - 5.times do
           - @purchase.details.each do |detail|
             %hr.mt-0
-            .row
-              .col-5.col-lg-3
-                = image_tag detail.item.caption_image_url, class: 'img-fluid'
-              .col-7.col-lg-9
-                %h6= detail.item.name
-                %p.view_pc= detail.item.description
-                %p.mt-3= "#{jpy(detail.item.price, prefix: true, tax: :exclude)}  数量:#{detail.quantity}"
+            = link_to item_path(detail.item), remote: true do
+              .row
+                .col-5.col-lg-3
+                  = image_tag detail.item.caption_image_url, class: 'img-fluid'
+                .col-7.col-lg-9
+                  %h6= detail.item.name
+                  %p.view_pc= detail.item.description
+                  %p.mt-3= "#{jpy(detail.item.price, prefix: true, tax: :exclude)}  数量:#{detail.quantity}"
   .col-md-4
     .sticky-top{style: 'z-index: 0'}
       = form_for @purchase do |f|
@@ -70,3 +73,10 @@
               %tr.text-info
                 %td ご請求金額合計:
                 %td.text-right= jpy(@purchase.total_amount, prefix: true)
+        .text-center.mt-3
+          = link_to member_carts_path, class: 'btn btn-outline-secondary' do
+            %i.fa.fa-shopping-cart.fa-fw
+            カート画面に戻る
+.modal.fade.item_detail_dialog
+  .modal-dialog
+    .modal-content
