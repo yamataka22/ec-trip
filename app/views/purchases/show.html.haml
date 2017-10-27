@@ -1,0 +1,55 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %title
+      = "領収書 #{@purchase.purchase_no} | EC-TRIP"
+    / Required meta tags
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    / Bootstrap CSS
+    %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css", :integrity => "sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ", :rel => "stylesheet"}/
+    = stylesheet_link_tag    'front/purchase', media: 'all'
+  %body
+    .purchase_show
+      %header
+        %table
+          %tr
+            %td.logo= image_tag 'logo.png'
+            %td.purchase_info
+              %table
+                %tr
+                  %td.text-left 購入日:
+                  %td.text-right= @purchase.created_at.strftime('%Y年%m月%d日')
+                %tr
+                  %td.text-left 購入番号:
+                  %td.text-right= @purchase.purchase_no
+      .title.text-center
+        %h1 領収書
+      .main
+        %table.mb-3
+          %tr.name
+            %td.text-center.name{colspan: 3}
+              = "#{@purchase.invoice_last_name} #{@purchase.invoice_first_name}"
+              %span.small.ml-3 様
+          %tr.amount
+            %td{width: '150px'} 金額
+            %td.text-center{width: '150px'}
+              %strong= jpy(@purchase.total_amount, suffix: true)
+            %td{width: '150px'}
+        %p 但し 商品購入代金として
+        %p.text-center
+          上記の金額正に領収いたしました。
+          %br/
+          （クレジットカード払い）
+      %footer.text-right
+        %strong EC-TRIP
+        %br/
+        〒 000-0000 東京都中央区 0-0-0
+        .btn_print
+          %hr/
+          %a.btn.btn-primary{href: '#', onclick: 'window.print(); return false;'} 印刷する
+
+    / jQuery first, then Tether, then Bootstrap JS.
+    %script{:crossorigin => "anonymous", :integrity => "sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n", :src => "https://code.jquery.com/jquery-3.1.1.slim.min.js"}
+    %script{:crossorigin => "anonymous", :integrity => "sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb", :src => "https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"}
+    %script{:crossorigin => "anonymous", :integrity => "sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn", :src => "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"}

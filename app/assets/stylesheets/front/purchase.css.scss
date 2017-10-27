@@ -56,3 +56,56 @@
     }
   }
 }
+
+.purchase_show {
+  width: 800px;
+  padding: 30px;
+
+  header {
+    margin-bottom: 40px;
+    .logo {
+      width: 400px;
+      img {
+        width: 180px;
+      }
+    }
+    .purchase_info {
+      width: 400px;
+      table {
+        margin-left: auto;
+        margin-right: 0
+      }
+    }
+  }
+  .title {
+    margin-bottom: 20px;
+  }
+  .main {
+    width: 400px;
+    margin: 0 auto;
+
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+      tr {
+        border-bottom: 2px solid #000;
+        font-size: 1.5rem;
+        line-height: 3rem;
+        td {
+          padding-top: 20px;
+        }
+      }
+
+    }
+  }
+  .btn_print {
+    margin-top: 50px;
+  }
+  @media print {
+    size: A4;
+    .btn_print {
+      display: none;
+    }
+
+  }
+}
