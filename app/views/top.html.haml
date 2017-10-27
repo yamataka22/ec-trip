@@ -27,13 +27,13 @@
   %a.carousel-control-next{"data-slide" => "next", :href => "#top_slider", :role => "button"}
     %span.carousel-control-next-icon{"aria-hidden" => "true"}
     %span.sr-only Next
-.container.hidden-xs-down
+.container.view_pc
   .container
     %ul.nav.nav-pills.nav-justified
       - Category.all.order(:sequence).each do |category|
         %li.nav-item
-          = link_to category.name, '#', class: 'btn nav-link mb-0'
-%hr.m-0
+          = link_to category.name, items_path(item_search_form: {category_id: category.id}), class: 'btn nav-link mb-0'
+%hr.mt-0.mb-4
 .container
   .row
     - 10.times do

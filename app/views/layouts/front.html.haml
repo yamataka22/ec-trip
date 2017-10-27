@@ -15,16 +15,21 @@
     = yield :stylesheet
   %body
     %header.mb-5
-      %nav.navbar.navbar-expand-md.navbar-light.bg-primary
-        = link_to root_path, class: 'navbar-brand' do
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-primary
+        = link_to root_path, class: 'navbar-brand mr-4' do
           = image_tag 'logo-white.png', height: '18px'
         %button.navbar-toggler{'aria-controls' => 'navbarSupportedContent', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbarSupportedContent', 'data-toggle' => 'collapse', :type => 'button'}
           %span.navbar-toggler-icon
         .collapse.navbar-collapse#navbarSupportedContent
+          %ul.navbar-nav
+            = form_for ItemSearchForm.new, url: items_path, method: :get, class: 'form-inline my-2 my-lg-0' do |f|
+              = f.text_field :keyword, placeholder: 'キーワード', class: 'form-control mr-sm-2'
+              = f.submit 'Search', class: 'btn btn-outline-secondary my-2 my-sm-0'
           %ul.navbar-nav.ml-auto
-            %form.form-inline.my-2.my-lg-0.mr-3
-              %input.form-control.mr-sm-2{"aria-label" => "Search", :placeholder => "Search", :type => "text"}/
-              %button.btn.btn-outline-secondary.my-2.my-sm-0{:type => "submit"} Search
+            %li.nav-item.active
+              = link_to items_path, class: 'nav-link' do
+                %i.fa.fa-fw.fa-lg.fa-search
+                商品を探す
             - if member_signed_in?
               %li.nav-item.active
                 = link_to member_carts_path, class: 'nav-link' do

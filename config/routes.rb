@@ -48,5 +48,5 @@ Rails.application.routes.draw do
   end
 
   post '/tinymce_assets' => 'admin/images#create_tinymce'
-  root 'top#index'
+  root 'items#index'
 end
