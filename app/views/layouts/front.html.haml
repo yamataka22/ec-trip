@@ -26,19 +26,19 @@
               = f.text_field :keyword, placeholder: 'キーワード', class: 'form-control mr-sm-2'
               = f.submit 'Search', class: 'btn btn-outline-secondary my-2 my-sm-0'
           %ul.navbar-nav.ml-auto
-            %li.nav-item.active
+            %li.nav-item
               = link_to items_path, class: 'nav-link' do
                 %i.fa.fa-fw.fa-lg.fa-search
                 商品を探す
             - if member_signed_in?
-              %li.nav-item.active
+              %li.nav-item
                 = link_to member_carts_path, class: 'nav-link' do
                   %i.fa.fa-shopping-cart.fa-fw.fa-lg
                   カート
                   - cart_quantity = current_member.carts.sum(:quantity)
                   - if cart_quantity > 0
                     %span.badge.badge-warning.py-1= cart_quantity
-              %li.nav-item.dropdown.active{style: 'height: 40px;'}
+              %li.nav-item.dropdown{style: 'height: 40px;'}
                 %a.nav-link.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', id: 'account_dropdown'}
                   %i.fa.fa-user.fa-lg.fa-fw
                   = "#{current_member.account_name} さん"
@@ -57,13 +57,22 @@
                     %i.fa.fa-fw.fa-lock
                     ログアウト
             - else
-              %li.nav-item.active= link_to 'ログイン', new_session_path(:member), class: 'nav-link'
-              %li.nav-item.active= link_to '会員登録', members_sign_up_select_path, class: 'nav-link'
+              %li.nav-item= link_to 'ログイン', new_session_path(:member), class: 'nav-link'
+              %li.nav-item= link_to '会員登録', members_sign_up_select_path, class: 'nav-link'
     = content_for?(:content) ? yield(:content) : yield
     .mb-5 &nbsp;
     %footer.footer
       .container
-        %span Footer
+        .pull-left
+          %ul.list-inline
+            %li.list-inline-item.mr-3= link_to '当サイトについて', about_path
+            %li.list-inline-item.mr-3= link_to 'プライバシーポリシー', privacy_path
+            %li.list-inline-item.mr-3= link_to '特定商取引法に基づく表記', commercial_path
+            -#%li.list-inline-item= link_to 'お問い合わせ', '#'
+        .pull-right.text-right
+          %h3 EC-TRIP DEMO SITE
+          .small Copyright &copy; 2017 EC-TRIP All Rights Reserved.
+
     = javascript_include_tag 'front'
     :javascript
       $(document).ready(function() { $('body').bootstrapMaterialDesign(); });

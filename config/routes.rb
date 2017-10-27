@@ -47,6 +47,10 @@ Rails.application.routes.draw do
     root 'dashboard#index', as: :root
   end
 
+  get 'privacy' => 'static_pages#privacy'
+  get 'about' => 'static_pages#about'
+  get 'commercial' => 'static_pages#commercial'
+
   post '/tinymce_assets' => 'admin/images#create_tinymce'
   root 'items#index'
 end
