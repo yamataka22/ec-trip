@@ -12,4 +12,8 @@
           = item.name
           %br/
           %span.small.text-muted= jpy(item.price, prefix: true, tax: :exclude)
-        %p.mb-0.text-justify.text-muted= item.description
+        %p.mb-0.text-justify
+          - if item.can_sell?
+            %span.text-muted= item.description
+          - else
+            %span.text-danger この商品は現在お取り扱いしていません。

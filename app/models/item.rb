@@ -43,4 +43,8 @@ class Item < ApplicationRecord
       'no_img.jpg'
     end
   end
+
+  def can_sell?
+    self.selling? && self.stock_quantity > 0
+  end
 end

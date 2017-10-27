@@ -3,12 +3,12 @@ class Members::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # devise :omniauthable, omniauth_providers: [:twitter]
 
   def facebook
-    @member = Member.from_facebook_omniauth(request.env['omniauth.auth'])
+    @member = Member.from_omniauth(request.env['omniauth.auth'])
     callback('Facebook')
   end
 
   def twitter
-    @member = Member.from_twitter_omniauth(request.env['omniauth.auth'])
+    @member = Member.from_omniauth(request.env['omniauth.auth'])
     callback('Twitter')
   end
 

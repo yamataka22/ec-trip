@@ -2,9 +2,16 @@
   = stylesheet_link_tag 'front/cart'
 .cart_index
   - flash_messages
-  - if current_member.carts&.size > 0
+  - if @carts.size > 0
     .text-center.mt-4.mb-3
-      %p.lead= "合計（#{current_member.counts_cart}点）:#{jpy(current_member.total_cart_amount, prefix: true, tax: :exclude)}"
+      - @carts.each do |cart|
+        - item_error = cart.item_error
+        - if item_error.present?
+          .alert.alert-danger
+            = "#{cart.item.name}は販売終了となりました。申し訳ございませんが、カートから削除してください。" if item_error == :item_end
+            = "#{cart.item.name}は一時的に在庫切れとなっています。申し訳ございませんが、カートから削除してください。" if item_error == :zero
+            = "#{cart.item.name}は残り#{cart.item.stock_quantity}点となりました。申し訳ございませんが、数量を変更してください。" if item_error == :minus
+      %p.lead= "合計（#{current_member.carts.sum(:quantity)}点）:#{jpy(current_member.total_cart_amount, prefix: true, tax: :exclude)}"
       = link_to new_purchase_path, class: 'btn btn-warning btn-raised' do
         %i.fa.fa-arrow-right
         レジへ進む
@@ -18,7 +25,7 @@
               %th 数量
           %tbody
             - @carts.each do |cart|
-              %tr
+              %tr{class: "#{'table-danger' if cart.item_error.present?}"}
                 %td.text-center
                   = link_to member_cart_path(cart), method: :delete do
                     %i.fa.fa-times.fa-lg
@@ -28,16 +35,16 @@
                 %td
                   = link_to item_path(cart.item) do
                     %h4.item_title= cart.item.name
-                    %p.text-muted= jpy(cart.item.price, prefix: true)
-                    %p.view_pc= cart.item.description
+                  %p.text-muted= jpy(cart.item.price, prefix: true)
+                  %p.view_pc= cart.item.description
                 %td
                   = form_for cart, url: member_cart_path(cart), class: 'form-inline' do |f|
                     - max_quantity = cart.item.stock_quantity < 5 ? cart.item.stock_quantity : 5
-                    = f.select :quantity, options_for_select((1..max_quantity).to_a, selected: cart.quantity), {}, {class: 'form-control quantity_select'}
+                    = f.select :quantity, options_for_select(1..max_quantity, selected: cart.quantity), {include_blank: cart.item_error.present?}, {class: 'form-control quantity_select'}
   - else
+    .alert.alert-primary カートに商品がありません
     .text-center
-      .alert.alert-primary カートに商品がありません
-      = link_to '商品を探す', items_path, class: 'btn btn-secondary'
+      = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'
 - content_for :javascript do
   :javascript
     $(document).ready(function(){

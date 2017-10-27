@@ -13,30 +13,11 @@ class Member < ApplicationRecord
   has_many :credit_cards
   has_many :addresses
 
-  # accepts_nested_attributes_for :addresses
-  # accepts_nested_attributes_for :credit_cards
-
   validates_uniqueness_of :account_name, :case_sensitive => false
   validates :account_name, presence: true, length: {maximum: 15}
 
-  def self.from_facebook_omniauth(auth)
+  def self.from_omniauth(auth)
     find_by(provider: auth.provider, uid: auth.uid)
-  end
-
-  def self.from_twitter_omniauth(auth)
-    find_by(provider: auth.provider, uid: auth.uid)
-  end
-
-  def counts_cart
-    self.carts.sum(:quantity)
-  end
-
-  def carts_sub_total
-    amount = 0
-    self.carts.each do |cart|
-      amount += cart.item.price * cart.quantity
-    end
-    amount
   end
 
   def total_cart_amount

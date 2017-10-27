@@ -6,6 +6,12 @@
   .container
     .row.justify-content-lg-center
       .col-lg-11.col-xl-10
+        - if @item.end_of_sell?
+          .alert.alert-danger この商品は販売を終了しています。
+        - elsif @item.stock_quantity == 0
+          .alert.alert-danger この商品は一時的に在庫切れとなっています。
+        - if flash[:error].present?
+          .alert.alert-danger= flash[:error]
         - if cart_added
           .alert.alert-primary
             .clearfix.pt-1
@@ -24,9 +30,10 @@
                 = @item.about.try(:html_safe)
               .card-footer.text-center.pt-3
                 - cart_path = member_signed_in? ? member_carts_path(item_id: @item.id) : new_session_path(:member)
-                = link_to cart_path, method: :post, class: 'btn btn-outline-warning mr-3' do
-                  %i.fa.fa-fw.fa-cart-plus
-                  カートに追加する
+                - if @item.can_sell?
+                  = link_to cart_path, method: :post, class: 'btn btn-outline-warning mr-3' do
+                    %i.fa.fa-fw.fa-cart-plus
+                    カートに追加する
                 = link_to items_path, class: 'btn btn-outline-secondary' do
                   %i.fa.fa-fw.fa-arrow-left
                   一覧に戻る

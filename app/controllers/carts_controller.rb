@@ -7,7 +7,9 @@ class CartsController < FrontBase
   end
 
   def create
-    Cart.add_item(current_member, params[:item_id])
+    unless Cart.add_item(current_member, params[:item_id])
+      flash[:error] = 'カートに商品を追加することができません'
+    end
     redirect_to item_path(id: params[:item_id], cart_added: true)
   end
 
@@ -15,8 +17,13 @@ class CartsController < FrontBase
     cart = current_member.carts.find(params[:id])
     cart.quantity = params[:cart][:quantity]
     cart.save!
-    flash[:success] = "#{cart.item.name} の数量を変更しました。"
-    redirect_to action: :index
+    if Cart.add_item(current_member, params[:item_id], params[:cart][:quantity])
+      flash[:success] = "#{cart.item.name} の数量を変更しました。"
+    else
+      flash[:error] = '数量を変更することができません。'
+    end
+
+    redirect_to member_carts_path
   end
 
   def destroy

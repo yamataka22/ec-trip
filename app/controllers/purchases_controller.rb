@@ -6,7 +6,7 @@ class PurchasesController < FrontBase
   end
 
   def new
-    redirect_to member_carts_path and return if current_member.carts.blank?
+    redirect_to member_carts_path and return if current_member.carts.blank? || current_member.carts.find {|cart| cart.item_error.present? }
 
     session[:purchase] ||= {}
     if params[:delivery_address_id].present? &&
