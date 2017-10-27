@@ -2,4 +2,5 @@
   退会した場合、お客様の全てのデータを参照できなくなります。
   %br/
   退会してもよろしいでしょうか？
-= link_to '退会する', member_path, method: :delete, class: 'btn btn-danger btn-raised'
+= link_to 'キャンセル', member_path, class: 'btn btn-info btn-raised mr-3'
+= link_to '退会する', member_path, method: :delete, class: 'btn btn-danger btn-raised', data: {confirm: 'よろしいでしょうか？'}

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get 'privacy' => 'static_pages#privacy'
   get 'about' => 'static_pages#about'
   get 'commercial' => 'static_pages#commercial'
+  get 'terms' => 'static_pages#terms'
 
   post '/tinymce_assets' => 'admin/images#create_tinymce'
   root 'items#index'

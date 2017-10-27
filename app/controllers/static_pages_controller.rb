@@ -8,4 +8,7 @@ class StaticPagesController < FrontBase
 
   def commercial
   end
+
+  def terms
+  end
 end

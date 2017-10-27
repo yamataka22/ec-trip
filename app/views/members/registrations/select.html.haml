@@ -8,21 +8,21 @@
           登録方法をお選びください
         .card-body
           .row.mb-3.mt-3
-            .col-sm-4.text-center
+            .col-4.text-center
               = link_to new_registration_path(:member) do
-                = button_tag class: 'btn btn-primary bmd-btn-fab' do
+                = button_tag class: 'btn btn-info bmd-btn-fab' do
                   %i.material-icons mail_outline
               %br/
               %span.small メールアドレス
-            .col-sm-4.text-center
+            .col-4.text-center
               = link_to member_facebook_omniauth_authorize_path do
-                = button_tag class: 'btn btn-primary bmd-btn-fab' do
+                = button_tag class: 'btn btn-primary bmd-btn-fab btn_fab_facebook' do
                   %i.fa.fa-facebook.fa-fw
               %br/
               %span.small Facebook
-            .col-sm-4.text-center
+            .col-4.text-center
               = link_to member_twitter_omniauth_authorize_path do
-                = button_tag class: 'btn btn-primary bmd-btn-fab' do
+                = button_tag class: 'btn btn-primary bmd-btn-fab btn_fab_twitter' do
                   %i.fa.fa-twitter.fa-fw
               %br/
               %span.small Twitter

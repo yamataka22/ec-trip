@@ -24,21 +24,21 @@
                 = f.check_box :remember_me
                 ログインしたままにする
           .float-right
-            = button_tag class: 'btn btn-primary bmd-btn-fab', id: 'btn_submit', onclick: '$(this).parent("form").submit();' do
+            = button_tag class: 'btn btn-info bmd-btn-fab', id: 'btn_submit', onclick: '$(this).parent("form").submit();' do
               %i.material-icons arrow_forward
   .col-md-4
-    .card.mb-5
+    .card.mb-4
       %h6.card-header.text-center
         SNSでログイン
       .card-body
         .mb-4
           = link_to member_facebook_omniauth_authorize_path do
-            = button_tag class: 'btn btn-primary btn-block btn-lg' do
+            = button_tag class: 'btn btn-primary btn-block btn-lg btn_facebook' do
               %i.fa.fa-facebook.fa-fw
               Facebook
         .mb-1
           = link_to member_twitter_omniauth_authorize_path do
-            = button_tag class: 'btn btn-primary btn-block btn-lg' do
+            = button_tag class: 'btn btn-primary btn-block btn-lg btn_twitter' do
               %i.fa.fa-twitter.fa-fw
               Twitter
     .text-center

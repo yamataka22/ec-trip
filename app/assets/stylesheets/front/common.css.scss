@@ -32,6 +32,8 @@ a:hover {
   @media (min-width: 768px) { display: none; }
 }
 
+
+// header
 header nav {
   input::-webkit-input-placeholder {
     color: #4B5057 !important;
@@ -45,8 +47,7 @@ header nav {
   }
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+// footer
 html {
   position: relative;
   min-height: 100%;
@@ -68,4 +69,20 @@ body {
     font-size: 0.9rem;
     color: #4B5057;
   }
+}
+
+// sns
+.btn_fab_facebook {
+  background-color: #405A93 !important;
+}
+.btn_fab_twitter {
+  background-color: #69ABE8 !important;
+}
+.btn_facebook {
+  color: #405A93 !important;
+  text-transform: none;
+}
+.btn_twitter {
+  color: #69ABE8 !important;
+  text-transform: none;
 }
