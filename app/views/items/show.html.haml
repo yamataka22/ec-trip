@@ -12,8 +12,8 @@
               .float-left
                 %p.pt-1.mb-0= params[:cart_added] ? 'カートに追加しました' : 'この商品はカートに追加されています'
               .float-right
-                = link_to 'カートを編集', '#', class: 'btn btn-success'
-                = link_to 'レジに進む', '#', class: 'btn btn-primary btn-raised'
+                = link_to 'カートを編集', member_carts_path, class: 'btn btn-info'
+                = link_to 'レジに進む', new_purchase_path, class: 'btn btn-warning btn-raised'
         .row
           .col-md-8
             .card.item_about.mb-3

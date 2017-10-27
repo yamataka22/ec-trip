@@ -3,12 +3,12 @@
 .cart_index
   - flash_messages
   - if current_member.carts&.size > 0
+    .text-center.mt-4.mb-3
+      %p.lead= "合計（#{current_member.counts_cart}点）:#{jpy(current_member.total_cart_amount, prefix: true, tax: :exclude)}"
+      = link_to new_purchase_path, class: 'btn btn-warning btn-raised' do
+        %i.fa.fa-arrow-right
+        レジへ進む
     .card
-      .card-header.text-center
-        %p.lead= "合計（#{current_member.counts_cart}点）:#{jpy(current_member.total_cart_amount, prefix: true, tax: :exclude)}"
-        = link_to '#', class: 'btn btn-warning' do
-          %i.fa.fa-arrow-right
-          レジへ進む
       .card-body
         %table.table.cart_list.table-hover
           %thead
