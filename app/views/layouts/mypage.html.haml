@@ -10,11 +10,11 @@
           %i.fa.fa-shopping-cart.fa-fw.fa-lg
           %span.view_pc カートの中身
       %li.nav-item
-        = link_to '#', class: "nav-link #{'active' if controller.controller_name == 'payments'}" do
+        = link_to member_purchases_path, class: "nav-link #{'active' if controller.controller_name == 'purchases'}" do
           %i.fa.fa-file-text.fa-fw.fa-lg
           %span.view_pc 購入履歴
       %li.nav-item
-        = link_to edit_member_registration_path, class: "nav-link #{'active' unless %w(favorites carts payments).include?(controller.controller_name)}" do
+        = link_to edit_member_registration_path, class: "nav-link #{'active' unless %w(favorites carts purchases).include?(controller.controller_name)}" do
           %i.fa.fa-user.fa-fw.fa-lg
           %span.view_pc アカウント情報
     = content_for?(:mypage) ? yield(:mypage) : yield

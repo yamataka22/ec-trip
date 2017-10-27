@@ -88,6 +88,10 @@ class Purchase < ApplicationRecord
     self.tax = Util.calc_tax(self.item_amount + self.delivery_fee)
   end
 
+  def purchase_no
+    "#{self.created_at.year}-#{format('%07d', self.id)}"
+  end
+
   private
   def set_invoice
     invoice_address = self.member.invoice_address

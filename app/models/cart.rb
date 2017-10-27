@@ -2,11 +2,12 @@ class Cart < ApplicationRecord
   belongs_to :member
   belongs_to :item
 
-  validates :quantity, numericality: { only_integer: true, greater_than: 1 }, presence: true
+  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, presence: true
 
   def self.add_item(member, item_id, quantity = 1)
     cart = Cart.find_or_initialize_by(member: member, item_id: item_id)
     cart.quantity += quantity
+    logger.debug 'カート' + cart.quantity.to_s
     if cart.item_error.present?
       return false
     else

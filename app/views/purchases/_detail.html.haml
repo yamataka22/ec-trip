@@ -1,0 +1,11 @@
+.row
+  .col-5.col-lg-3
+    = link_to item_path(detail.item), remote: remote do
+      = image_tag detail.item.caption_image_url, class: 'img-fluid'
+  .col-7.col-lg-9
+    = link_to item_path(detail.item), remote: remote do
+      %h6= detail.item.name
+    %p.view_pc= detail.item.description
+    .mt-3= "#{jpy(detail.item.price, prefix: true, tax: :exclude)}  数量:#{detail.quantity}"
+- if detail_counter < detail_iteration.size - 1
+  %hr/

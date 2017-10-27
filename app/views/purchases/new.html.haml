@@ -39,16 +39,7 @@
             %p.pl-2= @purchase.credit_card_info
         %h6 ご注文商品・数量
         - 5.times do
-          - @purchase.details.each do |detail|
-            %hr.mt-0
-            = link_to item_path(detail.item), remote: true do
-              .row
-                .col-5.col-lg-3
-                  = image_tag detail.item.caption_image_url, class: 'img-fluid'
-                .col-7.col-lg-9
-                  %h6= detail.item.name
-                  %p.view_pc= detail.item.description
-                  %p.mt-3= "#{jpy(detail.item.price, prefix: true, tax: :exclude)}  数量:#{detail.quantity}"
+          = render partial: 'detail', collection: @purchase.details, as: :detail, locals: {remote: true}
   .col-md-4
     .sticky-top{style: 'z-index: 0'}
       = form_for @purchase do |f|

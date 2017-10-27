@@ -1,8 +1,9 @@
 class PurchasesController < FrontBase
   before_action :authenticate_member!
-  layout 'purchase'
 
   def index
+    @purchases = current_member.purchases.order(created_at: :desc)
+    render layout: 'mypage'
   end
 
   def new
@@ -24,7 +25,7 @@ class PurchasesController < FrontBase
 
     @purchase = current_member.purchases.build
     @purchase.set_attribute(session[:purchase]['delivery_address_id'], session[:purchase]['credit_card_id'])
-    render :new
+    render :new, layout: 'purchase'
   end
 
   def create
@@ -35,13 +36,13 @@ class PurchasesController < FrontBase
       redirect_to complete_purchases_path
     else
       @purchase.set_amount
-      render :new
+      render :new, layout: 'purchase'
     end
   end
 
   def complete
     @message = 'ご購入ありがとうございました。'
-    render '/message', layout: 'front'
+    render '/message'
   end
 
   private
@@ -54,4 +55,5 @@ class PurchasesController < FrontBase
         details_attributes: [:item_id, :item_name, :price, :quantity]
     )
   end
+
 end
