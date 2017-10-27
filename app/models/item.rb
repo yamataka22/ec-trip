@@ -27,6 +27,9 @@ class Item < ApplicationRecord
       end
       self.about.gsub!('src="assets', 'src="/assets')
     end
+
+    self.stock_quantity = 0 if self.end_of_sell?
+
     if self.unpublished? || valid?(:publish)
       super
     end
