@@ -15,9 +15,9 @@
     = yield :stylesheet
   %body
     %header.mb-5
-      %nav.navbar.navbar-expand-lg.navbar-light.bg-primary
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
         = link_to root_path, class: 'navbar-brand mr-4' do
-          = image_tag 'logo-white.png', height: '18px'
+          = image_tag 'logo.png', height: '18px'
         %button.navbar-toggler{'aria-controls' => 'navbarSupportedContent', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbarSupportedContent', 'data-toggle' => 'collapse', :type => 'button'}
           %span.navbar-toggler-icon
         .collapse.navbar-collapse#navbarSupportedContent

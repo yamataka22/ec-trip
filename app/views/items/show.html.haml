@@ -2,6 +2,7 @@
 - cart_added = current_member&.carts&.find{|cart| cart.item_id == @item.id}
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/item'
+  = stylesheet_link_tag 'magnific-popup/dist/magnific-popup'
 .item_show
   .container
     .row.justify-content-lg-center
@@ -26,8 +27,9 @@
               .card-header.text-center
                 %h1.h3= @item.name
                 %p.text-muted= @item.description
-              .card-body
+              .card-body.item_cms
                 = @item.about.try(:html_safe)
+                %a.image-link{href: '#'}
               .card-footer.text-center.pt-3
                 - cart_path = member_signed_in? ? member_carts_path(item_id: @item.id) : new_session_path(:member)
                 - if @item.can_sell?
@@ -63,6 +65,7 @@
             = render 'favorites/button', item: @item, favorite: favorite, button_size: 'bmd-btn-fab-sm'
             = render 'carts/button', item: @item, button_size: 'bmd-btn-fab-sm'
 - content_for :javascript do
+  = javascript_include_tag 'magnific-popup/dist/jquery.magnific-popup.min'
   :javascript
     $(function () {
       $('[data-toggle="tooltip"]').tooltip({
@@ -78,4 +81,20 @@
           $('.operation_sp').show();
         }
       });
+    });
+
+    $(document).ready(function() {
+      $('.image-link').magnificPopup({
+        type:'image',
+        removalDelay: 300,
+        mainClass: 'mfp-fade',
+        gallery:{
+          enabled:true
+        }
+      });
+    });
+
+    $('.item_cms').find('img').click(function() {
+      $('.image-link').attr('href', $(this).attr('src'));
+      $('.image-link').click();
     });
