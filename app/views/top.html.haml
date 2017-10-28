@@ -1,40 +1,69 @@
 - content_for :stylesheet do
+  = stylesheet_link_tag 'front/top'
   = stylesheet_link_tag 'front/item'
 #top_slider.carousel.slide{'data-ride' => 'carousel', style: 'margin-top: -5rem;'}
-  %ol.carousel-indicators
-    %li.active{'data-target' => '#top_slider', 'data-slide-to' => '0'}
-    %li{'data-target' => '#top_slider', 'data-slide-to' => '1'}
   .carousel-inner
-    .carousel-item.active{style: 'max-height: 480px'}
+    .carousel-item.active
       = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
-      .container
-        .carousel-caption.d-none.d-md-block.text-left.pb-5
-          %h1{style: 'color: #fff'} EC-TRIP DEMO SHOP
-          %p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-          %p
-            %a.btn.btn-lg.btn-raised.btn-primary{:href => "#", :role => "button"} Sign up today
-    .carousel-item{style: 'max-height: 480px'}
+      .carousel-caption.text-left
+        %h2 カウチソファ特集
+        %p EC-TRIPスタッフが厳選したカウチソファをご紹介
+        = link_to 'VIEW', '#', class: 'btn btn-info btn-raised'
+    .carousel-item
       = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
-      .container
-        .carousel-caption.d-none.d-md-block.text-center.pb-5
-          %h1{style: 'color: #fff'} Example headline.
-          %p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-          %p
-            %a.btn.btn-lg.btn-primary{:href => "#", :role => "button"} Sign up today
-  %a.carousel-control-prev{"data-slide" => "prev", :href => "#top_slider", :role => "button"}
-    %span.carousel-control-prev-icon{"aria-hidden" => "true"}
-    %span.sr-only Previous
-  %a.carousel-control-next{"data-slide" => "next", :href => "#top_slider", :role => "button"}
-    %span.carousel-control-next-icon{"aria-hidden" => "true"}
-    %span.sr-only Next
-.container.view_pc
+      .carousel-caption.text-left
+        %h2 ダイニング特集
+        %p 流行のスタイルを取り入れたダイニングスペースを演出
+        = link_to 'VIEW', '#', class: 'btn btn-info btn-raised'
+  .view_pc
+    %a.carousel-control-prev{"data-slide" => "prev", :href => "#top_slider", :role => "button"}
+      %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+      %span.sr-only Previous
+    %a.carousel-control-next{"data-slide" => "next", :href => "#top_slider", :role => "button"}
+      %span.carousel-control-next-icon{"aria-hidden" => "true"}
+      %span.sr-only Next
+.category_area.view_pc
   .container
     %ul.nav.nav-pills.nav-justified
       - Category.all.order(:sequence).each do |category|
         %li.nav-item
           = link_to category.name, items_path(item_search_form: {category_id: category.id}), class: 'btn nav-link mb-0'
-%hr.mt-0.mb-4
+%hr.mt-0.mb-5
 .container
-  .row
-    - 10.times do
-      = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites}
+  %section.pickup
+    %h4
+      %i.fa.fa-tag.fa-fw
+      PICK UP!
+      %span.small.text-muted.ml-2 スタッフおすすめ
+    .row
+      - 6.times do
+        = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites}
+    .text-right
+      = link_to items_path, class: 'btn btn-info btn-raised' do
+        MORE
+        %i.fa.fa-angle-right.fa-fw
+  %section.arrival_new
+    %h4
+      %i.fa.fa-bell.fa-fw
+      ARRIVAL NEW
+      %span.small.text-muted.ml-2 新着商品
+    .row
+      - 6.times do
+        = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites}
+    .text-right
+      = link_to items_path, class: 'btn btn-info btn-raised' do
+        MORE
+        %i.fa.fa-angle-right.fa-fw
+  %section.information
+    %h4.mb-3.mt-5
+      %i.fa.fa-info-circle.fa-fw
+      INFORMATION
+    %p
+      %span.small.text-muted 2017/10/21
+      %br/
+      バイヤーズブログを更新しました
+    %hr/
+    %p
+      %span.small.text-muted 2017/10/21
+      %br/
+      = link_to 'バイヤーズブログを更新しました', '#'
