@@ -7,7 +7,7 @@
       = render 'form', f: f
       .float-right
         = f.submit '登録', class: 'btn btn-primary mr-2'
-        = link_to 'キャンセル', admin_categories_path, class: 'btn btn-light'
+        = link_to 'キャンセル', admin_items_path, class: 'btn btn-light'
 = render 'admin/images/new'
 - content_for :javascript do
   = javascript_include_tag 'tinymce'

@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      topic: トピックス
+    attributes:
+      topic:
+        text: 本文
+        link: リンク先

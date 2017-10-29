@@ -4,7 +4,6 @@ class ItemsController < FrontBase
     @items = @search_form.search(params[:page])
     @favorites = current_member.favorites.where(item: @items.map{|item| item.id}) if member_signed_in?
     session['item_search_params'] = view_context.search_conditions_keeper(params, [:category_id, :name, :order_type, :price_floor, :price_ceil])
-    render '/top' if request.fullpath == '/'
   end
 
   def show

@@ -1,0 +1,25 @@
+- @crumbs = [{title: 'トピック管理'}]
+
+.card
+  .card-header.pt-3
+    トピック一覧
+    = link_to new_admin_topic_path, class: 'btn btn-success btn-sm float-right mb-0' do
+      %i.fa.fa-plus
+      新規作成
+  .card-body
+    %table.table.table-bordered.table-sm.table-striped
+      %thead
+        %tr
+          %th{width: '20%'}= t('activerecord.attributes.created_at')
+          %th{width: '60%'}= t('activerecord.attributes.topic.text')
+          %th{width: '15%'}
+      %tbody
+        - @topics.each do |topic|
+          %tr
+            %td= topic.created_at.strftime('%Y/%m/%d %H:%M')
+            %td= topic.text
+            %td
+              = link_to '編集', edit_admin_topic_path(topic)
+              &nbsp;/&nbsp
+              = link_to '削除', admin_topic_path(topic), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
+    = paginate @topics

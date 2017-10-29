@@ -1,0 +1,10 @@
+- @crumbs = [{title: 'トピック管理', path: admin_topics_path}, {title: '編集'}]
+= form_for @topic, url: admin_topic_path(@topic) do |f|
+  .card
+    .card-header
+      インフォメーション
+    .card-body
+      = render 'form', f: f
+      .float-right
+        = f.submit '更新', class: 'btn btn-primary mr-2'
+        = link_to 'キャンセル', admin_topics_path, class: 'btn btn-light'

@@ -39,9 +39,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :topics, only: [:index]
+
   namespace :admin, path: 'admin' do
     resources :categories, except: :show
     resources :items, except: :show
+    resources :topics, except: :show
 
     resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root
@@ -53,5 +56,5 @@ Rails.application.routes.draw do
   get 'terms' => 'static_pages#terms'
 
   post '/tinymce_assets' => 'admin/images#create_tinymce'
-  root 'items#index'
+  root 'top#index'
 end

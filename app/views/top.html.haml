@@ -1,6 +1,7 @@
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/top'
   = stylesheet_link_tag 'front/item'
+  = stylesheet_link_tag 'front/topic'
 #top_slider.carousel.slide{'data-ride' => 'carousel', style: 'margin-top: -5rem;'}
   .carousel-inner
     .carousel-item.active
@@ -36,8 +37,7 @@
       PICK UP!
       %span.small.text-muted.ml-2 スタッフおすすめ
     .row
-      - 6.times do
-        = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites}
+      = render partial: 'items/card', collection: @items[:pickup], as: :item, locals: {favorites: @favorites}
     .text-right
       = link_to items_path, class: 'btn btn-info btn-raised' do
         MORE
@@ -48,22 +48,17 @@
       ARRIVAL NEW
       %span.small.text-muted.ml-2 新着商品
     .row
-      - 6.times do
-        = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites}
+      = render partial: 'items/card', collection: @items[:new], as: :item, locals: {favorites: @favorites}
     .text-right
       = link_to items_path, class: 'btn btn-info btn-raised' do
         MORE
         %i.fa.fa-angle-right.fa-fw
-  %section.information
+  %section.informations
     %h4.mb-3.mt-5
       %i.fa.fa-info-circle.fa-fw
       INFORMATION
-    %p
-      %span.small.text-muted 2017/10/21
-      %br/
-      バイヤーズブログを更新しました
-    %hr/
-    %p
-      %span.small.text-muted 2017/10/21
-      %br/
-      = link_to 'バイヤーズブログを更新しました', '#'
+    = render partial: 'topics/row', collection: @topics, as: :topic
+    .text-right
+      = link_to topics_path, class: 'btn btn-info btn-raised' do
+        MORE
+        %i.fa.fa-angle-right.fa-fw

@@ -10,6 +10,7 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.integer :stock_quantity
       t.string :remarks
       t.integer :status, null: false, default: 0
+      t.boolean :pickup, null: false, defualt: false
 
       t.timestamps
     end

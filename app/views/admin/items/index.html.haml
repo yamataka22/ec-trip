@@ -39,7 +39,7 @@
           %th.text-right{width: '10%'}= t('activerecord.attributes.item.stock_quantity')
           %th{width: '10%'}
       %tbody
-        - @items.each.with_index(1) do |item, i|
+        - @items.each do |item|
           %tr
             %td.text-right= item.id
             %td= item.name

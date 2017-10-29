@@ -1,0 +1,10 @@
+%p
+  %span.small.text-muted= topic.created_at.strftime('%Y/%m/%d')
+  %br/
+  - if Date.today - 7.days < topic.created_at
+    %span.badge.badge-info.p-1.mr-1 NEW
+  - if topic.link.blank?
+    = topic.text
+  - else
+    = link_to topic.text, topic.link, class: 'link'
+%hr/

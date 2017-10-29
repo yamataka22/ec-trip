@@ -1,0 +1,6 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/topic'
+.container
+  %h1.h2.mb-4 インフォメーション
+  .informations
+    = render partial: 'topics/row', collection: @topics, as: :topic
