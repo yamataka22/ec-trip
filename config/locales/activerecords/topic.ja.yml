@@ -4,5 +4,5 @@ ja:
       topic: トピックス
     attributes:
       topic:
-        text: 本文
-        link: リンク先
+        title: タイトル
+        link_url: リンク先URL

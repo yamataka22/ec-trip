@@ -7,6 +7,8 @@
   .container
     .row.justify-content-lg-center
       .col-lg-11.col-xl-10
+        - if controller.controller_path == 'admin/items'
+          .alert.alert-info これはプレビュー表示です。登録は完了していません。
         - if @item.end_of_sell?
           .alert.alert-danger この商品は販売を終了しています。
         - elsif @item.stock_quantity == 0

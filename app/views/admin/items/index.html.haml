@@ -47,7 +47,10 @@
             %td= item.status_i18n
             %td.text-right= number_with_delimiter item.price
             %td.text-right= number_with_delimiter item.stock_quantity
-            %td= link_to '編集', edit_admin_item_path(item)
+            %td
+              = link_to '編集', edit_admin_item_path(item)
+              %span.my-2= '/'
+              = link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
     = paginate @items
 - content_for :javascript do
   :javascript

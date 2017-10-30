@@ -39,11 +39,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :topics, only: [:index]
-
   namespace :admin, path: 'admin' do
     resources :categories, except: :show
-    resources :items, except: :show
+    resources :items, except: :show do
+      collection do
+        get :preview
+      end
+    end
     resources :topics, except: :show
 
     resources :images, only: [:new, :create]

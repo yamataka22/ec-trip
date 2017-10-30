@@ -46,3 +46,13 @@
                {include_blank: false}, {class: 'form-control'}
     = error_label_tag(f.object, :status)
 %hr/
+- content_for :javascript do
+  = javascript_include_tag 'tinymce'
+  = javascript_include_tag 'tinymce_custom'
+  :javascript
+    $(document).ready(function() {
+
+      if (#{f.object.errors.blank? && f.object.preview.present?}) {
+        window.open('#{preview_admin_items_path}');
+      }
+    });

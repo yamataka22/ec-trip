@@ -25,6 +25,7 @@ class Admin::TopicsController < Admin::AdminBase
   def update
     @topic = Topic.find(params[:id])
     @topic.assign_attributes(post_params)
+
     if @topic.save
       flash[:success] = '更新が完了しました'
       redirect_to admin_topics_path
@@ -43,6 +44,6 @@ class Admin::TopicsController < Admin::AdminBase
 
   private
   def post_params
-    params.require(:topic).permit(:text, :link)
+    params.require(:topic).permit(:title, :link_url)
   end
 end

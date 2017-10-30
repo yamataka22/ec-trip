@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029053415) do
+ActiveRecord::Schema.define(version: 20171030075157) do
 
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",                     null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20171029053415) do
   end
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",                                       null: false
+    t.string   "name",                                           null: false
     t.string   "description"
     t.integer  "caption_image_id"
     t.text     "about",            limit: 65535
@@ -96,9 +96,10 @@ ActiveRecord::Schema.define(version: 20171029053415) do
     t.integer  "price"
     t.integer  "stock_quantity"
     t.string   "remarks"
-    t.integer  "status",                         default: 0, null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.integer  "status",                         default: 0,     null: false
+    t.boolean  "pickup",                         default: false, null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.index ["caption_image_id"], name: "fk_rails_812ccc6369", using: :btree
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
   end
@@ -156,6 +157,14 @@ ActiveRecord::Schema.define(version: 20171029053415) do
     t.index ["stripe_customer_id"], name: "index_members_on_stripe_customer_id", unique: true, using: :btree
   end
 
+  create_table "previews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "manager_id"
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["manager_id"], name: "index_previews_on_manager_id", unique: true, using: :btree
+  end
+
   create_table "purchase_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "purchase_id", null: false
     t.integer  "item_id",     null: false
@@ -202,8 +211,8 @@ ActiveRecord::Schema.define(version: 20171029053415) do
   end
 
   create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "text",       null: false
-    t.string   "link"
+    t.string   "title",      null: false
+    t.string   "link_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -216,6 +225,7 @@ ActiveRecord::Schema.define(version: 20171029053415) do
   add_foreign_key "favorites", "members"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "images", column: "caption_image_id"
+  add_foreign_key "previews", "managers"
   add_foreign_key "purchase_details", "items"
   add_foreign_key "purchase_details", "purchases"
   add_foreign_key "purchases", "members"

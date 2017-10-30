@@ -6,33 +6,27 @@ class Item < ApplicationRecord
 
   enum status: {unpublished: 0, selling: 1, end_of_sell: 2}
 
+  before_validation :set_tinymce_images_path
+
   validates :name, presence: true
   validates :stock_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, allow_nil: true
 
-  validates :description, presence: true, on: :publish
-  validates :about, presence: true, on: :publish
-  validates :stock_quantity, presence: true, on: :publish
-  validates :price, presence: true, on: :publish
+  validates :description, presence: true, if: :published?
+  validates :about, presence: true, if: :published?
+  validates :stock_quantity, presence: true, if: :published?
+  validates :price, presence: true, if: :published?
+  validate :change_to_unpublished
 
   scope :published, -> { where(status: [:selling, :end_of_sell]) }
   scope :selling, -> { where(status: :selling) }
 
+  attr_accessor :preview
+
   def save
-    # Tinymceのバグ？で、localに画像を保存すると相対パスに変換されてしまうため、
-    # それを絶対パスに置換する
-    if Rails.env.development? && self.about
-      loop do
-        break unless self.about.gsub!('src="../', 'src="')
-      end
-      self.about.gsub!('src="assets', 'src="/assets')
-    end
-
+    # 販売終了時は在庫をゼロにする
     self.stock_quantity = 0 if self.end_of_sell?
-
-    if self.unpublished? || valid?(:publish)
-      super
-    end
+    super
   end
 
   def price_include_tax
@@ -50,4 +44,28 @@ class Item < ApplicationRecord
   def can_sell?
     self.selling? && self.stock_quantity > 0
   end
+
+  private
+  def set_tinymce_images_path
+    # Tinymceのバグ？で、localに画像を保存すると相対パスに変換されてしまうため、
+    # それを絶対パスに置換する
+    if Rails.env.development? && self.about
+      loop do
+        break unless self.about.gsub!('src="../', 'src="')
+      end
+      self.about.gsub!('src="assets', 'src="/assets')
+    end
+  end
+
+  def change_to_unpublished
+    # 公開後から非公開への変更は不可
+    if self.status_was != 'unpublished' && self.unpublished?
+      self.errors.add(:status, 'は公開後に未公開へ戻すことはできません')
+    end
+  end
+
+  def published?
+    self.selling? || self.end_of_sell? || self.preview
+  end
+
 end

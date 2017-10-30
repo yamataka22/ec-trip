@@ -46,27 +46,30 @@
       = link_to items_path, class: 'btn btn-info btn-raised' do
         MORE
         %i.fa.fa-angle-right.fa-fw
-  .row
-    .col-lg-8.col-xl-9
-      %section.arrival_new
-        %h4.section_title
-          %i.fa.fa-bell.fa-fw
-          ARRIVAL NEW
-          %span.no-thank-yu.text-muted 新着商品
-        .row
-          = render partial: 'items/card', collection: @items[:new], as: :item, locals: {favorites: @favorites, col: 'col-sm-6 col-xl-4'}
-        .text-right
-          = link_to items_path, class: 'btn btn-info btn-raised' do
-            MORE
-            %i.fa.fa-angle-right.fa-fw
-    .col-lg-4.col-xl-3
-      %section.topics
-        %h4.section_title
-          %i.fa.fa-info-circle.fa-fw
-          TOPICS
-        - 3.times do
-          = render partial: 'topics/row', collection: @topics, as: :topic
-        .text-right.mt-3
-          = link_to topics_path, class: 'btn btn-secondary' do
-            MORE
-            %i.fa.fa-angle-right.fa-fw
+  %section.arrival_new
+    %h4.section_title
+      %i.fa.fa-bell.fa-fw
+      ARRIVAL NEW
+      %span.no-thank-yu.text-muted 新着商品
+    .row
+      = render partial: 'items/card', collection: @items[:new], as: :item, locals: {favorites: @favorites}
+    .text-right
+      = link_to items_path, class: 'btn btn-info btn-raised' do
+        MORE
+        %i.fa.fa-angle-right.fa-fw
+  %section.topics
+    %h4.section_title
+      %i.fa.fa-info-circle.fa-fw
+      TOPICS
+    %hr/
+    - 5.times do
+      - @topics.each do |topic|
+        - if Date.today - 7.days < topic.created_at
+          %span.badge.badge-info.p-1.mr-1 NEW
+        %span.text-muted.mr-2= topic.created_at.strftime('%Y/%m/%d')
+        %br.view_sp
+        - if topic.link_url.present?
+          = link_to topic.title, topic.link_url, class: 'link', target: '_blank'
+        - else
+          = topic.title
+        %hr/

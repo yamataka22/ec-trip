@@ -11,13 +11,13 @@
       %thead
         %tr
           %th{width: '20%'}= t('activerecord.attributes.created_at')
-          %th{width: '60%'}= t('activerecord.attributes.topic.text')
+          %th{width: '65%'}= t('activerecord.attributes.topic.title')
           %th{width: '15%'}
       %tbody
         - @topics.each do |topic|
           %tr
             %td= topic.created_at.strftime('%Y/%m/%d %H:%M')
-            %td= topic.text
+            %td= topic.title
             %td
               = link_to '編集', edit_admin_topic_path(topic)
               &nbsp;/&nbsp
