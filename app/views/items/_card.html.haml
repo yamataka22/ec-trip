@@ -5,15 +5,14 @@
       = link_to item_path(item) do
         = image_tag item.caption_image_url, class: 'img-fluid', style: 'z-index: -1;'
       .favorite_btn
-        = render 'favorites/button', item: item, favorite: favorites && favorites.find{|f| f.item_id == item.id}
+        = render 'favorites/button', item: item, favorite: favorites && favorites.find{|f| f.item_id == item.id}, btn_size: 'bmd-btn-fab-sm'
     .card-body.pt-4
       = link_to item_path(item) do
-        %h6.item_name.mb-3
-          = item.name
-          %br/
-          %span.small.text-muted= jpy(item.price, prefix: true, tax: :exclude)
-        %p.mb-0.text-justify
+        %h6.item_name= item.name
+        %p.item_price
           - if item.can_sell?
-            %span.text-muted= item.description
+            = jpy(item.price, prefix: true, tax: :exclude)
           - else
-            %span.text-danger この商品は現在お取り扱いしていません。
+            %span.small.text-danger この商品は現在お取り扱いしていません。
+        %p.mb-0.text-justify
+          %span.text-muted= item.description

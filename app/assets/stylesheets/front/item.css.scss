@@ -3,13 +3,13 @@
     position: relative;
     .favorite_btn {
       position: absolute;
-      bottom: -30px;
+      bottom: -22px;
       right: 10px
     }
   }
-  .card_body {
-    .item_name {
-      line-height: 20px;
+  .card-body {
+    .item_name, .item_price {
+      color: #4B5057;
     }
   }
 }

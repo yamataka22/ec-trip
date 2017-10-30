@@ -6,16 +6,20 @@
   .carousel-inner
     .carousel-item.active
       = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
-      .carousel-caption.text-left
+      .carousel-caption.text-right
         %h2 カウチソファ特集
         %p EC-TRIPスタッフが厳選したカウチソファをご紹介
         = link_to 'VIEW', '#', class: 'btn btn-info btn-raised'
     .carousel-item
       = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
-      .carousel-caption.text-left
+      .carousel-caption.text-right
         %h2 ダイニング特集
         %p 流行のスタイルを取り入れたダイニングスペースを演出
         = link_to 'VIEW', '#', class: 'btn btn-info btn-raised'
+
+  %ol.carousel-indicators.view_pc
+    %li.active{"data-slide-to" => "0", "data-target" => "#top_slider"}
+    %li{"data-slide-to" => "1", "data-target" => "#top_slider"}
   .view_pc
     %a.carousel-control-prev{"data-slide" => "prev", :href => "#top_slider", :role => "button"}
       %span.carousel-control-prev-icon{"aria-hidden" => "true"}
@@ -32,33 +36,37 @@
 %hr.mt-0.mb-5
 .container
   %section.pickup
-    %h4
-      %i.fa.fa-tag.fa-fw
+    %h4.section_title
+      %i.fa.fa-star.fa-fw
       PICK UP!
-      %span.small.text-muted.ml-2 スタッフおすすめ
+      %span.no-thank-yu.text-muted スタッフおすすめ
     .row
       = render partial: 'items/card', collection: @items[:pickup], as: :item, locals: {favorites: @favorites}
     .text-right
       = link_to items_path, class: 'btn btn-info btn-raised' do
         MORE
         %i.fa.fa-angle-right.fa-fw
-  %section.arrival_new
-    %h4
-      %i.fa.fa-bell.fa-fw
-      ARRIVAL NEW
-      %span.small.text-muted.ml-2 新着商品
-    .row
-      = render partial: 'items/card', collection: @items[:new], as: :item, locals: {favorites: @favorites}
-    .text-right
-      = link_to items_path, class: 'btn btn-info btn-raised' do
-        MORE
-        %i.fa.fa-angle-right.fa-fw
-  %section.informations
-    %h4.mb-3.mt-5
-      %i.fa.fa-info-circle.fa-fw
-      INFORMATION
-    = render partial: 'topics/row', collection: @topics, as: :topic
-    .text-right
-      = link_to topics_path, class: 'btn btn-info btn-raised' do
-        MORE
-        %i.fa.fa-angle-right.fa-fw
+  .row
+    .col-lg-8.col-xl-9
+      %section.arrival_new
+        %h4.section_title
+          %i.fa.fa-bell.fa-fw
+          ARRIVAL NEW
+          %span.no-thank-yu.text-muted 新着商品
+        .row
+          = render partial: 'items/card', collection: @items[:new], as: :item, locals: {favorites: @favorites, col: 'col-sm-6 col-xl-4'}
+        .text-right
+          = link_to items_path, class: 'btn btn-info btn-raised' do
+            MORE
+            %i.fa.fa-angle-right.fa-fw
+    .col-lg-4.col-xl-3
+      %section.topics
+        %h4.section_title
+          %i.fa.fa-info-circle.fa-fw
+          TOPICS
+        - 3.times do
+          = render partial: 'topics/row', collection: @topics, as: :topic
+        .text-right.mt-3
+          = link_to topics_path, class: 'btn btn-secondary' do
+            MORE
+            %i.fa.fa-angle-right.fa-fw

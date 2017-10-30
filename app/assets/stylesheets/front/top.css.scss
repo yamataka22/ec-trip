@@ -19,4 +19,11 @@
 }
 section {
   margin-bottom: 35px;
+  .section_title {
+    margin-bottom: 20px;
+    span {
+      font-size: 0.9rem;
+      margin-left: 5px;
+    }
+  }
 }

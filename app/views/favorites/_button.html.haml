@@ -1,11 +1,12 @@
+- btn_size ||= ''
 - if !member_signed_in?
   %button{onclick: 'alert("ログインしてください"); document.activeElement.blur();', class: 'btn bmd-btn-fab btn-secondary'}
     %i.material-icons favorite_border
 - elsif favorite
   = link_to member_favorites_path(item_id: item.id), method: :post, remote: true do
-    = button_tag class: 'btn bmd-btn-fab btn-info' do
+    = button_tag class: "btn bmd-btn-fab btn-info #{btn_size}" do
       %i{class: "material-icons favorite_#{item.id}"} favorite
 - else
   = link_to member_favorites_path(item_id: item.id), method: :post, remote: true do
-    = button_tag class: 'btn bmd-btn-fab btn-secondary' do
+    = button_tag class: "btn bmd-btn-fab btn-secondary #{btn_size}" do
       %i{class: "material-icons favorite_#{item.id}"} favorite_border
