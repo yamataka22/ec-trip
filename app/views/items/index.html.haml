@@ -1,8 +1,8 @@
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/item'
-.container-fluid
+.container
   .row
-    .col-md-4.col-lg-3
+    .col-md-4.col-xl-3
       = form_for @search_form, url: items_path, method: :get do |f|
         .card
           %h4.card-header
@@ -43,9 +43,9 @@
                 %span.small 販売を終了した商品も含める
           .card-footer
             = f.submit '検 索', class: 'btn btn-info btn-block'
-    .col-md-8.col-lg-9
+    .col-md-8.col-xl-9
       - if @items.size > 0
         .row
-          = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites, col: 'col-sm-6 col-lg-4'}
+          = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites, col: 'col-sm-6 col-xl-4'}
       - else
         .alert.alert-info 該当する商品がありません

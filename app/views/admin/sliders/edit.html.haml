@@ -1,0 +1,62 @@
+- @crumbs = [{title: 'スライダー管理', path: admin_sliders_path}, {title: '編集'}]
+= form_for @slider, url: admin_slider_path(@slider) do |f|
+  .card
+    .card-header
+      = "スライダー #{@slider.id}"
+    .card-body
+      .form-group.row
+        = f.label :image_id, class: 'col-sm-3 col-form-label text-right'
+        .col-sm-3
+          = render 'admin/images/select', f: f, target_id: :image_id
+          = error_label_tag(f.object, :image_id)
+      .form-group.row
+        = f.label :title, class: 'col-sm-3 col-form-label text-right'
+        .col-sm-9
+          = f.text_field :title, class: 'form-control'
+          = error_label_tag(f.object, :title)
+      .form-group.row
+        = f.label :description, class: 'col-sm-3 col-form-label text-right'
+        .col-sm-9
+          = f.text_field :description, class: 'form-control'
+          = error_label_tag(f.object, :description)
+      .form-group.row
+        = f.label :link_url, class: 'col-sm-3 col-form-label text-right'
+        .col-sm-9
+          = f.text_field :link_url, class: 'form-control'
+          = error_label_tag(f.object, :link_url)
+      .form-group.row
+        = f.label :caption_position, class: 'col-sm-3 col-form-label text-right'
+        .col-sm-9
+          .form-check.form-check-inline
+            %label.form-check-label
+              = f.radio_button :caption_position, :left, class: 'form-check-input'
+              = t('enums.slider.caption_position.left')
+          .form-check.form-check-inline
+            %label.form-check-label
+              = f.radio_button :caption_position, :center, class: 'form-check-input'
+              = t('enums.slider.caption_position.center')
+          .form-check.form-check-inline
+            %label.form-check-label
+              = f.radio_button :caption_position, :right, class: 'form-check-input'
+              = t('enums.slider.caption_position.right')
+      .form-group.row
+        = f.label :caption_color, class: 'col-sm-3 col-form-label text-right'
+        .col-sm-9
+          .form-check.form-check-inline
+            %label.form-check-label
+              = f.radio_button :caption_color, :black, class: 'form-check-input'
+              = t('enums.slider.caption_color.black')
+          .form-check.form-check-inline
+            %label.form-check-label
+              = f.radio_button :caption_color, :white, class: 'form-check-input'
+              = t('enums.slider.caption_color.white')
+      .form-group.row.justify-content-end
+        .col-sm-9
+          .form-check
+            %label.form-check-label
+              = f.check_box :published, class: 'form-check-input'
+              公開する
+      .float-right
+        = f.submit '更新', class: 'btn btn-primary mr-2'
+        = link_to 'キャンセル', admin_sliders_path, class: 'btn btn-light'
+= render 'admin/images/new'

@@ -1,0 +1,22 @@
+- @crumbs = [{title: 'スライダー管理'}]
+
+.card
+  .card-header.pt-3
+    スライダー一覧
+  .card-body
+    %table.table.table-bordered.table-sm.table-striped
+      %thead
+        %tr
+          %th.text-center{width: '8%'} #
+          %th.text-center{width: '10%'}= t('activerecord.attributes.slider.published')
+          %th{width: '20%'}= t('activerecord.attributes.slider.image_id')
+          %th{width: '50%'}= t('activerecord.attributes.slider.title')
+          %th{width: '12%'}
+      %tbody
+        - @sliders.each do |slider|
+          %tr
+            %td.text-center= slider.id
+            %td.text-center= slider.published? ? '公開中' : '未'
+            %td= image_tag slider.image.public_url(:thumb), class: 'img-fluid' if slider.image
+            %td= slider.title
+            %td= link_to '編集', edit_admin_slider_path(slider)

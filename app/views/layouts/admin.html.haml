@@ -60,6 +60,10 @@
                 = link_to admin_topics_path, class: "nav-link #{'active' if controller.controller_name == 'topics'}" do
                   %i.icon-info
                   トピック管理
+              %li.nav-item
+                = link_to admin_sliders_path, class: "nav-link #{'active' if controller.controller_name == 'sliders'}" do
+                  %i.icon-layers
+                  スライダー管理
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?

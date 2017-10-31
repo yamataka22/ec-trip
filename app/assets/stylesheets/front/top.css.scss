@@ -2,7 +2,6 @@
   .carousel-item {
     max-height: 400px;
     .carousel-caption {
-      h2 {color: #FAFAFA;}
       @media (max-width: 767px) {
         padding-bottom: 10px;
         left: 8%;
@@ -10,6 +9,8 @@
         h2 {font-size: 1.2rem;}
         p {font-size: 0.85rem;}
       }
+      .black {color: #3F4550;}
+      .white {color: #FAFAFA;}
     }
   }
 }

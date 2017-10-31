@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      slider: スライダー
+    attributes:
+      slider:
+        title: タイトル
+        description: テキスト
+        link_url: リンク先URL
+        image_id: 背景画像
+        caption_position: キャプション位置
+        caption_color: キャプション文字色
+        published: 公開
+  enums:
+    slider:
+      caption_position:
+        left: 左
+        center: 中央
+        right: 右
+      caption_color:
+        black: 黒
+        white: 白

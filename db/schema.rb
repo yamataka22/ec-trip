@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030090557) do
+ActiveRecord::Schema.define(version: 20171031054905) do
 
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",                     null: false
@@ -212,6 +212,19 @@ ActiveRecord::Schema.define(version: 20171030090557) do
     t.index ["member_id"], name: "index_purchases_on_member_id", using: :btree
   end
 
+  create_table "sliders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "link_url"
+    t.integer  "image_id"
+    t.integer  "caption_position", default: 0, null: false
+    t.integer  "caption_color",    default: 0, null: false
+    t.boolean  "published"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["image_id"], name: "index_sliders_on_image_id", using: :btree
+  end
+
   create_table "taxes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "rate"
     t.date     "start_date"
@@ -239,4 +252,5 @@ ActiveRecord::Schema.define(version: 20171030090557) do
   add_foreign_key "purchase_details", "items"
   add_foreign_key "purchase_details", "purchases"
   add_foreign_key "purchases", "members"
+  add_foreign_key "sliders", "images"
 end

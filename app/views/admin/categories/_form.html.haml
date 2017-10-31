@@ -1,12 +1,11 @@
-- label_class = 'col-sm-3 col-form-label text-right'
+- label_class = 'col-sm-2 col-form-label text-right'
 .form-group.row
   = f.label :name, class: label_class
-  .col-sm-9
+  .col-sm-4
     = f.text_field :name, size: 30, class: 'form-control'
     = error_label_tag(f.object, :name)
-.form-group.row
   = f.label :root_category_id, class: label_class
-  .col-sm-9
+  .col-sm-4
     = f.select :root_category_id, options_from_collection_for_select(Category.root_categories.order(:sequence), :id, :name, f.object.root_category_id),
             {include_blank: true}, {class: 'form-control'}
     = error_label_tag(f.object, :root_category_id)

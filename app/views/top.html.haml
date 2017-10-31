@@ -4,30 +4,29 @@
   = stylesheet_link_tag 'front/topic'
 #top_slider.carousel.slide{'data-ride' => 'carousel', style: 'margin-top: -5rem;'}
   .carousel-inner
-    .carousel-item.active
-      = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
-      .carousel-caption.text-right
-        %h2 カウチソファ特集
-        %p EC-TRIPスタッフが厳選したカウチソファをご紹介
-        = link_to 'VIEW', '#', class: 'btn btn-info btn-raised'
-    .carousel-item
-      = image_tag 'top_cover.jpg', class: 'd-block img-fluid'
-      .carousel-caption.text-right
-        %h2 ダイニング特集
-        %p 流行のスタイルを取り入れたダイニングスペースを演出
-        = link_to 'VIEW', '#', class: 'btn btn-info btn-raised'
-
-  %ol.carousel-indicators.view_pc
-    %li.active{"data-slide-to" => "0", "data-target" => "#top_slider"}
-    %li{"data-slide-to" => "1", "data-target" => "#top_slider"}
-  .view_pc
-    %a.carousel-control-prev{"data-slide" => "prev", :href => "#top_slider", :role => "button"}
-      %span.carousel-control-prev-icon{"aria-hidden" => "true"}
-      %span.sr-only Previous
-    %a.carousel-control-next{"data-slide" => "next", :href => "#top_slider", :role => "button"}
-      %span.carousel-control-next-icon{"aria-hidden" => "true"}
-      %span.sr-only Next
+    - @sliders.each_with_index do |slider, i|
+      .carousel-item{class: "#{'active' if i == 0}"}
+        = image_tag slider.image.public_url(:original), class: 'd-block img-fluid'
+        .carousel-caption{class: "text-#{slider.caption_position}"}
+          - if slider.title.present?
+            %h2{class: slider.caption_color}= slider.title
+          - if slider.description.present?
+            %p{class: slider.caption_color}= slider.description
+          - if slider.link_url.present?
+            = link_to 'VIEW', slider.link_url, class: 'btn btn-info btn-raised'
+  - if @sliders.size > 1
+    %ol.carousel-indicators.view_pc
+      - (@sliders.size).times do |i|
+        %li{"data-slide-to" => i, "data-target" => "#top_slider", class: "#{'active' if i == 0}"}
+    .view_pc
+      %a.carousel-control-prev{"data-slide" => "prev", :href => "#top_slider", :role => "button"}
+        %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+        %span.sr-only Previous
+      %a.carousel-control-next{"data-slide" => "next", :href => "#top_slider", :role => "button"}
+        %span.carousel-control-next-icon{"aria-hidden" => "true"}
+        %span.sr-only Next
 .category_area.view_pc
+  %hr.my-0
   .container
     %ul.nav.nav-pills.nav-justified
       - all_categories = Category.sorted_all
@@ -39,11 +38,10 @@
           %li.nav-item.dropdown
             %a.nav-link.dropdown-toggle{id: "root_category#{root_category.id}", href: '#', 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-toggle' => 'dropdown', role: 'button'}
               = root_category.name
-            .dropdown-menu.dropdown-optional{'aria-labelledby' => "root_category#{root_category.id}"}
+            .dropdown-menu{'aria-labelledby' => "root_category#{root_category.id}"}
               = link_to 'ALL', items_path(item_search_form: {category_id: root_category.id}), class: 'dropdown-item'
               - all_categories.select{|child_category| child_category.root_category_id == root_category.id}.each do |child_category|
                 = link_to child_category.name, items_path(item_search_form: {category_id: child_category.id}), class: 'dropdown-item'
-
 %hr.mt-0.mb-5
 .container
   %section.pickup

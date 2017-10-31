@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       end
     end
     resources :topics, except: :show
+    resources :sliders, only: [:index, :edit, :update]
 
     resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root
