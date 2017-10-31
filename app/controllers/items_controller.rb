@@ -17,6 +17,6 @@ class ItemsController < FrontBase
   private
   def search_params
     return  nil if params[:item_search_form].nil?
-    params.require(:item_search_form).permit(:category_id, :keyword, :sold_out, :sort_type, :price_floor, :price_ceil)
+    params.require(:item_search_form).permit(:category_id, :keyword, :pickup, :arrival_new, :sold_out, :sort_type, :price_floor, :price_ceil)
   end
 end

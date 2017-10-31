@@ -1,4 +1,6 @@
 class Admin::ItemsController < Admin::AdminBase
+  before_action :process_category_items_attrs, only: [:create, :update]
+
   def index
     @search_form = Admin::ItemSearchForm.new(search_params)
     @items = @search_form.search(params[:page])
@@ -75,13 +77,20 @@ class Admin::ItemsController < Admin::AdminBase
   end
 
   def post_params
-    params.require(:item).permit(:name, :description, :caption_image_id, :about, :category_id,
-                                    :price, :stock_quantity, :remarks, :status, :preview)
+    params.require(:item).permit(:name, :description, :caption_image_id, :about,
+                                 :price, :stock_quantity, :remarks, :status, :pickup, :arrival_new, :preview,
+                                 category_items_attributes: [:id, :category_id, :enable, :_destroy])
   end
 
   def set_preview
     preview = Preview.find_or_initialize_by(manager: current_manager)
     preview.content = @item
     preview.save!
+  end
+
+  def process_category_items_attrs
+    params[:item][:category_items_attributes].values.each do |cat_attr|
+      cat_attr[:_destroy] = true if cat_attr[:enable] != '1'
+    end
   end
 end

@@ -11,8 +11,16 @@
           .card-body
             .form-group.bmd-form-group.is-filled
               = f.label :category_id, 'カテゴリー', class: 'bmd-label-floating'
-              = f.select :category_id, options_from_collection_for_select(Category.all.order(:sequence), :id, :name, @search_form.category_id),
+              = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : "　#{c.name}", c.id]},
                 {include_blank: true}, {class: 'form-control'}
+            .checkbox
+              %label
+                = f.check_box :pickup
+                %span.small おすすめ商品
+            .checkbox
+              %label
+                = f.check_box :arrival_new
+                %span.small 新着商品
             .row.align-items-end
               .col-5.pr-0
                 .form-group.bmd-form-group.is-filled
@@ -32,7 +40,7 @@
             .checkbox.mt-4
               %label
                 = f.check_box :sold_out
-                販売を終了した商品も含める
+                %span.small 販売を終了した商品も含める
           .card-footer
             = f.submit '検 索', class: 'btn btn-info btn-block'
     .col-md-8.col-lg-9

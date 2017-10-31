@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030075157) do
+ActiveRecord::Schema.define(version: 20171030090557) do
 
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",                     null: false
@@ -39,10 +39,20 @@ ActiveRecord::Schema.define(version: 20171030075157) do
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",                   null: false
-    t.integer  "sequence",   default: 0, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",                         null: false
+    t.integer  "root_category_id"
+    t.integer  "sequence",         default: 0, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  create_table "category_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "category_id"
+    t.integer  "item_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["category_id"], name: "index_category_items_on_category_id", using: :btree
+    t.index ["item_id"], name: "index_category_items_on_item_id", using: :btree
   end
 
   create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -92,16 +102,15 @@ ActiveRecord::Schema.define(version: 20171030075157) do
     t.string   "description"
     t.integer  "caption_image_id"
     t.text     "about",            limit: 65535
-    t.integer  "category_id"
     t.integer  "price"
     t.integer  "stock_quantity"
     t.string   "remarks"
     t.integer  "status",                         default: 0,     null: false
-    t.boolean  "pickup",                         default: false, null: false
+    t.boolean  "pickup",                                         null: false
+    t.boolean  "arrival_new",                    default: false, null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.index ["caption_image_id"], name: "fk_rails_812ccc6369", using: :btree
-    t.index ["category_id"], name: "index_items_on_category_id", using: :btree
   end
 
   create_table "managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -220,10 +229,11 @@ ActiveRecord::Schema.define(version: 20171030075157) do
   add_foreign_key "addresses", "members"
   add_foreign_key "carts", "items"
   add_foreign_key "carts", "members"
+  add_foreign_key "category_items", "categories"
+  add_foreign_key "category_items", "items"
   add_foreign_key "credit_cards", "members"
   add_foreign_key "favorites", "items"
   add_foreign_key "favorites", "members"
-  add_foreign_key "items", "categories"
   add_foreign_key "items", "images", column: "caption_image_id"
   add_foreign_key "previews", "managers"
   add_foreign_key "purchase_details", "items"

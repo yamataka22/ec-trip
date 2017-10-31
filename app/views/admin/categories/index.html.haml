@@ -7,32 +7,27 @@
       %i.fa.fa-plus
       新規作成
   .card-body
-    %table.table.table-bordered.table-sm.table-striped
+    %table.table.table-sm.table-bordered.table-hover
       %thead
         %tr
-          %th{width: '12%'} 表示順
           %th{width: '60%'} 名称
-          %th{width: '28%'}
+          %th.text-center{width: '10%'} 商品数
+          %th.text-center{width: '10%'} 表示順
+          %th{width: '20%'}
       %tbody
-        - @categories.each.with_index(1) do |category, i|
-          %tr
+        - @categories.each do |category|
+          %tr{class: "#{'table-success' unless category.root?}"}
             %td
-              = i
-              - if i > 1
-                = link_to admin_category_path(category, seq_type: :up), method: :put, class: 'ml-3' do
-                  %i.fa.fa-arrow-up
+              - if category.root?
+                = category.name
               - else
-                %span.text-muted.ml-3
-                  %i.fa.fa-arrow-up
-              &nbsp;/&nbsp;
-              - if i < @categories.size
-                = link_to admin_category_path(category, seq_type: :down), method: :put do
-                  %i.fa.fa-arrow-down
-              - else
-                %span.text-muted
-                  %i.fa.fa-arrow-down
-            %td= category.name
+                %span.ml-3= category.name
+            %td.text-center
+              = category.items.size
+            %td.text-center
+              - unless category.sequence == 1
+                = link_to '上に移動', admin_category_path(category, sequence_up: true), method: :put
             %td
-              = link_to '名称変更', edit_admin_category_path(category)
-              &nbsp;/&nbsp;
-              = link_to '削除', admin_category_path(category), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
+              = link_to '編集', edit_admin_category_path(category)
+              %span.my-2= '/'
+              = link_to '削除', admin_category_path(category), method: :delete, data: {confirm: "#{'所属する子カテゴリも同時に削除されます。' if category.root? && category.child_categories.present?}削除してよろしいでしょうか？"}

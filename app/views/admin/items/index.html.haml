@@ -11,8 +11,7 @@
       .form-group.row
         = f.label :category_id, 'カテゴリ', class: 'col-2 col-form-label'
         .col-3
-          = f.select :category_id, options_from_collection_for_select(Category.all.order(:sequence), :id, :name, @search_form.category_id),
-            {include_blank: true}, {class: 'form-control'} 
+          = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : '　' + c.name, c.id]}, {include_blank: true}, {class: 'form-control'}
         = f.label :name, '商品名', class: 'col-1 col-form-label'
         .col-4
           = f.text_field :name, class: 'form-control', placeholder: 'あいまい検索' 
@@ -33,7 +32,6 @@
         %tr
           %th.text-right{width: '5%'} #
           %th{width: '35%'}= t('activerecord.attributes.item.name')
-          %th{width: '20%'}= t('activerecord.attributes.item.category_id')
           %th{width: '10%'}= t('activerecord.attributes.item.status')
           %th.text-right{width: '10%'}= t('activerecord.attributes.item.price')
           %th.text-right{width: '10%'}= t('activerecord.attributes.item.stock_quantity')
@@ -43,7 +41,6 @@
           %tr
             %td.text-right= item.id
             %td= item.name
-            %td= item.category&.name
             %td= item.status_i18n
             %td.text-right= number_with_delimiter item.price
             %td.text-right= number_with_delimiter item.stock_quantity

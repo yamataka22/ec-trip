@@ -10,9 +10,9 @@
       = link_to item_path(item) do
         %h6.item_name= item.name
         %p.item_price
+          = jpy(item.price, prefix: true, tax: :exclude)
+        %p.mb-0.text-justify
           - if item.can_sell?
-            = jpy(item.price, prefix: true, tax: :exclude)
+            %span.text-muted= item.description
           - else
             %span.small.text-danger この商品は現在お取り扱いしていません。
-        %p.mb-0.text-justify
-          %span.text-muted= item.description

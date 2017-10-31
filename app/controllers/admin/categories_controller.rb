@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::AdminBase
   def index
-    @categories = Category.all.order(:sequence)
+    @categories = Category.sorted_all(include_items: true)
   end
 
   def new
@@ -8,7 +8,7 @@ class Admin::CategoriesController < Admin::AdminBase
   end
 
   def create
-    @category = Category.create(post_params)
+    @category = Category.create_with_auto_sequence(post_params)
     if @category.errors.present?
       flash.now[:error] = '入力内容をご確認ください'
       render action: :new
@@ -24,13 +24,13 @@ class Admin::CategoriesController < Admin::AdminBase
 
   def update
     @category = Category.find(params[:id])
-    if params[:seq_type].present?
-      @category.change_sequence(params[:seq_type].to_sym)
+    if params[:sequence_up].present?
+      @category.sequence_up
       flash[:success] = '更新が完了しました'
       redirect_to admin_categories_path
     else
       @category.assign_attributes(post_params)
-      if @category.save
+      if @category.update_with_auto_sequence
         flash[:success] = '更新が完了しました'
         redirect_to admin_categories_path
       else
@@ -52,6 +52,6 @@ class Admin::CategoriesController < Admin::AdminBase
 
   private
   def post_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :root_category_id)
   end
 end

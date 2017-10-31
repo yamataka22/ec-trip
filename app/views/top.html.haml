@@ -30,9 +30,20 @@
 .category_area.view_pc
   .container
     %ul.nav.nav-pills.nav-justified
-      - Category.all.order(:sequence).each do |category|
-        %li.nav-item
-          = link_to category.name, items_path(item_search_form: {category_id: category.id}), class: 'btn nav-link mb-0'
+      - all_categories = Category.sorted_all
+      - Category.root_categories.each do |root_category|
+        - if root_category.child_categories.blank?
+          %li.nav-item
+            = link_to root_category.name, items_path(item_search_form: {category_id: root_category.id}), class: 'nav-link'
+        - else
+          %li.nav-item.dropdown
+            %a.nav-link.dropdown-toggle{id: "root_category#{root_category.id}", href: '#', 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-toggle' => 'dropdown', role: 'button'}
+              = root_category.name
+            .dropdown-menu.dropdown-optional{'aria-labelledby' => "root_category#{root_category.id}"}
+              = link_to 'ALL', items_path(item_search_form: {category_id: root_category.id}), class: 'dropdown-item'
+              - all_categories.select{|child_category| child_category.root_category_id == root_category.id}.each do |child_category|
+                = link_to child_category.name, items_path(item_search_form: {category_id: child_category.id}), class: 'dropdown-item'
+
 %hr.mt-0.mb-5
 .container
   %section.pickup
@@ -43,7 +54,7 @@
     .row
       = render partial: 'items/card', collection: @items[:pickup], as: :item, locals: {favorites: @favorites}
     .text-right
-      = link_to items_path, class: 'btn btn-info btn-raised' do
+      = link_to items_path(item_search_form: {pickup: 1}), class: 'btn btn-info btn-raised' do
         MORE
         %i.fa.fa-angle-right.fa-fw
   %section.arrival_new
@@ -54,7 +65,7 @@
     .row
       = render partial: 'items/card', collection: @items[:new], as: :item, locals: {favorites: @favorites}
     .text-right
-      = link_to items_path, class: 'btn btn-info btn-raised' do
+      = link_to items_path(item_search_form: {arrival_new: 1}), class: 'btn btn-info btn-raised' do
         MORE
         %i.fa.fa-angle-right.fa-fw
   %section.topics
@@ -73,3 +84,16 @@
         - else
           = topic.title
         %hr/
+- content_for :javascript do
+  :javascript
+    $(document).ready(function() {
+      $('.category_area').find('.dropdown-toggle').click(function() {
+        var target = $(this).next();
+        if (target.hasClass('show')) {
+          target.css('transform', '');
+          target.removeClass('dropdown-optional');
+        } else {
+          target.addClass('dropdown-optional');
+        }
+      });
+    });

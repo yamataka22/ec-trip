@@ -5,4 +5,5 @@ ja:
     attributes:
       category:
         name: 名称
+        root_category_id: 親カテゴリー
         sequence: 表示順

@@ -16,7 +16,7 @@
         - if flash[:error].present?
           .alert.alert-danger= flash[:error]
         - if cart_added
-          .alert.alert-primary
+          .alert.alert-info
             .clearfix.pt-1
               .float-left
                 %p.pt-1.mb-0= params[:cart_added] ? 'カートに追加しました' : 'この商品はカートに追加されています'

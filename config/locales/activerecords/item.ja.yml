@@ -13,6 +13,8 @@ ja:
         stock_quantity: 在庫数
         remarks: 備考
         status: ステータス
+        pickup: ピックアップ
+        arrival_new: 新着
   enums:
     item:
       status:

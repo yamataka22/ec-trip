@@ -1,11 +1,15 @@
 class Item < ApplicationRecord
-  belongs_to :category
+  has_many :category_items, dependent: :destroy
+  has_many :categories, through: :category_items
   belongs_to :caption_image, class_name: 'Image'
   has_many :purchase_details
   has_many :favorites
 
+  accepts_nested_attributes_for :category_items, allow_destroy: true
+
   enum status: {unpublished: 0, selling: 1, end_of_sell: 2}
 
+  # Previewに対応するためにbefore_validationで実行する
   before_validation :set_tinymce_images_path
 
   validates :name, presence: true
@@ -45,14 +49,26 @@ class Item < ApplicationRecord
     self.selling? && self.stock_quantity > 0
   end
 
+  def initialized_category_items
+    all_category_items = []
+
+    Category.sorted_all.each do |category|
+      category_item = self.category_items.find { |c| c.category_id == category.id }
+      if category_item
+        all_category_items << category_item
+      else
+        all_category_items << self.category_items.build(category: category)
+      end
+    end
+    all_category_items
+  end
+
   private
   def set_tinymce_images_path
     # Tinymceのバグ？で、localに画像を保存すると相対パスに変換されてしまうため、
     # それを絶対パスに置換する
     if Rails.env.development? && self.about
-      loop do
-        break unless self.about.gsub!('src="../', 'src="')
-      end
+      self.about.gsub!('src="../', 'src="')
       self.about.gsub!('src="assets', 'src="/assets')
     end
   end

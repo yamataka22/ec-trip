@@ -4,8 +4,8 @@ class Admin::ItemSearchForm
   attr_accessor :category_id, :name, :sort_type
 
   def search(page)
-    items = Item.includes(:category)
-    items = items.where(category_id: category_id) if category_id.present?
+    items = Item.all
+    items = items.includes(:categories).where('? in (`categories`.`id`, `categories`.`root_category_id`)', category_id) if category_id.present?
     items = items.where('`items`.`name` like ?', "%#{name}%") if name.present?
     items = items.page(page).per(50)
     case sort_type

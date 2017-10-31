@@ -5,12 +5,12 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.string :description
       t.integer :caption_image_id
       t.text :about
-      t.references :category, foreign_key: true
       t.integer :price
       t.integer :stock_quantity
       t.string :remarks
       t.integer :status, null: false, default: 0
       t.boolean :pickup, null: false, defualt: false
+      t.boolean :arrival_new, null: false, default: false
 
       t.timestamps
     end
