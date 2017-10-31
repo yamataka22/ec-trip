@@ -20,6 +20,6 @@
             %td= topic.title
             %td
               = link_to '編集', edit_admin_topic_path(topic)
-              &nbsp;/&nbsp
+              %span.my-2= '/'
               = link_to '削除', admin_topic_path(topic), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
     = paginate @topics

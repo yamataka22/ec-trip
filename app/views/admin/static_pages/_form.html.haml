@@ -1,0 +1,34 @@
+- label_class = 'col-sm-3 col-form-label text-right'
+.form-group.row
+  = f.label :name, class: label_class
+  .col-sm-9
+    = f.text_field :name, class: 'form-control'
+    %span.small.text-muted URLに利用されます
+    = error_label_tag(f.object, :name)
+.form-group.row
+  = f.label :title, class: label_class
+  .col-sm-9
+    = f.text_field :title, class: 'form-control'
+    = error_label_tag(f.object, :title)
+.form-group.row
+  = f.label :content, class: label_class
+  .col-sm-9
+    = f.text_area :content, :class => 'tinymce form-control', :rows => 30
+    = error_label_tag(f.object, :content)
+.form-group.row.justify-content-end
+  .col-sm-9
+    .form-check
+      %label.form-check-label
+        = f.check_box :published, class: 'form-check-input'
+        公開する
+%hr/
+- content_for :javascript do
+  = javascript_include_tag 'tinymce'
+  = javascript_include_tag 'tinymce_custom'
+  :javascript
+    $(document).ready(function() {
+
+      if (#{@preview_id.present?}) {
+        window.open('#{preview_admin_static_pages_path(preview_id: @preview_id)}');
+      }
+    });

@@ -69,8 +69,7 @@
   = javascript_include_tag 'tinymce_custom'
   :javascript
     $(document).ready(function() {
-
-      if (#{f.object.errors.blank? && f.object.preview.present?}) {
-        window.open('#{preview_admin_items_path}');
+      if (#{@preview_id.present?}) {
+        window.open('#{preview_admin_items_path(preview_id: @preview_id)}');
       }
     });

@@ -62,8 +62,12 @@
                   トピック管理
               %li.nav-item
                 = link_to admin_sliders_path, class: "nav-link #{'active' if controller.controller_name == 'sliders'}" do
-                  %i.icon-layers
+                  %i.icon-screen-desktop
                   スライダー管理
+              %li.nav-item
+                = link_to admin_static_pages_path, class: "nav-link #{'active' if controller.controller_name == 'static_pages'}" do
+                  %i.icon-docs
+                  静的ページ管理
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?

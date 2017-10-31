@@ -1,14 +1,5 @@
 class StaticPagesController < FrontBase
-
-  def privacy
-  end
-
-  def about
-  end
-
-  def commercial
-  end
-
-  def terms
+  def show
+    @static_page = StaticPage.find_by(name: params[:name], published: true)
   end
 end

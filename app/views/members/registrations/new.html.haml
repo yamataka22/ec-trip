@@ -29,7 +29,7 @@
               .checkbox.mt-3
                 %label
                   %input{type: 'checkbox', name: 'terms_agree', id: 'terms_agree'}
-                  = link_to '利用規約', terms_path, class: 'ml-1', target: '_blank'
+                  = link_to '利用規約', static_page_path(name: :terms), class: 'ml-1', target: '_blank'
                   に同意する
             .float-right
               = button_tag class: 'btn btn-info bmd-btn-fab', id: 'btn_submit', onclick: 'return check_submit()' do

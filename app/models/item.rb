@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+  include TinymceConcern
+
   has_many :category_items, dependent: :destroy
   has_many :categories, through: :category_items
   belongs_to :caption_image, class_name: 'Image'
@@ -9,8 +11,7 @@ class Item < ApplicationRecord
 
   enum status: {unpublished: 0, selling: 1, end_of_sell: 2}
 
-  # Previewに対応するためにbefore_validationで実行する
-  before_validation :set_tinymce_images_path
+  before_validation :set_tinymce_images_path if Rails.env.development?
 
   validates :name, presence: true
   validates :stock_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
@@ -65,12 +66,7 @@ class Item < ApplicationRecord
 
   private
   def set_tinymce_images_path
-    # Tinymceのバグ？で、localに画像を保存すると相対パスに変換されてしまうため、
-    # それを絶対パスに置換する
-    if Rails.env.development? && self.about
-      self.about.gsub!('src="../', 'src="')
-      self.about.gsub!('src="assets', 'src="/assets')
-    end
+    TinymceConcern.set_images_path(self.about)
   end
 
   def change_to_unpublished

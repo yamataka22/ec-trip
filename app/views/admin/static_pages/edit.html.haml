@@ -1,0 +1,11 @@
+- @crumbs = [{title: '静的ページ管理', path: admin_static_pages_path}, {title: '編集'}]
+= form_for @static_page, url: admin_static_page_path(@static_page) do |f|
+  .card
+    .card-header
+      ページ情報
+    .card-body
+      = render 'form', f: f
+      .float-right
+        = f.submit 'プレビュー', class: 'btn btn-success mr-2', name: 'static_page[preview]'
+        = f.submit '更新', class: 'btn btn-primary mr-2'
+        = link_to 'キャンセル', admin_static_pages_path, class: 'btn btn-light'

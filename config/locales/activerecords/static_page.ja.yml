@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      static_page: 静的ページ
+    attributes:
+      static_page:
+        name: ページ名
+        title: タイトル
+        content: コンテンツ
+        published: 公開

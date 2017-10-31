@@ -66,7 +66,9 @@ class Admin::ItemsController < Admin::AdminBase
 
   def preview
     Item
-    @item = Preview.find_by(manager: current_manager).content
+    preview = Preview.find_by(params[:preview_id])
+    @item = preview.content
+    preview.destroy!
     render '/items/show', layout: 'front'
   end
 
@@ -83,9 +85,7 @@ class Admin::ItemsController < Admin::AdminBase
   end
 
   def set_preview
-    preview = Preview.find_or_initialize_by(manager: current_manager)
-    preview.content = @item
-    preview.save!
+    @preview_id = Preview.create(content: @item).id
   end
 
   def process_category_items_attrs

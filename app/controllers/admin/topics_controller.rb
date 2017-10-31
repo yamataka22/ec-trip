@@ -8,7 +8,7 @@ class Admin::TopicsController < Admin::AdminBase
   end
 
   def create
-    @topic = Topic.create(post_params)
+    @topic = Topic.new(post_params)
     if @topic.save
       flash[:success] = '登録が完了しました'
       redirect_to admin_topics_path
@@ -36,8 +36,8 @@ class Admin::TopicsController < Admin::AdminBase
   end
 
   def destroy
-    @topic = Topic.find(params[:id])
-    @topic.destroy!
+    topic = Topic.find(params[:id])
+    topic.destroy!
     flash[:success] = '削除が完了しました'
     redirect_to admin_topics_path
   end

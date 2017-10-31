@@ -42,21 +42,19 @@ Rails.application.routes.draw do
   namespace :admin, path: 'admin' do
     resources :categories, except: :show
     resources :items, except: :show do
-      collection do
-        get :preview
-      end
+      collection {get :preview}
     end
     resources :topics, except: :show
     resources :sliders, only: [:index, :edit, :update]
+    resources :static_pages do
+      collection {get :preview}
+    end
 
     resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root
   end
 
-  get 'privacy' => 'static_pages#privacy'
-  get 'about' => 'static_pages#about'
-  get 'commercial' => 'static_pages#commercial'
-  get 'terms' => 'static_pages#terms'
+  get 'static_pages/:name' => 'static_pages#show', as: :static_page
 
   post '/tinymce_assets' => 'admin/images#create_tinymce'
   root 'top#index'

@@ -1,0 +1,26 @@
+- @crumbs = [{title: '静的ページ管理'}]
+
+.card
+  .card-header.pt-3
+    ページ一覧
+    = link_to new_admin_static_page_path, class: 'btn btn-success btn-sm float-right mb-0' do
+      %i.fa.fa-plus
+      新規作成
+  .card-body
+    %table.table.table-bordered.table-sm.table-striped
+      %thead
+        %tr
+          %th{width: '20%'}= t('activerecord.attributes.static_page.name')
+          %th{width: '50%'}= t('activerecord.attributes.static_page.title')
+          %th{width: '15%'}= t('activerecord.attributes.static_page.published')
+          %th{width: '15%'}
+      %tbody
+        - @static_pages.each do |page|
+          %tr
+            %td= page.name
+            %td= page.title
+            %td= page.published? ? '公開' : '未公開'
+            %td
+              = link_to '編集', edit_admin_static_page_path(page)
+              %span.my-2= '/'
+              = link_to '削除', admin_static_page_path(page), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}

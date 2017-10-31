@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031054905) do
+ActiveRecord::Schema.define(version: 20171031075730) do
 
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "member_id",                     null: false
@@ -167,11 +167,9 @@ ActiveRecord::Schema.define(version: 20171031054905) do
   end
 
   create_table "previews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "manager_id"
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.index ["manager_id"], name: "index_previews_on_manager_id", unique: true, using: :btree
   end
 
   create_table "purchase_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -215,14 +213,24 @@ ActiveRecord::Schema.define(version: 20171031054905) do
   create_table "sliders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
     t.string   "description"
-    t.string   "link_url"
+    t.text     "link_url",         limit: 65535
     t.integer  "image_id"
-    t.integer  "caption_position", default: 0, null: false
-    t.integer  "caption_color",    default: 0, null: false
+    t.integer  "caption_position",               default: 0, null: false
+    t.integer  "caption_color",                  default: 0, null: false
     t.boolean  "published"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.index ["image_id"], name: "index_sliders_on_image_id", using: :btree
+  end
+
+  create_table "static_pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",                                     null: false
+    t.string   "title",                                    null: false
+    t.text     "content",    limit: 65535,                 null: false
+    t.boolean  "published",                default: false, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["name"], name: "index_static_pages_on_name", unique: true, using: :btree
   end
 
   create_table "taxes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -248,7 +256,6 @@ ActiveRecord::Schema.define(version: 20171031054905) do
   add_foreign_key "favorites", "items"
   add_foreign_key "favorites", "members"
   add_foreign_key "items", "images", column: "caption_image_id"
-  add_foreign_key "previews", "managers"
   add_foreign_key "purchase_details", "items"
   add_foreign_key "purchase_details", "purchases"
   add_foreign_key "purchases", "members"

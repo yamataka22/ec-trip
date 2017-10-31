@@ -65,10 +65,10 @@
       .container
         .pull-left
           %ul.list-inline
-            %li.list-inline-item.mr-3= link_to '当サイトについて', about_path
-            %li.list-inline-item.mr-3= link_to 'プライバシーポリシー', privacy_path
-            %li.list-inline-item.mr-3= link_to '特定商取引法に基づく表記', commercial_path
-            %li.list-inline-item= link_to '利用規約', terms_path
+            %li.list-inline-item.mr-3= link_to '当サイトについて', static_page_path(name: :about)
+            %li.list-inline-item.mr-3= link_to 'プライバシーポリシー', static_page_path(name: :privacy)
+            %li.list-inline-item.mr-3= link_to '特定商取引法に基づく表記', static_page_path(name: :commercial)
+            %li.list-inline-item= link_to '利用規約', static_page_path(name: :terms)
         .pull-right.text-right
           %h3 EC-TRIP DEMO SITE
           .small Copyright &copy; 2017 EC-TRIP All Rights Reserved.
