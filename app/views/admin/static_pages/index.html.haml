@@ -22,5 +22,6 @@
             %td= page.published? ? '公開' : '未公開'
             %td
               = link_to '編集', edit_admin_static_page_path(page)
-              %span.my-2= '/'
-              = link_to '削除', admin_static_page_path(page), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
+              - unless %w(about commercial privacy terms).include?(page.name)
+                %span.my-2= '/'
+                = link_to '削除', admin_static_page_path(page), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
