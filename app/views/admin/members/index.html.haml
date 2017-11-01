@@ -1,0 +1,45 @@
+- @crumbs = [{title: '会員情報'}]
+
+.card
+  .card-header.pt-3
+    会員一覧
+  .card-body
+    = form_for @search_form, as: 'search', url: admin_members_path, method: :get, html: {class: 'form-horizontal', id: 'form_member_search'} do |f|
+      .form-group.row
+        = f.label :email, 'メールアドレス', class: 'col-2 col-form-label pr-0'
+        .col-4
+          = f.text_field :email, class: 'form-control', placeholder: 'あいまい検索'
+        = f.label :account_name, 'アカウント名', class: 'col-2 col-form-label pr-0 text-right'
+        .col-4
+          = f.text_field :account_name, class: 'form-control', placeholder: 'あいまい検索'
+      .form-group.row
+        = f.label :created_at_from, '登録日', class: 'col-2 col-form-label pr-0'
+        .col-6
+          .form-inline
+            = f.date_field :created_at_from, class: 'form-control'
+            %span.mx-1 〜
+            = f.date_field :created_at_to, class: 'form-control'
+        .col-2
+          .form-check
+            %label.form-check-label
+              = f.check_box :leaved, class: 'form-check-input'
+              退会者も含む
+        .col-2
+          = f.submit '検 索', class: 'btn btn-primary btn-block'
+    %table.table.table-bordered.table-sm
+      %thead
+        %tr.table-secondary
+          %th{width: '25%'}= t('activerecord.attributes.member.email')
+          %th{width: '25%'}= t('activerecord.attributes.member.account_name')
+          %th{width: '20%'}= t('activerecord.attributes.member.created_at')
+          %th.text-center{width: '15%'} ステータス
+          %th{width: '15%'}
+      %tbody
+        - @members.each do |member|
+          %tr
+            %td= member.email
+            %td= member.account_name
+            %td= member.created_at.strftime('%Y/%m/%d %H:%M')
+            %td.text-center= member.leave_at.nil? ? '存続' : '退会済'
+            %td= link_to '参照', admin_member_path(member)
+    = paginate @members

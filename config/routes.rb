@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :members, controllers: {
       sessions:      'members/sessions',
       passwords:     'members/passwords',
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
       collection {get :preview}
     end
     resources :contacts, only: [:index, :show, :destroy]
+    resources :members, only: [:index, :show, :destroy]
 
     resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root

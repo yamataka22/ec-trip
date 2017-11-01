@@ -19,3 +19,4 @@ ja:
         leave_at: 退会日時
         leave_reason: 退会理由
         stripe_customer_id: StripeカスタマーID
+        created_at: 登録日時

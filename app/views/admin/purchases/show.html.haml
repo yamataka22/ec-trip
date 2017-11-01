@@ -7,7 +7,7 @@
       %th.table-secondary{width: '10%'}= t('activerecord.attributes.purchase.created_at')
       %td{width: '20%'}= @purchase.created_at.strftime('%Y/%m/%d %H:%M')
       %th.table-secondary{width: '10%'}= t('activerecord.models.member')
-      %th{width: '20%'}= link_to @purchase.member.account_name, '#'
+      %th{width: '20%'}= link_to @purchase.member.account_name, admin_member_path(@purchase.member)
 
 .row
   .col-6.pb-4

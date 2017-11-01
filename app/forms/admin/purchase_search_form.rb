@@ -5,7 +5,7 @@ class Admin::PurchaseSearchForm
 
   def search(page)
     purchases = Purchase.includes(:member, details: [:item])
-    purchases = purchases.where(delivered: false) unless delivered
+    purchases = purchases.where(delivered: false) if delivered.blank?
     purchases = purchases.where(member: [email: email]) if email.present?
     purchases = purchases.where('`purchases`.`created_at` >= ?', purchased_at_from) if purchased_at_from.present?
     purchases = purchases.where('`purchases`.`created_at` <= ?', purchased_at_to) if purchased_at_to.present?

@@ -82,6 +82,10 @@
                   お問い合わせ
                   - if Contact.where(read: false).exists?
                     %span.badge.badge-primary NEW
+              %li.nav-item
+                = link_to admin_members_path, class: "nav-link #{'active' if controller.controller_name == 'members'}" do
+                  %i.icon-people
+                  会員情報
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?

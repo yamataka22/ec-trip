@@ -1,0 +1,41 @@
+- @crumbs = [{title: '会員一覧', path: admin_members_path}, {title: '参照'}]
+.card
+  .card-header
+    会員情報
+  .card-body
+    - if @member.leave_at.present?
+      .alert.alert-secondary この会員は既に退会済みです
+    %table.table.table-bordered
+      %tr
+        %th= t('activerecord.attributes.member.email')
+        %td= @member.email
+      %tr
+        %th= t('activerecord.attributes.member.account_name')
+        %td= @member.account_name
+      %tr
+        %th= t('activerecord.attributes.member.created_at')
+        %td= @member.created_at
+- if @member.purchases.size == 0
+  .alert.alert-info 購入履歴がありません
+- else
+  #accordion{role: 'tablist'}
+    .card.mb-0
+      .card-header#delivery-header{role: 'tab'}
+        .mb-0
+          %a{href: '#purchase-body', 'data-toggle' => 'collapse', 'aria-expanded' => 'true', 'aria-controls' => 'purchase-body'}
+            購入履歴
+      .collapse#purchase-body.show{role: 'tabpanel', 'aria-labelledby' => 'purchase-body', 'data-parent' => 'accordion'}
+        .card-body
+          %table.table.table-bordered.table-sm
+            - @member.purchases.order(id: :desc).limit(20).each do |purchase|
+              %tr
+                %td= purchase.purchase_no
+                %td= purchase.created_at.strftime('%Y/%m/%d %H:%M')
+                %td= jpy(purchase.total_amount, prefix: true)
+                %td= purchase.delivered? ? '配送済み' : '未配送'
+                %td= link_to '詳細', admin_purchase_path(purchase)
+          - if @member.purchases.size > 20
+            .alert.alert-info この会員には20件以上の購入があります。全て参照するには注文一覧機能よりご検索ください。
+.text-right.mt-3
+  - if @member.leave_at.blank?
+    = link_to '強制退会', admin_member_path(@member), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: '退会処理を実施してよろしいでしょうか？'}
