@@ -3,7 +3,7 @@
     お支払い方法
   %p.text-muted.mb-5 クレジットカードを選択してください
 .row.justify-content-lg-center
-  .col-lg-10.col-lx-8
+  .col-lg-10.col-xl-8
     - @credit_cards.each do |card|
       = link_to new_purchase_path(credit_card_id: card.id) do
         .card.mb-3

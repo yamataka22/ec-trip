@@ -12,6 +12,7 @@ class CreditCardsController < FrontBase
 
   def new
     @credit_card = CreditCard.new
+    render '/purchases/credit_cards/new', layout: 'purchase' if params[:purchase].present?
   end
 
   def create

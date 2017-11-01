@@ -5,7 +5,7 @@
 = form_for @address, url: member_delivery_addresses_path, method: :post, class: 'mb-0', id: 'address_form' do |f|
   = hidden_field_tag :purchase, true
   .row.justify-content-md-center
-    .col-md-10.col-lg-8.col-lx-6
+    .col-md-10.col-lg-8.col-xl-6
       .card
         .card-body
           = render '/addresses/form', f: f

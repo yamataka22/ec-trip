@@ -13,6 +13,7 @@ class DeliveryAddressesController < FrontBase
 
   def new
     @address = Address.new
+    render '/purchases/delivery_addresses/new', layout: 'purchase' if params[:purchase].present?
   end
 
   def create
