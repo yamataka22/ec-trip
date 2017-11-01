@@ -71,7 +71,7 @@
       %i.fa.fa-info-circle.fa-fw
       TOPICS
     %hr/
-    - 5.times do
+    %p.small
       - @topics.each do |topic|
         - if Date.today - 7.days < topic.created_at
           %span.badge.badge-info.p-1.mr-1 NEW

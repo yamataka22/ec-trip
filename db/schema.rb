@@ -205,6 +205,8 @@ ActiveRecord::Schema.define(version: 20171031075730) do
     t.string   "invoice_address2"
     t.string   "credit_card_info",                   null: false
     t.string   "stripe_charge_id",                   null: false
+    t.string   "remarks"
+    t.boolean  "delivered"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.index ["member_id"], name: "index_purchases_on_member_id", using: :btree

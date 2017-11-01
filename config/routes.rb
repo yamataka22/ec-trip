@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :items, except: :show do
       collection {get :preview}
     end
+    resources :purchases, only: [:index, :show, :update]
     resources :topics, except: :show
     resources :sliders, only: [:index, :edit, :update]
     resources :static_pages do

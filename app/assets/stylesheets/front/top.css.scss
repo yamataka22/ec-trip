@@ -1,6 +1,7 @@
 #top_slider {
   .carousel-item {
-    max-height: 400px;
+    height: 480px;
+    img {margin: 0 auto;}
     .carousel-caption {
       @media (max-width: 767px) {
         padding-bottom: 10px;
@@ -31,4 +32,7 @@ section {
       margin-left: 5px;
     }
   }
+}
+.topics p {
+  line-height: 1.5rem;
 }

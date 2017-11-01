@@ -16,3 +16,4 @@
 //= require bootstrap.min
 //= require js/coreui
 //= require jquery.remotipart
+//= require util

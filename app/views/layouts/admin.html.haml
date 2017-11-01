@@ -48,26 +48,34 @@
                 = link_to admin_root_path, class: 'nav-link' do
                   %i.icon-speedometer
                   ダッシュボード
+              %li.nav-title アイテム
               %li.nav-item
                 = link_to admin_categories_path, class: "nav-link #{'active' if controller.controller_name == 'categories'}" do
                   %i.icon-folder-alt
-                  カテゴリー管理
+                  カテゴリー
               %li.nav-item
                 = link_to admin_items_path, class: "nav-link #{'active' if controller.controller_name == 'items'}" do
                   %i.icon-book-open
                   商品管理
+              %li.nav-title 注文
+              %li.nav-item
+                = link_to admin_purchases_path, class: "nav-link #{'active' if controller.controller_name == 'purchases'}" do
+                  %i.icon-basket
+                  注文一覧
+              %li.nav-title コンテンツ
               %li.nav-item
                 = link_to admin_topics_path, class: "nav-link #{'active' if controller.controller_name == 'topics'}" do
                   %i.icon-info
-                  トピック管理
+                  トピックス
               %li.nav-item
                 = link_to admin_sliders_path, class: "nav-link #{'active' if controller.controller_name == 'sliders'}" do
                   %i.icon-screen-desktop
-                  スライダー管理
+                  スライダー
               %li.nav-item
                 = link_to admin_static_pages_path, class: "nav-link #{'active' if controller.controller_name == 'static_pages'}" do
                   %i.icon-docs
-                  静的ページ管理
+                  静的ページ
+              %li.nav-title その他
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?
@@ -78,7 +86,7 @@
       %footer.app-footer
         %span
           = link_to 'EC-TRIP', root_path
-          © 2017 basement technology.
+          © 2017 yamataka22
     = javascript_include_tag 'admin'
     = yield :javascript
   - else

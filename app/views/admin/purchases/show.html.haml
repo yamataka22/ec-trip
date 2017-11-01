@@ -1,0 +1,101 @@
+- @crumbs = [{title: '注文一覧', path: admin_purchases_path}, {title: '詳細'}]
+.bg-white
+  %table.table.table-bordered
+    %tr
+      %th.table-secondary{width: '10%'} ID
+      %td{width: '20%'}= @purchase.purchase_no
+      %th.table-secondary{width: '10%'}= t('activerecord.attributes.purchase.created_at')
+      %td{width: '20%'}= @purchase.created_at.strftime('%Y/%m/%d %H:%M')
+      %th.table-secondary{width: '10%'}= t('activerecord.models.member')
+      %th{width: '20%'}= link_to @purchase.member.account_name, '#'
+
+.row
+  .col-6.pb-4
+    .card{style: 'height: 100%'}
+      .card-header
+        注文商品
+      .card-body.p-0
+        %table.table
+          %tr
+            %th ID
+            %th 商品名
+            %th 数量
+          - @purchase.details.each do |detail|
+            %tr
+              %td= detail.item.id
+              %td= detail.item.name
+              %td= detail.quantity
+  .col-6
+    #accordion{role: 'tablist'}
+      .card.mb-0
+        .card-header#delivery-header{role: 'tab'}
+          .mb-0
+            %a{href: '#delivery-body', 'data-toggle' => 'collapse', 'aria-expanded' => 'true', 'aria-controls' => 'delivery-body'}
+              配送先住所
+        .collapse.show#delivery-body{role: 'tabpanel', 'aria-labelledby' => 'delivery-body', 'data-parent' => 'accordion'}
+          .card-body
+            %p= "#{@purchase.delivery_full_name} 様"
+            %p
+              %i.fa.fa-phone-square.fa-fw
+              = @purchase.delivery_phone
+            %p
+              = "〒 #{@purchase.delivery_postal_code}"
+              %br/
+              = "#{@purchase.delivery_prefecture.name} #{@purchase.delivery_address1}"
+              - if @purchase.delivery_address2.present?
+                %br/
+                = @purchase.delivery_address2
+      .card
+        .card-header#invoice-header{role: 'tab'}
+          .mb-0
+            %a{href: '#invoice-body', 'data-toggle' => 'collapse', 'aria-expanded' => 'true', 'aria-controls' => 'invoice-body'}
+              請求先住所
+        .collapse#invoice-body{role: 'tabpanel', 'aria-labelledby' => 'invoice-body', 'data-parent' => 'accordion'}
+          .card-body
+            %p= "#{@purchase.invoice_full_name} 様"
+            %p
+              %i.fa.fa-phone-square.fa-fw
+              = @purchase.invoice_phone
+            %p
+              = "〒 #{@purchase.invoice_postal_code}"
+              %br/
+              = "#{@purchase.invoice_prefecture.name} #{@purchase.invoice_address1}"
+              - if @purchase.invoice_address2.present?
+                %br/
+                = @purchase.invoice_address2
+.card
+  .card-body
+    = form_for @purchase, url: admin_purchase_path(@purchase), method: :put do |f|
+      .form-group
+        = f.label :remarks
+        = f.text_area :remarks, rows: 5, class: 'form-control'
+      .row
+        .col-4
+          .input-group
+            %span.input-group-addon
+              = f.check_box :delivered
+              = f.label :delivered, class: 'ml-2 mt-2'
+            = f.date_field :delivered_at, class: 'form-control'
+        .col-2
+          = f.submit '登 録', class: 'btn btn-primary btn-block'
+.row
+  .col-2
+    = link_to '一覧に戻る', admin_purchases_path(session['search_params']), class: 'btn btn-light'
+  .col-8
+    .text-center
+      - if @before_purchase.present?
+        = link_to admin_purchase_path(@before_purchase), class: 'btn btn-light mx-2' do
+          %i.fa.fa-arrow-left
+          前の注文
+      - if @next_purchase.present?
+        = link_to admin_purchase_path(@next_purchase), class: 'btn btn-light mx-2' do
+          次の注文
+          %i.fa.fa-arrow-right
+- content_for :javascript do
+  :javascript
+    $('#purchase_delivered').click(function() {
+      var target = $('#purchase_delivered_at');
+      if (target.val() == '') {
+        target.val(formatDate(new Date(), 'YYYY-MM-DD'));
+      }
+    });

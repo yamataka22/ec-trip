@@ -36,7 +36,7 @@ class PurchasesController < FrontBase
   def create
     @purchase = current_member.purchases.build
     @purchase.assign_attributes(post_params)
-    if @purchase.save
+    if @purchase.new_order
       session[:purchase] = nil
       redirect_to complete_purchases_path
     else

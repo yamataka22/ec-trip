@@ -1,0 +1,54 @@
+- @crumbs = [{title: '注文一覧'}]
+
+.card
+  .card-header.pt-3
+    注文一覧
+  .card-body
+    = form_for @search_form, as: 'search', url: admin_purchases_path, method: :get, html: {class: 'form-horizontal', id: 'form_purchase_search'} do |f|
+      .form-group.row
+        = f.label :purchased_at_from, '購入日', class: 'col-1 col-form-label pr-0'
+        .col-6
+          .form-inline
+            = f.date_field :purchased_at_from, class: 'form-control'
+            %span.mx-1 〜
+            = f.date_field :purchased_at_to, class: 'form-control'
+        = f.label :email, '購入者メール', class: 'col-2 col-form-label pr-0'
+        .col-3
+          = f.text_field :email, class: 'form-control'
+      .form-group.row
+        = f.label :remarks, '備考', class: 'col-1 col-form-label pr-0'
+        .col-6
+          = f.text_field :remarks, class: 'form-control', placeholder: 'あいまい検索'
+        .col-3
+          .form-check
+            %label.form-check-label
+              = f.check_box :delivered, class: 'form-check-input'
+              配送済みも含む
+        .col-2
+          = f.submit '検 索', class: 'btn btn-primary btn-block'
+    %table.table.table-bordered.table-sm.table-striped.small
+      %thead
+        %tr
+          %th{width: '12%'} #
+          %th{width: '13%'}= t('activerecord.attributes.purchase.created_at')
+          %th{width: '20%'}= t('activerecord.attributes.member.email')
+          %th.text-right{width: '12%'}= t('activerecord.attributes.purchase.item_amount') + '(税抜)'
+          %th{width: '28%'}= t('activerecord.models.item') + '(' + t('activerecord.attributes.purchase_detail.quantity') + ')'
+          %th.text-center{width: '8%'}= t('activerecord.attributes.purchase.delivered')
+          %th{width: '7%'}
+      %tbody
+        - @purchases.each do |purchase|
+          %tr
+            %td= purchase.purchase_no
+            %td= purchase.created_at.strftime('%Y/%m/%d %H:%M')
+            %td= purchase.member.email
+            %td.text-right= jpy(purchase.item_amount, prefix: true)
+            %td
+              - purchase.details.each_with_index do |detail, i|
+                - if i > 0
+                  %br/
+                = "#{detail.item.name}(#{detail.quantity})"
+            %td.text-center= purchase.delivered? ? '完了' : '未'
+            %td
+              = link_to '参照', admin_purchase_path(purchase)
+    = paginate @purchases

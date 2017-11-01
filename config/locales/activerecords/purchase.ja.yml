@@ -24,3 +24,6 @@ ja:
         invoice_address1: 住所
         invoice_address2: 建物名
         stripe_payment_id: Stripe支払いID
+        delivered: 配送完了
+        remarks: メモ欄
+        created_at: 購入日

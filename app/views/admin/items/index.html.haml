@@ -42,7 +42,7 @@
             %td.text-right= item.id
             %td= item.name
             %td= item.status_i18n
-            %td.text-right= number_with_delimiter item.price
+            %td.text-right= jpy(item.price, prefix: true, tax: :exclude)
             %td.text-right= number_with_delimiter item.stock_quantity
             %td
               = link_to '編集', edit_admin_item_path(item)

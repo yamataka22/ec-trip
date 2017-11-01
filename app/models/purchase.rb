@@ -1,7 +1,10 @@
 class Purchase < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :member
   belongs_to :credit_card
   has_many :details, class_name: 'PurchaseDetail'
+  belongs_to_active_hash :delivery_prefecture, class_name: 'Prefecture'
+  belongs_to_active_hash :invoice_prefecture, class_name: 'Prefecture'
 
   accepts_nested_attributes_for :details
 
@@ -41,7 +44,7 @@ class Purchase < ApplicationRecord
     set_amount
   end
 
-  def save
+  def new_order
     if self.invalid? || !stock_reserve
       return false
     end
@@ -90,6 +93,14 @@ class Purchase < ApplicationRecord
 
   def purchase_no
     "#{self.created_at.year}-#{format('%07d', self.id)}"
+  end
+
+  def delivery_full_name
+    "#{self.delivery_last_name} #{self.delivery_first_name}"
+  end
+
+  def invoice_full_name
+    "#{self.invoice_last_name} #{self.invoice_first_name}"
   end
 
   private

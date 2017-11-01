@@ -21,6 +21,9 @@ class CreatePurchases < ActiveRecord::Migration[5.0]
       t.string :invoice_address2
       t.string :credit_card_info, null: false
       t.string :stripe_charge_id, null: false
+      t.text :remarks
+      t.boolean :delivered, null: false, default: false
+      t.datetime :delivered_at
 
       t.timestamps
     end
