@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :members, controllers: {
       sessions:      'members/sessions',
       passwords:     'members/passwords',
@@ -39,6 +38,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :contacts, only: [:new, :create] do
+    collection do
+      post :confirm
+      get :complete
+    end
+  end
+
   namespace :admin, path: 'admin' do
     resources :categories, except: :show
     resources :items, except: :show do
@@ -50,6 +56,7 @@ Rails.application.routes.draw do
     resources :static_pages do
       collection {get :preview}
     end
+    resources :contacts, only: [:index, :show, :destroy]
 
     resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root

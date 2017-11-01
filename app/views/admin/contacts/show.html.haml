@@ -1,0 +1,36 @@
+- @crumbs = [{title: 'お問い合わせ', path: admin_contacts_path}, {title: '参照'}]
+.card
+  .card-header
+    = "お問い合わせ ##{@contact.id}"
+  .card-body
+    %table.table.table-bordered
+      %tr
+        %th{width: '200px'} お問い合わせ日時
+        %td= @contact.created_at.strftime('%Y/%m/%d %H:%M')
+      %tr
+        %th お名前
+        %td= "#{@contact.full_name} 様"
+      %tr
+        %th ご連絡先
+        %td
+          = @contact.email
+          - if @contact.phone.present?
+            %br/
+            %i.fa.fa-phone.fa-fw.mr-1
+            = @contact.phone
+      %tr
+        %th 内容
+        %td= simple_format(h(@contact.body))
+.row
+  .col-2
+    = link_to '一覧に戻る', admin_contacts_path, class: 'btn btn-light'
+  .col-8
+    .text-center
+      - if @before_contact.present?
+        = link_to admin_contact_path(@before_contact), class: 'btn btn-light mx-2' do
+          %i.fa.fa-arrow-left
+          前のお問い合わせ
+      - if @next_contact.present?
+        = link_to admin_contact_path(@next_contact), class: 'btn btn-light mx-2' do
+          次のお問い合わせ
+          %i.fa.fa-arrow-right

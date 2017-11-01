@@ -1,0 +1,28 @@
+- @crumbs = [{title: 'お問い合わせ'}]
+- content_for :stylesheet do
+  :css
+    .bold td {
+      font-weight: bold;
+    }
+.card
+  .card-header.pt-3
+    お問い合わせ一覧
+  .card-body
+    %table.table.table-bordered.table-sm.table-hover
+      %tr.table-secondary
+        %th.text-right{width: '5%'} #
+        %th{width: '15%'} 日時
+        %th{width: '20%'} お名前
+        %th{width: '45%'} 内容
+        %th{width: '15%'}
+      - @contacts.each do |contact|
+        %tr{class: "#{'bold' unless contact.read?}"}
+          %td.text-right= contact.id
+          %td= contact.created_at.strftime('%Y/%m/%d %H:%M')
+          %td= "#{contact.full_name} 様"
+          %td= contact.body.truncate(30)
+          %td
+            = link_to '参照', admin_contact_path(contact)
+            %span.mx-1= '/'
+            = link_to '削除', admin_contact_path(contact), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
+    = paginate @contacts

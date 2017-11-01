@@ -76,6 +76,12 @@
                   %i.icon-docs
                   静的ページ
               %li.nav-title その他
+              %li.nav-item
+                = link_to admin_contacts_path, class: "nav-link #{'active' if controller.controller_name == 'contacts'}" do
+                  %i.icon-envelope
+                  お問い合わせ
+                  - if Contact.where(read: false).exists?
+                    %span.badge.badge-primary NEW
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?

@@ -56,13 +56,14 @@ ActiveRecord::Schema.define(version: 20171031075730) do
   end
 
   create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "about",      limit: 65535, null: false
-    t.string   "email",                    null: false
-    t.string   "last_name",                null: false
+    t.text     "body",       limit: 65535,                 null: false
+    t.string   "email",                                    null: false
+    t.string   "last_name",                                null: false
     t.string   "first_name"
     t.string   "phone"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.boolean  "read",                     default: false, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "credit_cards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -185,30 +186,31 @@ ActiveRecord::Schema.define(version: 20171031075730) do
   end
 
   create_table "purchases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "member_id",                          null: false
-    t.integer  "item_amount",            default: 0, null: false
-    t.integer  "tax",                                null: false
-    t.integer  "delivery_fee",                       null: false
-    t.string   "delivery_last_name",                 null: false
-    t.string   "delivery_first_name",                null: false
-    t.string   "delivery_phone",                     null: false
-    t.string   "delivery_postal_code",               null: false
-    t.integer  "delivery_prefecture_id",             null: false
-    t.string   "delivery_address1",                  null: false
+    t.integer  "member_id",                                        null: false
+    t.integer  "item_amount",                          default: 0, null: false
+    t.integer  "tax",                                              null: false
+    t.integer  "delivery_fee",                                     null: false
+    t.string   "delivery_last_name",                               null: false
+    t.string   "delivery_first_name",                              null: false
+    t.string   "delivery_phone",                                   null: false
+    t.string   "delivery_postal_code",                             null: false
+    t.integer  "delivery_prefecture_id",                           null: false
+    t.string   "delivery_address1",                                null: false
     t.string   "delivery_address2"
-    t.string   "invoice_last_name",                  null: false
-    t.string   "invoice_first_name",                 null: false
-    t.string   "invoice_phone",                      null: false
-    t.string   "invoice_postal_code",                null: false
-    t.integer  "invoice_prefecture_id",              null: false
-    t.string   "invoice_address1",                   null: false
+    t.string   "invoice_last_name",                                null: false
+    t.string   "invoice_first_name",                               null: false
+    t.string   "invoice_phone",                                    null: false
+    t.string   "invoice_postal_code",                              null: false
+    t.integer  "invoice_prefecture_id",                            null: false
+    t.string   "invoice_address1",                                 null: false
     t.string   "invoice_address2"
-    t.string   "credit_card_info",                   null: false
-    t.string   "stripe_charge_id",                   null: false
-    t.string   "remarks"
+    t.string   "credit_card_info",                                 null: false
+    t.string   "stripe_charge_id",                                 null: false
+    t.text     "remarks",                limit: 65535
     t.boolean  "delivered"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "delivered_at"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.index ["member_id"], name: "index_purchases_on_member_id", using: :btree
   end
 
