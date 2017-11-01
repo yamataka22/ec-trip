@@ -4,6 +4,6 @@
   .row
     = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: current_member.favorites}
 - else
-  .alert.alert-primary お気に入り商品がありません
+  .alert.alert-info お気に入り商品がありません
   .text-center
     = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'

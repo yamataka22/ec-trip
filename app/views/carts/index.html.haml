@@ -2,7 +2,11 @@
   = stylesheet_link_tag 'front/cart'
 .cart_index
   - flash_messages
-  - if @carts.size > 0
+  - if @carts.size == 0
+    .alert.alert-info カートに商品がありません
+    .text-center
+      = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'
+  - else
     - @carts.each do |cart|
       - item_error = cart.item_error
       - if item_error.present?
@@ -41,10 +45,6 @@
                   = form_for cart, url: member_cart_path(cart), class: 'form-inline' do |f|
                     - max_quantity = cart.item.stock_quantity < 5 ? cart.item.stock_quantity : 5
                     = f.select :quantity, options_for_select(1..max_quantity, selected: cart.quantity), {include_blank: cart.item_error.present?}, {class: 'form-control quantity_select'}
-  - else
-    .alert.alert-primary カートに商品がありません
-    .text-center
-      = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'
 - content_for :javascript do
   :javascript
     $(document).ready(function(){

@@ -1,6 +1,6 @@
 = content_for :content do
   .container
-    %ul.nav.nav-pills.nav-fill.mb-3
+    %ul.nav.nav-tabs.nav-fill.mb-4
       %li.nav-item
         = link_to member_favorites_path, class: "nav-link #{'active' if controller.controller_name == 'favorites'}" do
           %i.fa.fa-heart.fa-fw.fa-lg
