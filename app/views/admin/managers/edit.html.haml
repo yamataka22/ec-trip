@@ -1,0 +1,11 @@
+- @crumbs = [{title: '管理者', path: admin_managers_path}, {title: '編集'}]
+= form_for @manager, url: admin_manager_path(@manager), method: :put do |f|
+  .card
+    .card-header
+      管理者情報
+    .card-body
+      = render 'form', f: f
+      .float-right
+        = f.submit '更新', class: 'btn btn-primary mr-2'
+        = link_to '削除', admin_manager_path(@manager), method: :delete, class: 'btn btn-danger mr-2', data: {confirm: '削除してよろしいでしょうか？'}
+        = link_to 'キャンセル', admin_managers_path, class: 'btn btn-light'

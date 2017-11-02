@@ -1,0 +1,19 @@
+- @crumbs = [{title: '管理者'}]
+
+.card
+  .card-header.pt-3
+    管理者一覧
+    = link_to new_admin_manager_path, class: 'btn btn-success btn-sm float-right mb-0' do
+      %i.fa.fa-plus
+      新規作成
+  .card-body
+    %table.table.table-bordered.table-sm.table-hover
+      %tr.table-secondary
+        %th{width: '30%'} 氏名
+        %th{widht: '50%'}= t('activerecord.attributes.manager.email')
+        %th{width: '20%'}
+      - @managers.each do |manager|
+        %tr
+          %td= manager.full_name
+          %td= manager.email
+          %td= link_to '編集', edit_admin_manager_path(manager)

@@ -4,6 +4,9 @@ class Manager < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+
   def full_name
     "#{self.last_name} #{self.first_name}"
   end

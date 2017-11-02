@@ -13,14 +13,6 @@
     %link{:crossorigin => "anonymous", :href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :integrity => "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", :rel => "stylesheet"}/
     %link{:href => 'https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css', :rel => "stylesheet"}
     = stylesheet_link_tag    'admin', media: 'all'
-    :css
-      .app-header.navbar .navbar-brand {
-        width: 155px;
-        height: 55px;
-        padding: 0.5rem 1rem;
-        background-image: url("/logo.png");
-        background-size: 80px auto;
-      }
     = yield :stylesheet
   - if manager_signed_in?
     %body.app.header-fixed.sidebar-fixed.aside-menu-fixed.aside-menu-hidden
@@ -37,8 +29,11 @@
             .dropdown-menu.dropdown-menu-right
               .dropdown-header.text-center
                 %strong アカウント
+              = link_to edit_admin_manager_path(current_manager), class: 'dropdown-item' do
+                %i.fa.fa-user
+                設定変更
               = link_to destroy_manager_session_path, method: :delete, class: 'dropdown-item' do
-                %i.fa.fa-lock
+                %i.fa.fa-sign-out
                 ログアウト
       .app-body
         .sidebar
@@ -56,12 +51,12 @@
               %li.nav-item
                 = link_to admin_items_path, class: "nav-link #{'active' if controller.controller_name == 'items'}" do
                   %i.icon-book-open
-                  商品管理
+                  商品
               %li.nav-title 注文
               %li.nav-item
                 = link_to admin_purchases_path, class: "nav-link #{'active' if controller.controller_name == 'purchases'}" do
                   %i.icon-basket
-                  注文一覧
+                  注文
               %li.nav-title コンテンツ
               %li.nav-item
                 = link_to admin_topics_path, class: "nav-link #{'active' if controller.controller_name == 'topics'}" do
@@ -85,7 +80,11 @@
               %li.nav-item
                 = link_to admin_members_path, class: "nav-link #{'active' if controller.controller_name == 'members'}" do
                   %i.icon-people
-                  会員情報
+                  会員
+              %li.nav-item
+                = link_to admin_managers_path, class: "nav-link #{'active' if controller.controller_name == 'managers'}" do
+                  %i.icon-lock
+                  管理者
         / Main content
         %main.main
           = admin_breadcrumb(@crumbs) if @crumbs.present?
@@ -95,8 +94,9 @@
 
       %footer.app-footer
         %span
+          Copyright © 2017
           = link_to 'EC-TRIP', root_path
-          © 2017 yamataka22
+          All Rights Reserved.
     = javascript_include_tag 'admin'
     = yield :javascript
   - else

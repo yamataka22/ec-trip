@@ -4,3 +4,10 @@ body, h1, h2, h3, h4, h5, h6, p, span, div, label {
 .bg-white {
     background-color: #fff;
 }
+.app-header.navbar .navbar-brand {
+  width: 155px;
+  height: 55px;
+  padding: 0.5rem 1rem;
+  background-image: image-url('logo.png');
+  background-size: 80px auto;
+}

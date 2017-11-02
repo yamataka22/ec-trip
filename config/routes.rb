@@ -15,9 +15,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
   resources :purchases, only: [:new, :create] do
-    collection do
-      get :complete
-    end
+    collection { get :complete }
   end
 
   resource :member, only: [:show, :update, :destroy] do
@@ -40,25 +38,23 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :managers, path: 'admin/managers', controllers: {
-      sessions:      'admin/managers/sessions',
-      passwords:     'admin/managers/passwords',
-      registrations: 'admin/managers/registrations'
+  devise_for :managers, path: 'admin/manager', controllers: {
+      sessions:      'admin/managers/sessions'
   }
   namespace :admin, path: 'admin' do
-
     resources :categories, except: :show
     resources :items, except: :show do
-      collection {get :preview}
+      collection { get :preview }
     end
     resources :purchases, only: [:index, :show, :update]
     resources :topics, except: :show
     resources :sliders, only: [:index, :edit, :update]
     resources :static_pages do
-      collection {get :preview}
+      collection { get :preview }
     end
     resources :contacts, only: [:index, :show, :destroy]
     resources :members, only: [:index, :show, :destroy]
+    resources :managers, except: [:show]
 
     resources :images, only: [:new, :create]
     root 'dashboard#index', as: :root
