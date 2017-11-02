@@ -13,12 +13,6 @@ Rails.application.routes.draw do
     get '/members/signed_out', to: 'members/sessions#signed_out'
   end
 
-  devise_for :managers, controllers: {
-      sessions:      'managers/sessions',
-      passwords:     'managers/passwords',
-      registrations: 'managers/registrations'
-  }
-
   resources :items, only: [:index, :show]
   resources :purchases, only: [:new, :create] do
     collection do
@@ -46,7 +40,13 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_for :managers, path: 'admin/managers', controllers: {
+      sessions:      'admin/managers/sessions',
+      passwords:     'admin/managers/passwords',
+      registrations: 'admin/managers/registrations'
+  }
   namespace :admin, path: 'admin' do
+
     resources :categories, except: :show
     resources :items, except: :show do
       collection {get :preview}

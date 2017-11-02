@@ -1,4 +1,4 @@
-class Managers::SessionsController < Devise::SessionsController
+class Admin::Managers::SessionsController < Devise::SessionsController
   layout 'admin'
   # before_action :configure_sign_in_params, only: [:create]
 
