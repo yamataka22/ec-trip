@@ -3,7 +3,7 @@ class ItemSearchForm
 
   attr_accessor :category_id, :pickup, :arrival_new, :keyword, :price_floor, :price_ceil, :sold_out, :sort_type
 
-  def search(page)
+  def search(page, count: false)
     items = Item.includes(:caption_image).published
     items = items.where('`stock_quantity` > 0').where(status: :selling) if sold_out.blank? || sold_out == '0'
     # Rootのカテゴリが指定された場合、その子のカテゴリも対象とする
@@ -21,14 +21,18 @@ class ItemSearchForm
     items = items.where('`items`.`name` like ?', "%#{keyword}%") if keyword.present?
     items = items.where('`price` >= ?', price_floor) if price_floor.present?
     items = items.where('`price` <= ?', price_ceil) if price_ceil.present?
-    items = items.page(page).per(20)
-    case sort_type
-      when 'price_desc'
-        items = items.order(price: :desc, id: :desc)
-      when 'price_asc'
-        items = items.order(price: :asc, id: :desc)
-      else
-        items = items.order(id: :desc)
+    if count
+      items = items.count
+    else
+      items = items.page(page).per(20)
+      case sort_type
+        when 'price_desc'
+          items = items.order(price: :desc, id: :desc)
+        when 'price_asc'
+          items = items.order(price: :asc, id: :desc)
+        else
+          items = items.order(id: :desc)
+      end
     end
     items
   end

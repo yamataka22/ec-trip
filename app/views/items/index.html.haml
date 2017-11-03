@@ -5,10 +5,7 @@
     .col-md-4.col-xl-3
       = form_for @search_form, url: items_path, method: :get do |f|
         .card
-          %h4.card-header
-            %i.fa.fa-search
-            Search
-          .card-body
+          .card-body.pt-2
             .form-group.bmd-form-group.is-filled
               = f.label :category_id, 'カテゴリー', class: 'bmd-label-floating'
               = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : "　#{c.name}", c.id]},
@@ -37,13 +34,19 @@
             .form-group
               = f.label :keyword, 'キーワード', class: 'form-control-label'
               = f.text_field :keyword, class: 'form-control'
+            .form-group.bmd-form-group.is-filled
+              = f.label :sort_type, '表示順', class: 'bmd-label-floating'
+              = f.select :sort_type, [['新着順', ''], ['価格が安い順', 'price_asc'], ['価格が高い順', 'price_desc']],
+                {include_blank: false}, {class: 'form-control'}
             .checkbox.mt-4
               %label
                 = f.check_box :sold_out
-                %span.small 販売を終了した商品も含める
+                %span.small 販売が終了した商品も見つける
           .card-footer
             = f.submit '検 索', class: 'btn btn-info btn-block'
     .col-md-8.col-xl-9
+      - if @total_count.present? && @total_count > 0
+        .alert.alert-secondary= "#{@total_count}件の商品が見つかりました"
       - if @items.size > 0
         .row
           = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites, col: 'col-sm-6 col-xl-4'}

@@ -14,7 +14,7 @@
     = stylesheet_link_tag    'front', media: 'all'
     = yield :stylesheet
   %body
-    %header.mb-5
+    %header
       %nav.navbar.navbar-expand-lg.navbar-light.bg-light
         = link_to root_path, class: 'navbar-brand mr-4' do
           = image_tag 'logo.png', height: '18px'
@@ -59,6 +59,7 @@
             - else
               %li.nav-item= link_to 'ログイン', new_session_path(:member), class: 'nav-link'
               %li.nav-item= link_to '会員登録', members_sign_up_select_path, class: 'nav-link'
+    .mb-2 &nbsp;
     = content_for?(:content) ? yield(:content) : yield
     .mb-5 &nbsp;
     %footer.footer
