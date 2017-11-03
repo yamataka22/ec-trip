@@ -17,7 +17,7 @@
       .text-center.mt-5.mb-4
         %h5.mb-4
           = "合計（#{current_member.carts.sum(:quantity)}点）:#{jpy(current_member.total_cart_amount, prefix: true, tax: :exclude)}"
-        = link_to new_purchase_path, class: 'btn btn-warning btn-raised' do
+        = link_to new_order_purchase_path, class: 'btn btn-warning btn-raised' do
           %i.fa.fa-arrow-right
           レジへ進む
     .card

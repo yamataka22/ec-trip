@@ -2,13 +2,13 @@
   %h4.mb-2
     ご請求先
   %p.text-muted.mb-5 お客様の住所を入力してください
-= form_for @address, url: member_invoice_address_path, id: 'address_form' do |f|
+= form_for @address, url: order_invoice_address_path, id: 'address_form' do |f|
   = hidden_field_tag :purchase, true
   .row.justify-content-md-center
     .col-md-10.col-lg-8.col-xl-6
       .card
         .card-body
-          = render 'addresses/form', f: f
+          = render '/addresses/form', f: f
           .checkbox
             %label
               = f.check_box :delivery

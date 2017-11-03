@@ -1,4 +1,4 @@
-class DeliveryAddressesController < FrontBase
+class Member::DeliveryAddressesController < FrontBase
   before_action :authenticate_member!
   before_action :set_address, only: [:edit, :update, :destroy]
   layout 'account'
@@ -8,44 +8,27 @@ class DeliveryAddressesController < FrontBase
       redirect_to new_member_delivery_address_path(purchase: params[:purchase]) and return
     end
     @addresses = current_member.delivery_addresses
-    render '/purchases/delivery_addresses/index', layout: 'purchase' if params[:purchase].present?
   end
 
   def new
     @address = Address.new
-    render '/purchases/delivery_addresses/new', layout: 'purchase' if params[:purchase].present?
   end
 
   def create
     @address = current_member.addresses.build(post_params)
     @address.delivery = true
-    save_success = @address.save
-    if params[:purchase].present?
-      if save_success
-        respond_to do |format|
-          format.js {render '/purchases/delivery_addresses/create' }
-          format.html {redirect_to new_purchase_path(delivery_address_id: @address.id)}
-        end
-      else
-        respond_to do |format|
-          format.js {render '/purchases/delivery_addresses/new' }
-          format.html {render '/purchases/delivery_addresses/new', layout: 'purchase' }
+    if @address.save
+      respond_to do |format|
+        format.js {@addresses = current_member.delivery_addresses}
+        format.html do
+          flash[:success] = '登録が完了しました'
+          redirect_to member_delivery_addresses_path
         end
       end
     else
-      if save_success
-        respond_to do |format|
-          format.js {@addresses = current_member.delivery_addresses}
-          format.html do
-            flash[:success] = '登録が完了しました'
-            redirect_to member_delivery_addresses_path
-          end
-        end
-      else
-        respond_to do |format|
-          format.js {render :new}
-          format.html {render :new}
-        end
+      respond_to do |format|
+        format.js {render :new}
+        format.html {render :new}
       end
     end
   end

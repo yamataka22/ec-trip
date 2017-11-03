@@ -1,15 +1,6 @@
-class PurchasesController < FrontBase
+class Order::PurchasesController < FrontBase
   before_action :authenticate_member!
-
-  def index
-    @purchases = current_member.purchases.order(created_at: :desc)
-    render layout: 'mypage'
-  end
-
-  def show
-    @purchase = current_member.purchases.find(params[:id])
-    render layout: nil
-  end
+  layout 'order'
 
   def new
     redirect_to member_carts_path and return if current_member.carts.blank? || current_member.carts.find {|cart| cart.item_error.present? }
@@ -24,13 +15,12 @@ class PurchasesController < FrontBase
       session[:purchase]['credit_card_id'] = params[:credit_card_id]
     end
 
-    redirect_to member_invoice_address_path(purchase: true) and return if current_member.invoice_address.blank?
-    redirect_to member_delivery_addresses_path(purchase: true) and return if current_member.delivery_addresses.blank?
-    redirect_to member_credit_cards_path(purchase: true) and return if current_member.credit_cards.blank?
+    redirect_to order_invoice_address_path and return if current_member.invoice_address.blank?
+    redirect_to order_delivery_addresses_path and return if current_member.delivery_addresses.blank?
+    redirect_to order_credit_cards_path and return if current_member.credit_cards.blank?
 
     @purchase = current_member.purchases.build
     @purchase.set_attribute(session[:purchase]['delivery_address_id'], session[:purchase]['credit_card_id'])
-    render :new, layout: 'purchase'
   end
 
   def create
@@ -39,15 +29,16 @@ class PurchasesController < FrontBase
     if @purchase.new_order
       PurchaseCompleteJob.perform_later(@purchase)
       session[:purchase] = nil
-      redirect_to complete_purchase_path(@purchase)
+      redirect_to complete_order_purchase_path(@purchase)
     else
       @purchase.set_amount
-      render :new, layout: 'purchase'
+      render :new
     end
   end
 
   def complete
     @purchase = current_member.purchases.find(params[:id])
+    render :complete, layout: 'front'
   end
 
   private

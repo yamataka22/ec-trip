@@ -18,7 +18,7 @@
             %br/
             = link_to '領収書の印刷はこちら', member_purchase_path(purchase), target: '_blank'
       .card-body
-        = render partial: 'detail', collection: purchase.details, as: :detail, locals: {remote: false}
+        = render partial: '/purchases/detail', collection: purchase.details, as: :detail, locals: {remote: false}
 - if @purchases.size == 0
   .alert.alert-primary 購入履歴がありません。
   .text-center

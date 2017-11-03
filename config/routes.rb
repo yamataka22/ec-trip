@@ -14,11 +14,23 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [:index, :show]
-  resources :purchases, only: [:new, :create] do
-    member { get :complete }
+
+  namespace :order, path: 'order' do
+    resources :purchases, only: [:new, :create] do
+      member { get :complete }
+    end
+    resource :invoice_address, only: [:show, :create, :update]
+    resources :delivery_addresses, only: [:index, :new, :create]
+    resources :credit_cards, only: [:index, :new, :create]
   end
 
   resource :member, only: [:show, :update, :destroy] do
+    collection do
+      get :leave
+      get :left
+    end
+  end
+  namespace :member, path: 'member' do
     resources :carts, only: [:index, :create, :update, :destroy]
     resources :favorites, only: [:index, :create, :destroy]
     resource :invoice_address, only: [:show, :create, :update]
@@ -29,10 +41,6 @@ Rails.application.routes.draw do
       member {post :change_main}
     end
     resources :purchases, only: [:index, :show]
-    collection do
-      get :leave
-      get :left
-    end
   end
 
   resource :contacts, only: [:new, :create] do

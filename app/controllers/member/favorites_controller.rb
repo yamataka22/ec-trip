@@ -1,4 +1,4 @@
-class FavoritesController < FrontBase
+class Member::FavoritesController < FrontBase
   before_action :authenticate_member!
   layout 'mypage'
 

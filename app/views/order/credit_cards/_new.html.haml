@@ -2,9 +2,9 @@
   .card-header
     クレジットカード情報
   .card-body
-    = render 'form'
+    = render '/credit_cards/form'
   .card-footer.text-right
-    = form_tag member_credit_cards_path, method: :post, remote: true, class: 'mb-0' do
+    = form_tag order_credit_cards_path, method: :post, remote: true, class: 'mb-0' do
       = hidden_field_tag :purchase, params[:purchase]
       = submit_tag '', style: 'display: none', id: 'stripe_submit'
       = button_tag '登録', class: 'btn btn-info btn-raised', onclick: 'stripe_js.createToken(); return false;'

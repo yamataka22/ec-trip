@@ -1,0 +1,11 @@
+.container.text-center
+  .jumbotron
+    %h3.mb-3 ご注文を承りました。
+    %p.mb-3
+      ご注文番号は
+      %strong.text-success= @purchase.purchase_no
+      です。
+      %br/
+      ご注文明細のメールを送付しましたので、ご確認ください。
+    %h5 この度はご利用ありがとうございました。
+  = link_to 'トップページへ', root_path, class: 'btn btn-info'

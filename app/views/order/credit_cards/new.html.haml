@@ -8,7 +8,7 @@
       .card-body
         = render '/credit_cards/form'
         .text-right
-          = form_tag member_credit_cards_path, method: :post, class: 'mb-0' do
+          = form_tag order_credit_cards_path, method: :post, class: 'mb-0' do
             = hidden_field_tag :purchase, true
             = submit_tag '', style: 'display: none', id: 'stripe_submit'
             .text-right

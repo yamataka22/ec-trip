@@ -2,7 +2,7 @@
   .card-header
     クレジットカード情報
   .card-body
-    = render 'form'
+    = render '/credit_cards/form'
   .card-footer.text-right
     = form_tag member_credit_cards_path, method: :post, class: 'mb-0' do
       = submit_tag '', style: 'display: none', id: 'stripe_submit'

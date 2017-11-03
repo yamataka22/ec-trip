@@ -1,4 +1,4 @@
-class CartsController < FrontBase
+class Member::CartsController < FrontBase
   before_action :authenticate_member!
   layout 'mypage'
 
