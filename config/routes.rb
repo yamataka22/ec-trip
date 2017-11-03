@@ -64,4 +64,5 @@ Rails.application.routes.draw do
 
   post '/tinymce_assets' => 'admin/images#create_tinymce'
   root 'top#index'
+  get '*anything' => 'errors#routing_error'
 end
