@@ -29,6 +29,12 @@ a:hover {
   @media (min-width: 768px) { display: none; }
 }
 
+label.required:after {
+  content: '*';
+  padding-left: 5px;
+  color: #47A8EE;
+}
+
 // tab
 .nav-tabs .nav-link.active{
   border-color: #47A8EE !important;

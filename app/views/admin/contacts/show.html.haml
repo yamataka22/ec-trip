@@ -1,11 +1,17 @@
-- @crumbs = [{title: 'お問い合わせ', path: admin_contacts_path}, {title: '参照'}]
+- @crumbs = [{title: 'お問い合わせ一覧', path: admin_contacts_path}, {title: '参照'}]
+- content_for :stylesheet do
+  :css
+    #contact_table th {
+      background-color: #E7EBEE;
+      text-align: right;
+    }
 .card
   .card-header
     = "お問い合わせ ##{@contact.id}"
   .card-body
-    %table.table.table-bordered
+    %table.table.table-bordered#contact_table
       %tr
-        %th{width: '200px'} お問い合わせ日時
+        %th{width: '100px'} 日時
         %td= @contact.created_at.strftime('%Y/%m/%d %H:%M')
       %tr
         %th お名前

@@ -1,4 +1,4 @@
-- @crumbs = [{title: '商品管理', path: admin_items_path}, {title: '編集'}]
+- @crumbs = [{title: '商品一覧', path: admin_items_path}, {title: @item.name}]
 = form_for @item, url: admin_item_path(@item) do |f|
   .card
     .card-header

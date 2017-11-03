@@ -1,6 +1,6 @@
 - label_class = 'col-sm-3 col-form-label text-right'
 .form-group.row
-  = f.label :last_name, '氏名', class: label_class
+  = f.label :last_name, '氏名', class: "#{label_class} required"
   .col-4
     = f.text_field :last_name, class: 'form-control', placeholder: '姓'
     = error_label_tag(f.object, :last_name)
@@ -8,17 +8,17 @@
     = f.text_field :first_name, class: 'form-control', placeholder: '名'
     = error_label_tag(f.object, :first_name)
 .form-group.row
-  = f.label :email, class: label_class
+  = f.label :email, class: "#{label_class} required"
   .col-8
     = f.email_field :email, class: 'form-control'
     = error_label_tag(f.object, :email)
 .form-group.row
-  = f.label :password, class: label_class
+  = f.label :password, class: "#{label_class} #{'required' unless f.object.persisted?}"
   .col-8
-    = f.password_field :password, class: 'form-control', placeholder: '変更する場合のみ入力してください'
+    = f.password_field :password, class: 'form-control', placeholder: "#{'変更する場合のみ入力してください' if f.object.persisted?}"
     = error_label_tag(f.object, :password)
 .form-group.row
-  = f.label :password_confirmation, class: label_class
+  = f.label :password_confirmation, class: "#{label_class} #{'required' unless f.object.persisted?}"
   .col-8
     = f.password_field :password_confirmation, class: 'form-control'
     = error_label_tag(f.object, :password_confirmation)

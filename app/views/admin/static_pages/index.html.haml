@@ -1,4 +1,4 @@
-- @crumbs = [{title: '静的ページ管理'}]
+- @crumbs = [{title: 'ページ一覧'}]
 
 .card
   .card-header.pt-3
@@ -7,9 +7,9 @@
       %i.fa.fa-plus
       新規作成
   .card-body
-    %table.table.table-bordered.table-sm.table-striped
+    %table.table.table-bordered.table-sm.table-hover
       %thead
-        %tr
+        %tr.table-secondary
           %th{width: '20%'}= t('activerecord.attributes.static_page.name')
           %th{width: '50%'}= t('activerecord.attributes.static_page.title')
           %th{width: '15%'}= t('activerecord.attributes.static_page.published')

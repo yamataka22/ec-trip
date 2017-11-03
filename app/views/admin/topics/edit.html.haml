@@ -1,4 +1,4 @@
-- @crumbs = [{title: 'トピック管理', path: admin_topics_path}, {title: '編集'}]
+- @crumbs = [{title: 'トピック管理', path: admin_topics_path}, {title: @topic.title}]
 = form_for @topic, url: admin_topic_path(@topic) do |f|
   .card
     .card-header

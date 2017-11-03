@@ -1,4 +1,4 @@
-- @crumbs = [{title: 'カテゴリー管理'}]
+- @crumbs = [{title: 'カテゴリー一覧'}]
 
 .card
   .card-header.pt-3
@@ -7,16 +7,16 @@
       %i.fa.fa-plus
       新規作成
   .card-body
-    %table.table.table-sm.table-bordered.table-hover
+    %table.table.table-sm.table-hover.table-bordered
       %thead
-        %tr
+        %tr.table-secondary
           %th{width: '60%'} 名称
           %th.text-center{width: '10%'} 商品数
           %th.text-center{width: '10%'} 表示順
           %th{width: '20%'}
       %tbody
         - @categories.each do |category|
-          %tr{class: "#{'table-success' unless category.root?}"}
+          %tr{class: "#{'table-light text-muted' unless category.root?}"}
             %td
               - if category.root?
                 = category.name

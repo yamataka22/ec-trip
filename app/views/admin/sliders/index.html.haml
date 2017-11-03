@@ -1,16 +1,16 @@
-- @crumbs = [{title: 'スライダー管理'}]
+- @crumbs = [{title: 'スライダー一覧'}]
 
 .card
   .card-header.pt-3
     スライダー一覧
   .card-body
-    %table.table.table-bordered.table-sm.table-striped
+    %table.table.table-bordered.table-sm.table-hover
       %thead
-        %tr
+        %tr.table-secondary
           %th.text-center{width: '8%'} #
           %th.text-center{width: '10%'}= t('activerecord.attributes.slider.published')
-          %th{width: '20%'}= t('activerecord.attributes.slider.image_id')
-          %th{width: '50%'}= t('activerecord.attributes.slider.title')
+          %th{width: '15%'}= t('activerecord.attributes.slider.image_id')
+          %th{width: '55%'}= t('activerecord.attributes.slider.title')
           %th{width: '12%'}
       %tbody
         - @sliders.each do |slider|

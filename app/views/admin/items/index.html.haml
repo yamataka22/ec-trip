@@ -1,4 +1,4 @@
-- @crumbs = [{title: '商品管理'}]
+- @crumbs = [{title: '商品一覧'}]
 
 .card
   .card-header.pt-3
@@ -9,12 +9,12 @@
   .card-body
     = form_for @search_form, as: 'search', url: admin_items_path, method: :get, html: {class: 'form-horizontal', id: 'form_item_search'} do |f|
       .form-group.row
-        = f.label :category_id, 'カテゴリ', class: 'col-1 col-form-label pr-0'
+        = f.label :name, '商品名', class: 'col-1 col-form-label pr-0'
+        .col-5
+          = f.text_field :name, class: 'form-control', placeholder: 'あいまい検索'
+        = f.label :category_id, 'カテゴリ', class: 'col-2 col-form-label pr-0 text-right'
         .col-4
           = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : '　' + c.name, c.id]}, {include_blank: true}, {class: 'form-control'}
-        = f.label :name, '商品名', class: 'col-1 col-form-label text-right pr-0'
-        .col-6
-          = f.text_field :name, class: 'form-control', placeholder: 'あいまい検索'
       .form-group.row
         = f.label :stock_quantity, '在庫数', class: 'col-1 col-form-label pr-0'
         .col-3
@@ -49,9 +49,9 @@
               %a.dropdown-item{href: '#', onclick: 'search_with_sort("stock_ask")'} 在庫が少ない順
               %a.dropdown-item{href: '#', onclick: 'search_with_sort("stock_desc")'} 在庫が多い順
           = f.hidden_field :sort_type
-    %table.table.table-bordered.table-sm.table-striped
+    %table.table.table-bordered.table-sm.table-hover
       %thead
-        %tr
+        %tr.table-secondary
           %th.text-right{width: '5%'} #
           %th{colspan: 2, width: '35%'}= t('activerecord.attributes.item.name')
           %th{width: '10%'}= t('activerecord.attributes.item.status')

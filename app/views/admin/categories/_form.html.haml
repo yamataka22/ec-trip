@@ -1,6 +1,6 @@
 - label_class = 'col-sm-2 col-form-label text-right'
 .form-group.row
-  = f.label :name, class: label_class
+  = f.label :name, class: "#{label_class} required"
   .col-sm-4
     = f.text_field :name, size: 30, class: 'form-control'
     = error_label_tag(f.object, :name)

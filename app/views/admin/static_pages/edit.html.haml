@@ -1,4 +1,4 @@
-- @crumbs = [{title: '静的ページ管理', path: admin_static_pages_path}, {title: '編集'}]
+- @crumbs = [{title: 'ページ一覧', path: admin_static_pages_path}, {title: @static_page.name}]
 = form_for @static_page, url: admin_static_page_path(@static_page) do |f|
   .card
     .card-header

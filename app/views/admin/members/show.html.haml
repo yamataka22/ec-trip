@@ -1,4 +1,4 @@
-- @crumbs = [{title: '会員一覧', path: admin_members_path}, {title: '参照'}]
+- @crumbs = [{title: '会員一覧', path: admin_members_path}, {title: @member.account_name}]
 .card
   .card-header
     会員情報
@@ -15,9 +15,7 @@
       %tr
         %th= t('activerecord.attributes.member.created_at')
         %td= @member.created_at
-- if @member.purchases.size == 0
-  .alert.alert-info 購入履歴がありません
-- else
+- if @member.purchases.size > 0
   #accordion{role: 'tablist'}
     .card.mb-0
       .card-header#delivery-header{role: 'tab'}
