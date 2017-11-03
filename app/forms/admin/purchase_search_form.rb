@@ -13,14 +13,18 @@ class Admin::PurchaseSearchForm
     @purchased_at_to = Date.strptime(value, '%Y-%m-%d')
   end
 
-  def search(page)
+  def search(page = nil, format: :html)
     purchases = Purchase.includes(:member, details: [:item])
     purchases = purchases.where(delivered: false) if undelivered.present? && undelivered == '1'
     purchases = purchases.where(member: [email: email]) if email.present?
     purchases = purchases.where('`purchases`.`created_at` >= ?', @purchased_at_from) if purchased_at_from.present?
     purchases = purchases.where('`purchases`.`created_at` < ?', @purchased_at_to + 1.day) if purchased_at_to.present?
     purchases = purchases.where('`purchases`.`remarks` LIKE ?', "%#{remarks}%") if remarks.present?
-    purchases.page(page).per(50).order(id: :desc)
+    if format == :html
+      purchases.page(page).per(50).order(id: :desc)
+    else
+      purchases.order(id: :desc)
+    end
   end
 
 end

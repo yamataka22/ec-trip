@@ -1,8 +1,16 @@
 class Admin::PurchasesController < Admin::AdminBase
   def index
     @search_form = Admin::PurchaseSearchForm.new(search_params)
-    @purchases = @search_form.search(params[:page])
     session[:search_params] = view_context.search_conditions_keeper(params, [:delivered, :email, :purchased_at_from, :purchased_at_to, :remarks])
+    respond_to do |format|
+      format.html {
+        @purchases = @search_form.search(params[:page])
+      }
+      format.csv {
+        @purchases = @search_form.search(format: :csv)
+        send_data render_to_string, filename: "#{Time.current.strftime('%Y%m%d%H%M')}_注文一覧.csv", type: :csv
+      }
+    end
   end
 
   def show

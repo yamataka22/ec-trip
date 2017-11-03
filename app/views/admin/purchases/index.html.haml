@@ -4,7 +4,7 @@
   .card-header.pt-3
     注文一覧
   .card-body
-    = form_for @search_form, as: 'search', url: admin_purchases_path, method: :get, html: {class: 'form-horizontal', id: 'form_purchase_search'} do |f|
+    = form_for @search_form, as: 'search', url: admin_purchases_path(format: :html), method: :get, html: {class: 'form-horizontal', id: 'form_purchase_search'} do |f|
       .form-group.row
         = f.label :purchased_at_from, '購入日', class: 'col-1 col-form-label pr-0'
         .col-6
@@ -17,15 +17,18 @@
           = f.text_field :email, class: 'form-control'
       .form-group.row
         = f.label :remarks, '備考', class: 'col-1 col-form-label pr-0'
-        .col-6
+        .col-5
           = f.text_field :remarks, class: 'form-control', placeholder: 'あいまい検索'
-        .col-3
+        .col-2
           .form-check
             %label.form-check-label
               = f.check_box :undelivered, class: 'form-check-input'
               未配送のみ
         .col-2
-          = f.submit '検 索', class: 'btn btn-primary btn-block'
+          = link_to '検 索', '#', class: 'btn btn-primary btn-block', onclick: 'submit_search(false);'
+          -#= f.submit '検 索', class: 'btn btn-primary btn-block'
+        .col-2
+          = link_to 'CSV出力', '#', class: 'btn btn-success btn-block', onclick: 'submit_search(true);'
     %table.table.table-bordered.table-sm.small.table-hover
       %thead
         %tr.table-secondary
@@ -52,3 +55,12 @@
             %td
               = link_to '参照', admin_purchase_path(purchase)
     = paginate @purchases
+- content_for :javascript do
+  :javascript
+    function submit_search(csv) {
+      if (csv) {
+        var url = '#{admin_purchases_path(format: :csv)}';
+        $('#form_purchase_search').attr('action', url);
+      }
+      $('#form_purchase_search').submit();
+    }
