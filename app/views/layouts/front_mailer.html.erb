@@ -12,7 +12,6 @@
       border: none;
       -ms-interpolation-mode: bicubic;
       max-width: 100%; }
-
     body {
       background-color: #f6f6f6;
       font-family: sans-serif;
@@ -23,7 +22,6 @@
       padding: 0;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%; }
-
     table {
       border-collapse: separate;
       mso-table-lspace: 0pt;
@@ -33,15 +31,12 @@
       font-family: sans-serif;
       font-size: 14px;
       vertical-align: top; }
-
     /* -------------------------------------
         BODY & CONTAINER
     ------------------------------------- */
-
     .body {
       background-color: #f6f6f6;
       width: 100%; }
-
     /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
     .container {
       display: block;
@@ -50,7 +45,6 @@
       max-width: 580px;
       padding: 10px;
       width: 580px; }
-
     /* This should also be a block element, so that it will fill 100% of the .container */
     .content {
       box-sizing: border-box;
@@ -58,22 +52,23 @@
       Margin: 0 auto;
       max-width: 580px;
       padding: 10px; }
-
     /* -------------------------------------
         HEADER, FOOTER, MAIN
     ------------------------------------- */
     .main {
-      background: #fff;
+      background: #ffffff;
       border-radius: 3px;
       width: 100%; }
-
     .wrapper {
       box-sizing: border-box;
       padding: 20px; }
-
+    .content-block {
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
     .footer {
       clear: both;
-      padding-top: 10px;
+      Margin-top: 10px;
       text-align: center;
       width: 100%; }
     .footer td,
@@ -83,7 +78,6 @@
       color: #999999;
       font-size: 12px;
       text-align: center; }
-
     /* -------------------------------------
         TYPOGRAPHY
     ------------------------------------- */
@@ -97,13 +91,11 @@
       line-height: 1.4;
       margin: 0;
       Margin-bottom: 30px; }
-
     h1 {
       font-size: 35px;
       font-weight: 300;
       text-align: center;
       text-transform: capitalize; }
-
     p,
     ul,
     ol {
@@ -117,11 +109,9 @@
     ol li {
       list-style-position: inside;
       margin-left: 5px; }
-
     a {
       color: #3498db;
       text-decoration: underline; }
-
     /* -------------------------------------
         BUTTONS
     ------------------------------------- */
@@ -150,42 +140,31 @@
       padding: 12px 25px;
       text-decoration: none;
       text-transform: capitalize; }
-
     .btn-primary table td {
       background-color: #3498db; }
-
     .btn-primary a {
       background-color: #3498db;
       border-color: #3498db;
       color: #ffffff; }
-
     /* -------------------------------------
         OTHER STYLES THAT MIGHT BE USEFUL
     ------------------------------------- */
     .last {
       margin-bottom: 0; }
-
     .first {
       margin-top: 0; }
-
     .align-center {
       text-align: center; }
-
     .align-right {
       text-align: right; }
-
     .align-left {
       text-align: left; }
-
     .clear {
       clear: both; }
-
     .mt0 {
       margin-top: 0; }
-
     .mb0 {
       margin-bottom: 0; }
-
     .preheader {
       color: transparent;
       display: none;
@@ -197,15 +176,12 @@
       mso-hide: all;
       visibility: hidden;
       width: 0; }
-
     .powered-by a {
       text-decoration: none; }
-
     hr {
       border: 0;
       border-bottom: 1px solid #f6f6f6;
       Margin: 20px 0; }
-
     /* -------------------------------------
         RESPONSIVE AND MOBILE FRIENDLY STYLES
     ------------------------------------- */
@@ -240,7 +216,6 @@
         height: auto !important;
         max-width: 100% !important;
         width: auto !important; }}
-
     /* -------------------------------------
         PRESERVE THESE STYLES IN THE HEAD
     ------------------------------------- */
@@ -266,7 +241,6 @@
       .btn-primary a:hover {
         background-color: #34495e !important;
         border-color: #34495e !important; } }
-
   </style>
 </head>
 <body class="">
@@ -285,7 +259,12 @@
                   <td>
                     <%= yield %>
                     <p>
-                      ※本メールの内容に心当たりがない場合は、お手数ですが本メールを削除してください。
+                      このメッセージはお客様へのお知らせ専用となっています。
+                      <br>
+                      ご質問やご不明な点がございましたら<%= link_to 'こちら', new_contacts_url, target: '_blank' %>からお問い合わせください。
+                    </p>
+                    <p>
+                      ※本メールの内容に心当たりがない場合は、お手数ですが削除してください。
                     </p>
                   </td>
                 </tr>

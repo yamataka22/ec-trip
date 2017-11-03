@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
   resources :purchases, only: [:new, :create] do
-    collection { get :complete }
+    member { get :complete }
   end
 
   resource :member, only: [:show, :update, :destroy] do

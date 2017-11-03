@@ -1,0 +1,17 @@
+%p これはEC-TRIP デモサイトのテストメールです。
+%p
+  以下の内容でお問い合わせを承りました。
+%hr/
+%p
+  お名前
+  %div{style: 'padding-left: 10px'}
+    = @contact.full_name
+%p
+  お問い合わせ内容
+  %div{style: 'padding-left: 10px'}
+    = simple_format(h(@contact.body))
+%hr/
+%p
+  折り返し担当者よりご連絡いたしますので、
+  %br/
+  恐れ入りますがしばらくお待ちください。

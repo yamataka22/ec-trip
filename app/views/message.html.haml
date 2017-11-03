@@ -1,8 +1,7 @@
-.container.text-center
+.container.text-center.mt-3
   - if @title
     %h3= @title
-  %p.text-justify= simple_format(@message)
-  - if @button_custom
-    = link_to @button_custom[:title], @button_custome[:url], class: 'btn btn-success ma20'
+    %p= simple_format(@message)
   - else
-    = link_to 'トップページへ', root_path, class: 'btn btn-info'
+    %h4= simple_format(@message)
+  = link_to 'トップページへ', root_path, class: 'btn btn-info mt-3'

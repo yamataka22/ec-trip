@@ -15,9 +15,7 @@ class CartsController < FrontBase
 
   def update
     cart = current_member.carts.find(params[:id])
-    cart.quantity = params[:cart][:quantity]
-    cart.save!
-    if Cart.add_item(current_member, params[:item_id], params[:cart][:quantity])
+    if cart.update_quantity(params[:cart][:quantity].to_i)
       flash[:success] = "#{cart.item.name} の数量を変更しました。"
     else
       flash[:error] = '数量を変更することができません。'

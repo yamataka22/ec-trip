@@ -63,7 +63,6 @@ class Purchase < ApplicationRecord
 
     self.stripe_charge_id = stripe_charge.id
     self.save!
-    PurchaseCompleteJob.perform_later(self)
 
     cart_clear
     true
@@ -93,7 +92,7 @@ class Purchase < ApplicationRecord
   end
 
   def purchase_no
-    "#{self.created_at.year}-#{format('%07d', self.id)}"
+    "P#{self.created_at.strftime('%y')}#{format('%04d', self.id)}"
   end
 
   def delivery_full_name

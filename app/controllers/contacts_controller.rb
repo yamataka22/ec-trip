@@ -20,6 +20,7 @@ class ContactsController < FrontBase
       render :new
     else
       if @contact.save
+        ContactReceivedJob.perform_later(@contact)
         redirect_to complete_contacts_path
       else
         flash.now[:error] = '入力内容をご確認ください'

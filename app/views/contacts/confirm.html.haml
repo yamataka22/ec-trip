@@ -1,26 +1,39 @@
-.text-center
-  %h1.h3.mb-3 お問い合わせ
-  %p.mb-4 以下の内容でお間違いなければ、送信ボタンをクリックしてください。
-= form_for @contact do |f|
-  = f.hidden_field :email
-  = f.hidden_field :last_name
-  = f.hidden_field :first_name
-  = f.hidden_field :phone
-  = f.hidden_field :body
-  .row.justify-content-lg-center
-    .col-lg-8.col-xl-6
-      %span.small.text-muted= t('activerecord.attributes.contact.email')
-      %p= @contact.email
-      %span.small.text-muted= t('activerecord.attributes.contact.phone')
-      - if @contact.phone.present?
-        %p= @contact.phone
-      - else
-        .mb-4
-      %span.small.text-muted お名前
-      %p= @contact.full_name
-      %span.small.text-muted= t('activerecord.attributes.contact.body')
-      = simple_format(h(@contact.body))
-      %hr/
-      .text-center
-        = f.submit '送 信', class: 'btn btn-raised btn-info mx-2'
-        = f.submit '入力画面に戻る', class: 'btn btn-raised btn-secondary mx-2', name: 'page_back'
+.container
+  .text-center
+    %h1.h3.mb-3 お問い合わせ
+    %p.mb-4 以下の内容でお間違いなければ、送信ボタンをクリックしてください。
+  = form_for @contact do |f|
+    = f.hidden_field :email
+    = f.hidden_field :last_name
+    = f.hidden_field :first_name
+    = f.hidden_field :phone
+    = f.hidden_field :body
+    .row.justify-content-md-center
+      .col-md-10.col-lg-8
+        %table.table
+          %tr
+            %td{style: 'max-width: 150px'}
+              %span.small.text-muted= t('activerecord.attributes.contact.email')
+            %td
+              = @contact.email
+          %tr
+            %td
+              %span.small.text-muted= t('activerecord.attributes.contact.phone')
+            %td
+              - if @contact.phone.present?
+                = @contact.phone
+              - else
+                .mb-4
+          %tr
+            %td
+              %span.small.text-muted お名前
+            %td
+              = @contact.full_name
+          %tr
+            %td
+              %span.small.text-muted お問い合わせ内容
+            %td
+              = simple_format(h(@contact.body))
+        .text-center
+          = f.submit '入力画面に戻る', class: 'btn btn-raised btn-secondary mx-2', name: 'page_back'
+          = f.submit '送 信', class: 'btn btn-raised btn-info mx-2'

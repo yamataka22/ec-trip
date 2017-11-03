@@ -37,8 +37,9 @@ class PurchasesController < FrontBase
     @purchase = current_member.purchases.build
     @purchase.assign_attributes(post_params)
     if @purchase.new_order
+      PurchaseCompleteJob.perform_later(@purchase)
       session[:purchase] = nil
-      redirect_to complete_purchases_path
+      redirect_to complete_purchase_path(@purchase)
     else
       @purchase.set_amount
       render :new, layout: 'purchase'
@@ -46,8 +47,7 @@ class PurchasesController < FrontBase
   end
 
   def complete
-    @message = 'ご購入ありがとうございました。'
-    render '/message'
+    @purchase = current_member.purchases.find(params[:id])
   end
 
   private

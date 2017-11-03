@@ -3,13 +3,10 @@
   この度はご注文頂きまして、誠にありがとうございます。
   %br/
   下記ご注文内容にお間違えが無いかご確認ください。
+%hr/
 %p
-  %ul
-    - @purchase.details.each do |detail|
-      %li= "#{detail.item.name} (数量:#{detail.quantity})"
-%p
-  このメッセージはお客様へのお知らせ専用となっています。
-  %br/
-  ご質問やご不明な点がございましたら
-  = link_to 'こちら', new_contacts_url, target: '_blank'
-  からお問い合わせください。
+  = "ご注文番号: #{@purchase.purchase_no}"
+%ul
+  - @purchase.details.each do |detail|
+    %li= "#{detail.item.name} (数量:#{detail.quantity})"
+%hr/

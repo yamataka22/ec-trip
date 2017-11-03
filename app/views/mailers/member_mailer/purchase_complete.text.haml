@@ -3,9 +3,6 @@
 この度はご注文頂きまして、誠にありがとうございます。
 下記ご注文内容にお間違えが無いかご確認ください。
 
+= "ご注文番号: #{@purchase.purchase_no}"
 - @purchase.details.each do |detail|
   = "・#{detail.item.name} (数量:#{detail.quantity})"
-
-このメッセージはお客様へのお知らせ専用となっています。
-ご質問やご不明な点がございましたら、以下URLからお問い合わせください。
-= new_contacts_url

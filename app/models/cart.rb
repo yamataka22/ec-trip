@@ -4,14 +4,22 @@ class Cart < ApplicationRecord
 
   validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, presence: true
 
-  def self.add_item(member, item_id, quantity = 1)
+  def self.add_item(member, item_id)
     cart = Cart.find_or_initialize_by(member: member, item_id: item_id)
-    cart.quantity += quantity
-    logger.debug 'カート' + cart.quantity.to_s
+    cart.quantity = 1
     if cart.item_error.present?
       return false
     else
       cart.save! && cart
+    end
+  end
+
+  def update_quantity(quantity)
+    self.quantity = quantity
+    if self.item_error.present?
+      false
+    else
+      self.save!
     end
   end
 
