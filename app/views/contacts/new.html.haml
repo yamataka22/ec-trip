@@ -1,39 +1,40 @@
-%h1.h3.text-center.mb-4 お問い合わせ
-= form_for @contact, url: confirm_contacts_path do |f|
-  .row.justify-content-lg-center
-    .col-lg-8.col-xl-6
-      .card
-        .card-body
-          .form-group
-            = f.label :email, class: 'form-control-label'
-            = f.email_field :email, class: 'form-control'
-            = error_label_tag(f.object, :email)
-          .form-group
-            = f.label :phone, class: 'form-control-label'
-            = f.phone_field :phone, class: 'form-control'
-            = error_label_tag(f.object, :phone)
-          .row
-            .col-6.pr-1
-              .form-group
-                = f.label :last_name, class: 'form-control-label'
-                = f.text_field :last_name, class: 'form-control'
-                = error_label_tag(f.object, :last_name)
-            .col-6
-              .form-group
-                = f.label :first_name, class: 'form-control-label'
-                = f.text_field :first_name, class: 'form-control'
-                = error_label_tag(f.object, :first_name)
-          .form-group
-            = f.label :body, class: 'form-control-label'
-            = f.text_area :body, class: 'form-control', rows: 5
-            = error_label_tag(f.object, :body)
-          .checkbox.mt-3
-            %label
-              %input{type: 'checkbox', name: 'privacy_agree', id: 'privacy_agree'}
-              = link_to 'プライバシーポリシー', static_page_path(name: :privacy), class: 'ml-1', target: '_blank'
-              に同意する
-        .card-footer.text-center
-          = f.submit '送 信', class: 'btn btn-info btn-block'
+.container
+  %h1.h3.text-center.mb-4 お問い合わせ
+  = form_for @contact, url: confirm_contacts_path do |f|
+    .row.justify-content-lg-center
+      .col-lg-8.col-xl-6
+        .card
+          .card-body
+            .form-group
+              = f.label :email, class: 'form-control-label required'
+              = f.email_field :email, class: 'form-control'
+              = error_label_tag(f.object, :email)
+            .form-group
+              = f.label :phone, class: 'form-control-label'
+              = f.phone_field :phone, class: 'form-control'
+              = error_label_tag(f.object, :phone)
+            .row
+              .col-6.pr-1
+                .form-group
+                  = f.label :last_name, class: 'form-control-label required'
+                  = f.text_field :last_name, class: 'form-control'
+                  = error_label_tag(f.object, :last_name)
+              .col-6
+                .form-group
+                  = f.label :first_name, class: 'form-control-label'
+                  = f.text_field :first_name, class: 'form-control'
+                  = error_label_tag(f.object, :first_name)
+            .form-group
+              = f.label :body, class: 'form-control-label required'
+              = f.text_area :body, class: 'form-control', rows: 5
+              = error_label_tag(f.object, :body)
+            .checkbox.mt-3
+              %label
+                %input{type: 'checkbox', name: 'privacy_agree', id: 'privacy_agree'}
+                = link_to 'プライバシーポリシー', static_page_path(name: :privacy), class: 'ml-1', target: '_blank'
+                に同意する
+          .card-footer.text-center
+            = f.submit '送 信', class: 'btn btn-info btn-block'
 - content_for :javascript do
   :javascript
     $('form').submit(function() {

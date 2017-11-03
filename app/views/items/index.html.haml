@@ -48,4 +48,4 @@
         .row
           = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: @favorites, col: 'col-sm-6 col-xl-4'}
       - else
-        .alert.alert-info 該当する商品がありません
+        .alert.alert-primary 該当する商品がありません

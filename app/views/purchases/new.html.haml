@@ -38,8 +38,7 @@
           %hr.mt-2.mb-2
             %p.pl-2= @purchase.credit_card_info
         %h6 ご注文商品・数量
-        - 5.times do
-          = render partial: 'detail', collection: @purchase.details, as: :detail, locals: {remote: true}
+        = render partial: 'detail', collection: @purchase.details, as: :detail, locals: {remote: true}
   .col-md-4
     .sticky-top{style: 'z-index: 0'}
       = form_for @purchase do |f|

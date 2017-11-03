@@ -1,0 +1,7 @@
+var modal = $('.card_form_dialog')
+modal.find('.modal-content').html("<%= escape_javascript(render 'new', credit_card: @credit_card) %>");
+if (modal.css('display') == 'none') {
+    modal.modal({
+        backdrop: 'static'
+    });
+}

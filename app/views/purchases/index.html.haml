@@ -20,6 +20,6 @@
       .card-body
         = render partial: 'detail', collection: purchase.details, as: :detail, locals: {remote: false}
 - if @purchases.size == 0
-  .alert.alert-info 購入履歴がありません。
+  .alert.alert-primary 購入履歴がありません。
   .text-center
     = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'

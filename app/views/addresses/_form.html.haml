@@ -1,16 +1,16 @@
 .row
   .col-6.pr-1
     .form-group
-      = f.label :last_name, class: 'form-control-label'
+      = f.label :last_name, class: 'form-control-label required'
       = f.text_field :last_name, class: 'form-control'
       = error_label_tag(f.object, :last_name)
   .col-6
     .form-group
-      = f.label :first_name, class: 'form-control-label'
+      = f.label :first_name, class: 'form-control-label required'
       = f.text_field :first_name, class: 'form-control'
       = error_label_tag(f.object, :first_name)
 .form-group
-  = f.label :phone, class: 'form-control-label'
+  = f.label :phone, class: 'form-control-label required'
   = f.phone_field :phone, class: 'form-control'
   = error_label_tag(f.object, :phone)
 .row
@@ -19,7 +19,7 @@
       %tr
         %td{width: '200px'}
           .form-group
-            = f.label :postal_code, class: 'form-control-label'
+            = f.label :postal_code, class: 'form-control-label required'
             = f.text_field :postal_code, class: 'form-control'
             = error_label_tag(f.object, :postal_code)
         %td
@@ -27,11 +27,11 @@
             住所検索
   .col-lg-6
     .form-group.bmd-form-group.is-filled
-      = f.label :prefecture_id, class: 'bmd-label-floating'
+      = f.label :prefecture_id, class: 'bmd-label-floating required'
       = f.select :prefecture_id, Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, {include_blank: true}, {class: 'form-control'}
       = error_label_tag(f.object, :prefecture_id)
 .form-group
-  = f.label :address1, class: 'form-control-label'
+  = f.label :address1, class: 'form-control-label required'
   = f.text_field :address1, class: 'form-control'
   = error_label_tag(f.object, :address1)
 .form-group
