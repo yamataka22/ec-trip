@@ -1,0 +1,2 @@
+class DeveloperMail < ApplicationRecord
+end

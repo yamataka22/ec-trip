@@ -32,7 +32,7 @@ class DeviseCreateManagers < ActiveRecord::Migration[5.0]
 
       t.string :last_name, null: false
       t.string :first_name, null: false
-      t.boolean :admin, default: false, null: false
+      t.boolean :mail_accept, default: false, null: false
 
       t.timestamps null: false
     end

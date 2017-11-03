@@ -22,5 +22,8 @@ module EcTrip
       g.controller_specs false
       g.view_specs false
     end
+
+    # active_job
+    config.active_job.queue_adapter = :delayed_job
   end
 end

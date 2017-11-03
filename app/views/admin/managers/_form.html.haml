@@ -22,3 +22,9 @@
   .col-8
     = f.password_field :password_confirmation, class: 'form-control'
     = error_label_tag(f.object, :password_confirmation)
+.form-group.row.justify-content-end
+  .col-9
+    .checkbox
+      %label.form-check-label{for: 'manager_mail_accept'}
+        = f.check_box :mail_accept, class: 'form-check-input'
+        通知メールを受け取る

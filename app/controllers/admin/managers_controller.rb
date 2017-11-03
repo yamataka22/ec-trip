@@ -52,6 +52,6 @@ class Admin::ManagersController < Admin::AdminBase
 
   private
   def post_params
-    params.require(:manager).permit(:last_name, :first_name, :email)
+    params.require(:manager).permit(:last_name, :first_name, :email, :mail_accept)
   end
 end

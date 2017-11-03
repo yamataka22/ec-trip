@@ -63,6 +63,7 @@ class Purchase < ApplicationRecord
 
     self.stripe_charge_id = stripe_charge.id
     self.save!
+    PurchaseCompleteJob.perform_later(self)
 
     cart_clear
     true
