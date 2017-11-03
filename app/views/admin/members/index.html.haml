@@ -16,9 +16,9 @@
         = f.label :created_at_from, '登録日', class: 'col-2 col-form-label pr-0'
         .col-6
           .form-inline
-            = f.date_field :created_at_from, class: 'form-control'
+            = f.date_field :created_at_from, class: 'form-control', value: @search_form.created_at_from
             %span.mx-1 〜
-            = f.date_field :created_at_to, class: 'form-control'
+            = f.date_field :created_at_to, class: 'form-control', value: @search_form.created_at_to
         .col-2
           .form-check
             %label.form-check-label

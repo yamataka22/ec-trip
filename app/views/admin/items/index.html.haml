@@ -9,15 +9,37 @@
   .card-body
     = form_for @search_form, as: 'search', url: admin_items_path, method: :get, html: {class: 'form-horizontal', id: 'form_item_search'} do |f|
       .form-group.row
-        = f.label :category_id, 'カテゴリ', class: 'col-2 col-form-label'
-        .col-3
-          = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : '　' + c.name, c.id]}, {include_blank: true}, {class: 'form-control'}
-        = f.label :name, '商品名', class: 'col-1 col-form-label'
+        = f.label :category_id, 'カテゴリ', class: 'col-1 col-form-label pr-0'
         .col-4
-          = f.text_field :name, class: 'form-control', placeholder: 'あいまい検索' 
-        .col-2
+          = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : '　' + c.name, c.id]}, {include_blank: true}, {class: 'form-control'}
+        = f.label :name, '商品名', class: 'col-1 col-form-label text-right pr-0'
+        .col-6
+          = f.text_field :name, class: 'form-control', placeholder: 'あいまい検索'
+      .form-group.row
+        = f.label :stock_quantity, '在庫数', class: 'col-1 col-form-label pr-0'
+        .col-3
+          .input-group
+            = f.number_field :stock_quantity, class: 'form-control'
+            %span.input-group-addon
+              = f.radio_button :stock_type, :less
+              = f.label :stock_type_less, '以下', class: 'form-check-label pl-1 pr-3'
+              = f.radio_button :stock_type, :more
+              = f.label :stock_type_more, '以上', class: 'form-check-label pl-1'
+        = f.label :status, 'ステータス', class: 'col-2 col-form-label text-right pr-0'
+        .col-4
+          .form-check.form-check-inline.pt-1
+            %label.form-check-label{for: 'search_statuses_unpublished'}
+              = f.check_box :statuses, {multiple: true, class: 'form-check-input'}, 'unpublished', nil
+              %span.mr-2= t('enums.item.status.unpublished')
+            %label.form-check-label{for: 'search_statuses_selling'}
+              = f.check_box :statuses, {multiple: true, class: 'form-check-input'}, 'selling', nil
+              %span.mr-2= t('enums.item.status.selling')
+            %label.form-check-label{for: 'search_statuses_end_of_sell'}
+              = f.check_box :statuses, {multiple: true, class: 'form-check-input'}, 'end_of_sell', nil
+              %span.mr-2= t('enums.item.status.end_of_sell')
+        .col-2.text-right
           .btn-group
-            = f.submit '検索', class: 'btn btn-primary' 
+            = f.submit '検索', class: 'btn btn-primary'
             %button.btn.btn-primary.dropdown-toggle{'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false'}
               %span.caret
               %span.sr-only Toggle Dropdown
@@ -31,7 +53,7 @@
       %thead
         %tr
           %th.text-right{width: '5%'} #
-          %th{width: '35%'}= t('activerecord.attributes.item.name')
+          %th{colspan: 2, width: '35%'}= t('activerecord.attributes.item.name')
           %th{width: '10%'}= t('activerecord.attributes.item.status')
           %th.text-right{width: '10%'}= t('activerecord.attributes.item.price')
           %th.text-right{width: '10%'}= t('activerecord.attributes.item.stock_quantity')
@@ -40,9 +62,10 @@
         - @items.each do |item|
           %tr
             %td.text-right= item.id
+            %td{width: '10%'}= image_tag item.caption_image_url, class: 'img-fluid'
             %td= item.name
             %td= item.status_i18n
-            %td.text-right= jpy(item.price, prefix: true, tax: :exclude)
+            %td.text-right= jpy(item.price, prefix: true)
             %td.text-right= number_with_delimiter item.stock_quantity
             %td
               = link_to '編集', edit_admin_item_path(item)

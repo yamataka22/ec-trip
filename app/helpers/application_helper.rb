@@ -33,6 +33,7 @@ module ApplicationHelper
   end
 
   def jpy(value, prefix: false, suffix: false, tax: :none)
+    return '' if value.nil?
     value = number_with_delimiter value
     if prefix
       value = '¥' + value

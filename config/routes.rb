@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     resources :managers, except: [:show]
 
     resources :images, only: [:new, :create]
-    root 'dashboard#index', as: :root
+    root 'top#index', as: :root
   end
 
   get 'static_pages/:name' => 'static_pages#show', as: :static_page

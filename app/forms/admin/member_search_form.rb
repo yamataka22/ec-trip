@@ -9,7 +9,7 @@ class Admin::MemberSearchForm
     members = members.where('`members`.`account_name` like ?', "%#{account_name}%") if account_name.present?
     members = members.where('`members`.`created_at` >= ?', created_at_from) if created_at_from.present?
     members = members.where('`members`.`created_at` <= ?', created_at_to) if created_at_to.present?
-    members = members.where(leave_at: nil) if leaved.blank?
+    members = members.where(leave_at: nil) if leaved.blank? || leaved == '0'
     members.page(page).per(50).order(id: :desc)
   end
 

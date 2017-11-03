@@ -14,7 +14,7 @@ module FrontHelper
   end
 
   def select_years(upto = 10)
-    Date.today.year..(Date.today.year + upto)
+    Date.current.year..(Date.current.year + upto)
   end
 
   def select_months

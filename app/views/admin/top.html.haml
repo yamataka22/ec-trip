@@ -1,0 +1,121 @@
+.row
+  .col-3
+    .card
+      = link_to admin_purchases_path(search: {purchased_at_from: Date.current.beginning_of_month}), class: 'text-white' do
+        %h6.card-header.bg-info
+          %i.fa.fa-yen
+          今月の売上
+          %i.fa.fa-angle-right.fa-lg.ml-1
+      .card-body.text-center
+        %p.m-0.lead= jpy(@current_month_purchase_summary, prefix: true)
+  .col-3
+    .card
+      = link_to admin_purchases_path(search: {undelivered: '1'}), class: 'text-white' do
+        %h6.card-header.bg-info
+          %i.fa.fa-truck
+          出荷待ち
+          %i.fa.fa-angle-right.fa-lg.ml-2
+      .card-body.text-center
+        %p.m-0.lead
+          = number_with_delimiter @undelivered_counts
+          %span.small.text-muted 件
+  .col-3
+    .card
+      %h6.card-header.bg-info
+        %i.fa.fa-user
+        会員数
+      .card-body.text-center
+        %p.m-0.lead
+          = number_with_delimiter @member_counts
+          %span.small.text-muted 人
+  .col-3
+    .card
+      %h6.card-header.bg-info
+        %i.fa.fa-cubes
+        販売アイテム
+      .card-body.text-center
+        %p.m-0.lead
+          = number_with_delimiter @selling_item_counts
+          %span.small.text-muted 種類
+.row
+  .col-4
+    .card
+      = link_to admin_purchases_path(search: {purchased_at_from: Date.current - 6.days}), class: 'text-white' do
+        %h6.card-header.bg-primary
+          %i.fa.fa-shopping-cart
+          一週間の売上
+          %i.fa.fa-angle-right.fa-lg.ml-1
+      %ul.list-group.list-group-flush
+        - total_sales = total_count = 0
+        - Date.current.downto(Date.current - 6.days).with_index do |date, i|
+          :ruby
+            summary = @recent_purchase_summaries.find{|summary| summary.created_at.to_date == date}
+            if summary
+              sales = summary.amount
+              count = summary.count
+              total_sales += sales
+              total_count += count
+            else
+              sales = count = 0
+            end
+          = link_to admin_purchases_path(search: {purchased_at_from: date, purchased_at_to: date}) do
+            %li.list-group-item
+              .row
+                .col-3.pr-0
+                  %span.text-muted
+                    - if i == 0
+                      本日
+                    - elsif i == 1
+                      昨日
+                    - else
+                      = date.strftime('%m.%d')
+                .col-9.pl-0
+                  %p.text-right.lead.mb-0
+                    = "#{jpy(sales, prefix: true)} / #{count}"
+                    %span.small 件
+        %li.list-group-item.bg-light
+          .row
+            .col-2.pr-0
+              %span.text-muted 計
+            .col-10.pl-0
+              %p.text-right.lead.mb-0
+                = "#{jpy(total_sales, prefix: true)} / #{total_count}"
+                %span.small 件
+  .col-8
+    .card
+      = link_to admin_items_path(search: {stock_quantity: 5, stock_type: :less, statuses: ['selling']}) do
+        %h6.card-header.bg-warning
+          %i.fa.fa-thermometer-empty
+          在庫数が5以下の商品
+          %i.fa.fa-angle-right.fa-lg.ml-1
+      - if @limit_stock_items.size == 0
+        .card-body ありません
+      - else
+        %ul.list-group.list-group-flush
+          - @limit_stock_items.each do |item|
+            = link_to edit_admin_item_path(item) do
+              .row.py-2
+                .col-2
+                  = image_tag item.caption_image_url, class: 'img-fluid ml-2'
+                .col-10
+                  %span= item.name
+                  %br/
+                  %span= "残り#{item.stock_quantity}個"
+    .card
+      .card-header.bg-success
+        %i.fa.fa-envelope
+        新着お問い合わせ
+        %i.fa.fa-angle-right.fa-lg.ml-1
+      - if @unread_contacts.size == 0
+        .card-body ありません
+      - else
+        .card-body.p-0
+          %table.table.mb-0
+            - @unread_contacts.each do |contact|
+              %tr
+                %td= contact.created_at.strftime('%m/%d %H:%M')
+                %td= contact.last_name + ' 様'
+                %td= contact.body.truncate(25)
+                %td
+                  = link_to admin_contact_path(contact) do
+                    %i.fa.fa-angle-right

@@ -26,7 +26,7 @@ class Admin::PurchasesController < Admin::AdminBase
   private
   def search_params
     return  nil if params[:search].nil?
-    params.require(:search).permit(:delivered, :email, :purchased_at_from, :purchased_at_to, :remarks)
+    params.require(:search).permit(:undelivered, :email, :purchased_at_from, :purchased_at_to, :remarks)
   end
 
   def post_params

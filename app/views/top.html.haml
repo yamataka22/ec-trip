@@ -73,7 +73,7 @@
     %hr/
     %p
       - @topics.each do |topic|
-        - if Date.today - 7.days < topic.created_at
+        - if Date.current - 7.days < topic.created_at
           %span.badge.badge-info.p-1.mr-1 NEW
         %span.text-muted.mr-2= topic.created_at.strftime('%Y/%m/%d')
         %br.view_sp
