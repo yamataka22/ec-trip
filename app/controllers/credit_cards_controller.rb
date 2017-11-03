@@ -55,4 +55,11 @@ class CreditCardsController < FrontBase
     redirect_to member_credit_cards_path
   end
 
+  def change_main
+    current_member.main_credit_card_id = params[:id]
+    current_member.save
+    flash[:success] = '規定のカードを変更しました'
+    redirect_to member_credit_cards_path
+  end
+
 end

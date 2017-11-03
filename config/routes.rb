@@ -22,8 +22,12 @@ Rails.application.routes.draw do
     resources :carts, only: [:index, :create, :update, :destroy]
     resources :favorites, only: [:index, :create, :destroy]
     resource :invoice_address, only: [:show, :create, :update]
-    resources :delivery_addresses
-    resources :credit_cards, only: [:index, :new, :create, :destroy]
+    resources :delivery_addresses do
+      member {post :change_main}
+    end
+    resources :credit_cards, only: [:index, :new, :create, :destroy] do
+      member {post :change_main}
+    end
     resources :purchases, only: [:index, :show]
     collection do
       get :leave

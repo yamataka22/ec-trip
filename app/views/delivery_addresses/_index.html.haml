@@ -6,8 +6,9 @@
       .card-body.pb-0
         %p= render 'addresses/body', address: address
       .card-footer.text-right
-        = link_to '規定の住所にする', '#' unless current_member.main_address_id == address.id
-        &nbsp;/&nbsp;
+        - unless current_member.main_address_id == address.id
+          = link_to '規定の住所にする', change_main_member_delivery_address_path(address), method: :post
+          &nbsp;/&nbsp;
         = link_to '編集', edit_member_delivery_address_path(address), remote: true
         &nbsp;/&nbsp;
         = link_to '削除', member_delivery_address_path(address), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}

@@ -10,6 +10,10 @@
       %span.ml-2= "#{card.exp_month}/#{card.exp_year}"
       %span.ml-2= card.name
       .pull-right
+        - if current_member.main_credit_card_id == card.id
+          %span.badge.badge-info.p-1.mr-3 規定のカード
+        - else
+          = link_to '規定のカードにする', change_main_member_credit_card_path(card), method: :post, class: 'mr-3 small'
         = link_to member_credit_card_path(card), method: :delete, data: {confirm: '削除してよろしいでしょうか？'} do
           %i.fa.fa-times.fa-lg
 %div

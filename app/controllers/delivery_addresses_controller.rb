@@ -65,6 +65,13 @@ class DeliveryAddressesController < FrontBase
     end
   end
 
+  def change_main
+    current_member.main_address_id = params[:id]
+    current_member.save
+    flash[:success] = '規定の住所を変更しました'
+    redirect_to member_delivery_addresses_path
+  end
+
   def destroy
     @address.destroy
     flash[:success] = '削除が完了しました'
