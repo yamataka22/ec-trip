@@ -2,7 +2,7 @@ class ItemsController < FrontBase
   def index
     @search_form = ItemSearchForm.new(search_params)
     @items = @search_form.search(params[:page])
-    if params[:page].blank?
+    if search_params.present? && params[:page].blank?
       @total_count = @search_form.search(params[:page], count: true)
     end
     @favorites = current_member.favorites.where(item: @items.map{|item| item.id}) if member_signed_in?
