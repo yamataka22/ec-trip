@@ -17,8 +17,8 @@ class Admin::PurchaseSearchForm
     purchases = Purchase.includes(:member, details: [:item])
     purchases = purchases.where(delivered: false) if undelivered.present? && undelivered == '1'
     purchases = purchases.where(member: [email: email]) if email.present?
-    purchases = purchases.where('`purchases`.`created_at` >= ?', @purchased_at_from) if purchased_at_from.present?
-    purchases = purchases.where('`purchases`.`created_at` < ?', @purchased_at_to + 1.day) if purchased_at_to.present?
+    purchases = purchases.where('`purchases`.`purchased_date` >= ?', @purchased_at_from) if purchased_at_from.present?
+    purchases = purchases.where('`purchases`.`purchased_date` <= ?', @purchased_at_to) if purchased_at_to.present?
     purchases = purchases.where('`purchases`.`remarks` LIKE ?', "%#{remarks}%") if remarks.present?
     if format == :html
       purchases.page(page).per(50).order(id: :desc)

@@ -1,4 +1,4 @@
 - if item.can_sell?
   = link_to carts_path(item_id: item.id), method: :post, class: 'ml-2' do
-    = button_tag class: 'btn bmd-btn-fab btn-warning', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'カートに追加する' do
+    = button_tag class: "btn bmd-btn-fab btn-warning #{btn_size}", 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'カートに追加する' do
       %i.material-icons add_shopping_cart

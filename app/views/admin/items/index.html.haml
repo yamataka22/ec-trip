@@ -19,12 +19,12 @@
         = f.label :stock_quantity, '在庫数', class: 'col-1 col-form-label pr-0'
         .col-3
           .input-group
-            = f.number_field :stock_quantity, class: 'form-control'
+            = f.number_field :stock_quantity, class: 'form-control px-1'
             %span.input-group-addon
               = f.radio_button :stock_type, :less
-              = f.label :stock_type_less, '以下', class: 'form-check-label pl-1 pr-3'
+              = f.label :stock_type_less, '以下', class: 'form-check-label pl-0 pr-2'
               = f.radio_button :stock_type, :more
-              = f.label :stock_type_more, '以上', class: 'form-check-label pl-1'
+              = f.label :stock_type_more, '以上', class: 'form-check-label pl-0'
         = f.label :status, 'ステータス', class: 'col-2 col-form-label text-right pr-0'
         .col-4
           .form-check.form-check-inline.pt-1

@@ -3,11 +3,10 @@
     .col-xl-4.col-lg-5.col-md-6
       .card
         .card-body
-          .text-center.lead
+          %h4.text-center.pt-4
             = image_tag 'logo.png', width: '80%'
-            %br/
-            %span.text-muted Admin Login
-          %hr.mb-4
+            .text-muted.pt-3 ADMIN LOGIN
+        .card-block
           - if notice
             .alert.alert-info
               = notice
@@ -21,6 +20,7 @@
             .form-group
               = f.label :password
               = f.password_field :password, autocomplete: 'off', class: 'form-control'
-            .mt-4.mb-3
+            .pt-4
               = f.submit 'ログイン', class: 'btn btn-primary btn-block'
+
 

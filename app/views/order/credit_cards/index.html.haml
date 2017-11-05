@@ -1,3 +1,5 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/credit_card'
 .text-center
   %h4.mb-2
     お支払い方法
@@ -16,7 +18,7 @@
     %div
       = link_to '他のカードを利用する', new_order_credit_card_path, class: 'btn btn-info btn-raised', remote: true
 .modal.fade.card_form_dialog
-  .modal-dialog
+  .modal-dialog.modal-sm
     .modal-content
 - content_for :javascript do
   %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}

@@ -1,6 +1,5 @@
-- btn_size ||= ''
 - if !member_signed_in?
-  %button{onclick: 'alert("ログインしてください"); document.activeElement.blur();', class: 'btn bmd-btn-fab btn-secondary'}
+  %button{onclick: 'alert("お気に入り登録を利用するには、ログインする必要があります"); document.activeElement.blur();', class: "btn bmd-btn-fab btn-secondary #{btn_size}"}
     %i.material-icons favorite_border
 - elsif favorite
   = link_to member_favorites_path(item_id: item.id), method: :post, remote: true do

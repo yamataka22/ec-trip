@@ -1,12 +1,16 @@
-.card#stripe_wrapper
-  .card-header
-    クレジットカード情報
-  .card-body
-    = render '/credit_cards/form'
-  .card-footer.text-right
-    = form_tag member_credit_cards_path, method: :post, class: 'mb-0' do
-      = submit_tag '', style: 'display: none', id: 'stripe_submit'
-      = button_tag '登録', class: 'btn btn-info btn-raised', onclick: 'stripe_js.createToken(); return false;'
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/credit_card'
+.row
+  .col-md-10.col-lg-6
+    .card#stripe_wrapper
+      .card-header
+        クレジットカード情報
+      .card-body
+        = render '/credit_cards/form'
+      .card-footer.text-right
+        = form_tag member_credit_cards_path, method: :post, class: 'mb-0' do
+          = submit_tag '', style: 'display: none', id: 'stripe_submit'
+          = button_tag '登録', class: 'btn btn-info btn-raised', onclick: 'stripe_js.createToken(); return false;'
 - content_for :javascript do
   %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}
   :javascript

@@ -40,8 +40,14 @@ section {
     }
   }
 }
-.topics p {
-  padding: 0 10px;
-  font-size: 0.95rem;
-  line-height: 1.5rem;
+.topics {
+  p {
+    padding: 0 10px;
+    font-size: 0.95rem;
+    line-height: 1.5rem;
+  }
+  a {
+    text-decoration: underline;
+    color: #3F4550;
+  }
 }

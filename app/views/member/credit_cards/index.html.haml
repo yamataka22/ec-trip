@@ -1,7 +1,9 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/credit_card'
 .credit_card_index
   = render 'index', credit_cards: @credit_cards
 .modal.fade.card_form_dialog
-  .modal-dialog
+  .modal-dialog.modal-sm
     .modal-content
 - content_for :javascript do
   %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}

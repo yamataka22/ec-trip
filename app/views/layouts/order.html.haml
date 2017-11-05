@@ -21,9 +21,10 @@
               %br/
               %span.view_pc.small クレジットカード
           %li{class: "#{'active' if controller.controller_name == 'purchases'} "}
-            %i.fa.fa-sticky-note-o.flow_number
-            %br/
-            %span.view_pc.small ご確認
+            = link_to new_order_purchase_path do
+              %i.fa.fa-sticky-note-o.flow_number
+              %br/
+              %span.view_pc.small ご確認
           %li
             %i.fa.fa-check.flow_number
             %br/

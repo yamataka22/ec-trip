@@ -5,7 +5,7 @@
       = link_to item_path(item) do
         = image_tag item.caption_image_url, class: 'img-fluid', style: 'z-index: -1;'
       .favorite_btn
-        = render 'favorites/button', item: item, favorite: favorites && favorites.find{|f| f.item_id == item.id}, btn_size: 'bmd-btn-fab-sm'
+        = render 'favorites/button', item: item, btn_size: 'bmd-btn-fab-sm', favorite: favorites&.find{|f| f.item_id == item.id}
     .card-body.pt-4
       = link_to item_path(item) do
         %h6.item_name= item.name

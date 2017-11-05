@@ -14,7 +14,7 @@
           .alert.alert-danger この商品は一時的に在庫切れとなっています。
         - if flash[:error].present?
           .alert.alert-danger= flash[:error]
-        - if Cart.search(current_member, session[:cart_session_id]).find_by(item_id: @item.id).present?
+        - if Cart.search(current_member, session[:cart_session_id])&.find_by(item_id: @item.id).present?
           .alert.alert-primary
             .clearfix.pt-1
               .float-left
@@ -50,8 +50,8 @@
                   - if @item.remarks.present?
                     %p.text-justify= @item.remarks
                   .text-center.mt-3
-                    = render 'favorites/button', item: @item, favorite: favorite
-                    = render 'carts/button', item: @item
+                    = render 'favorites/button', item: @item, favorite: favorite, btn_size: ''
+                    = render 'carts/button', item: @item, btn_size: ''
   .operation_sp.view_sp
     .fixed-bottom
       .card
@@ -62,8 +62,8 @@
               = jpy(@item.price, suffix: true)
               %span.small (税抜)
           .pull-right
-            = render 'favorites/button', item: @item, favorite: favorite, button_size: 'bmd-btn-fab-sm'
-            = render 'carts/button', item: @item, button_size: 'bmd-btn-fab-sm'
+            = render 'favorites/button', item: @item, favorite: favorite, btn_size: ''
+            = render 'carts/button', item: @item, btn_size: ''
 - content_for :javascript do
   = javascript_include_tag 'magnific-popup/dist/jquery.magnific-popup.min'
   :javascript

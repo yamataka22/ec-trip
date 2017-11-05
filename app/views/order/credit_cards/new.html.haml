@@ -1,9 +1,11 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/credit_card'
 .text-center
   %h4.mb-2
     お支払い方法
   %p.text-muted.mb-5 クレジットカード情報を入力してください。
-.row.justify-content-md-center
-  .col-md-8.col-lg-6.col-xl-5
+.row.justify-content-md-center.mb-4
+  .col-md-6.col-lg-4
     .card#stripe_wrapper
       .card-body
         = render '/credit_cards/form'

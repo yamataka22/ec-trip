@@ -68,7 +68,7 @@ class Purchase < ApplicationRecord
     end
 
     self.stripe_charge_id = stripe_charge.id
-    self.purchased_date = Date.today
+    self.purchased_date = Date.current
     self.save!
 
     cart_clear

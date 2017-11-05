@@ -47,10 +47,10 @@
                   %i.fa.fa-user.fa-lg.fa-fw
                   = "#{current_member.account_name} さん"
                 .dropdown-menu{'aria-labelledby' => 'account_dropdown'}
-                  = link_to member_path, class: 'dropdown-item' do
+                  = link_to member_path, class: 'dropdown-item text-muted' do
                     %i.fa.fa-fw.fa-id-card-o
                     マイページ
-                  = link_to destroy_member_session_path, method: :delete, class: 'dropdown-item' do
+                  = link_to destroy_member_session_path, method: :delete, class: 'dropdown-item text-muted' do
                     %i.fa.fa-fw.fa-lock
                     ログアウト
             - else

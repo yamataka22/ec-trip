@@ -61,6 +61,9 @@
       vertical-align: middle;
       border-radius: 50%;
     }
+    .flow_line li span{
+      color: #D3D3D3;
+    }
     .flow_line li.active {
       color: #4496EC;
       span {color: #4496EC !important;}
