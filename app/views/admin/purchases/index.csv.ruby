@@ -9,8 +9,8 @@ csv_str = CSV.generate do |csv|
       csv_column_values = []
       csv_column_values.push purchase.created_at.strftime('%Y/%m/%d %H:%M')
       csv_column_values.push purchase.purchase_no
-      csv_column_values.push purchase.member.account_name
-      csv_column_values.push purchase.member.email
+      csv_column_values.push purchase.member.present? ? purchase.member.account_name : 'ゲスト購入'
+      csv_column_values.push purchase.member.present? ? purchase.member.email : purchase.guest_email
       csv_column_values.push purchase.delivery_last_name
       csv_column_values.push purchase.delivery_first_name
       csv_column_values.push purchase.delivery_phone

@@ -1,5 +1,8 @@
-class Admin::TopController < Admin::AdminBase
+class Admin::TopController < ApplicationController
+  layout 'admin'
   def index
+    redirect_to new_manager_session_path and return unless manager_signed_in?
+
     @recent_purchase_summaries = Purchase.select('created_at, COUNT(id) AS count, SUM(item_amount + delivery_fee + tax) AS amount').where('created_at >= ?', Date.current - 4.days).group(:created_at).order(created_at: :desc)
     @undelivered_counts = Purchase.where(delivered: false).count
     @selling_item_counts = Item.selling.count

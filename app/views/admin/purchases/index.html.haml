@@ -44,7 +44,7 @@
           %tr
             %td= purchase.purchase_no
             %td= purchase.created_at.strftime('%Y/%m/%d %H:%M')
-            %td= purchase.member.email
+            %td= purchase.member.present? ? purchase.member.email : purchase.guest_email
             %td.text-right= jpy(purchase.item_amount, prefix: true)
             %td
               - purchase.details.each_with_index do |detail, i|
