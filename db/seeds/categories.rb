@@ -1,4 +1,4 @@
-%w(新商品 秋の特集 ソファ テーブル チェア その他).each do |name, i|
+%w(リビング特集 オフィス特集 ソファ テーブル チェア その他).each do |name, i|
   Category.create_with_auto_sequence(name: name)
 end
 

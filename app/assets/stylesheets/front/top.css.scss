@@ -1,18 +1,22 @@
 #top_slider {
+  padding-top: 50px;
   .carousel-item {
-    height: 480px;
+    max-height: 480px;
     img {margin: 0 auto;}
     .carousel-caption {
       @media (max-width: 767px) {
-        padding-bottom: 10px;
+        padding-bottom: 0;
         left: 8%;
         right: 8%;
-        h2 {font-size: 1.2rem;}
+        h2 {font-size: 1.0rem;}
         p {font-size: 0.85rem;}
       }
       .black {color: #3F4550;}
       .white {color: #FAFAFA;}
     }
+  }
+  .hover {
+    cursor: pointer;
   }
 }
 

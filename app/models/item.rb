@@ -24,7 +24,7 @@ class Item < ApplicationRecord
   validate :change_to_unpublished
 
   scope :published, -> { where(status: [:selling, :end_of_sell]) }
-  scope :selling, -> { where(status: :selling) }
+  # scope :selling, -> { where(status: :selling) }
 
   attr_accessor :preview
 

@@ -8,7 +8,7 @@ class Purchase < ApplicationRecord
   accepts_nested_attributes_for :details
 
   attr_accessor :use_another_address
-  attr_reader :credit_card_id, :invoice_address_id, :delivery_address_id
+  attr_reader :credit_card_id, :delivery_address_id, :credit_card, :delivery_address
 
   validates :guest_email, presence: true, if: -> { self.member.blank? }
   validates :invoice_last_name, presence: true
@@ -68,6 +68,7 @@ class Purchase < ApplicationRecord
     end
 
     self.stripe_charge_id = stripe_charge.id
+    self.purchased_date = Date.today
     self.save!
 
     cart_clear
@@ -80,21 +81,15 @@ class Purchase < ApplicationRecord
   end
 
   def invoice_address
-    self.member.addresses.find(self.invoice_address_id)
+    self.member.addresses.find_by(invoice: true)
   end
 
   def delivery_address
-    self.member.addresses.find(self.delivery_address_id)
+    self.member.addresses.find{|address| address.id == self.delivery_address_id.to_i}
   end
 
   def credit_card
-    self.member.credit_cards.find(self.credit_card_id)
-  end
-
-  def invoice_address_id=(value)
-    if value.present? && self.member.addresses.find(value)
-      @invoice_address_id = value
-    end
+    self.member.credit_cards.find{|card| card.id == self.credit_card_id.to_i}
   end
 
   def delivery_address_id=(value)
@@ -133,7 +128,7 @@ class Purchase < ApplicationRecord
 
   def build_detail_from_cart
     self.details = []
-    Cart.search(self.member, self.cart_session_id).each do |cart|
+    Cart.includes(:item).search(self.member, self.cart_session_id).each do |cart|
       self.details.build(
           item_id: cart.item.id,
           quantity: cart.quantity
@@ -150,7 +145,7 @@ class Purchase < ApplicationRecord
 
   def use_another_address?
     self.member.blank? && self.use_another_address.present? ||
-        self.member.present? && self.invoice_address_id != self.delivery_address_id
+        self.member.present? && self.invoice_address.id != self.delivery_address_id.to_i
   end
 
   private
@@ -166,13 +161,14 @@ class Purchase < ApplicationRecord
   end
 
   def set_delivery
-    self.delivery_last_name = self.delivery_address.last_name
-    self.delivery_first_name = self.delivery_address.first_name
-    self.delivery_phone = self.delivery_address.phone
-    self.delivery_postal_code = self.delivery_address.postal_code
-    self.delivery_prefecture_id = self.delivery_address.prefecture_id
-    self.delivery_address1 = self.delivery_address.address1
-    self.delivery_address2 = self.delivery_address.address2
+    delivery_address = self.delivery_address
+    self.delivery_last_name = delivery_address.last_name
+    self.delivery_first_name = delivery_address.first_name
+    self.delivery_phone = delivery_address.phone
+    self.delivery_postal_code = delivery_address.postal_code
+    self.delivery_prefecture_id = delivery_address.prefecture_id
+    self.delivery_address1 = delivery_address.address1
+    self.delivery_address2 = delivery_address.address2
   end
 
   def copy_invoice_to_delivery

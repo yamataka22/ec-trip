@@ -49,7 +49,8 @@ class Members::RegistrationsController < Devise::RegistrationsController
   end
 
   def inactive
-    @message = 'ご登録ありがとうござます。ご指定のメールアドレスにメールをお送りいたしました。<br>メール本文のリンクをクリックして登録を完了してください。'
+    @title = 'ご登録ありがとうござます。'
+    @message = 'ご指定のメールアドレスにメールをお送りいたしました。<br>メール本文のリンクをクリックして登録を完了してください。'
     render '/message'
   end
 

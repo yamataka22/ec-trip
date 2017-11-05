@@ -6,7 +6,7 @@
   .col-lg-10.col-xl-8
     - @credit_cards.each do |card|
       = link_to new_order_purchase_path(credit_card_id: card.id) do
-        .card.mb-3
+        .card.mb-3.card_list
           .card-body
             %span.fa.fa-fw.fa-lg{class: fa_card(card.brand)}
             %span.ml-2= card.brand

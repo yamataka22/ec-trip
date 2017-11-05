@@ -43,7 +43,7 @@
       .card-body
         = render '/credit_cards/form'
         = form_for @purchase, url: order_guests_path do |f|
-          - %i(cart_session_id guest_email use_another_address invoice_last_name invoice_first_name invoice_phone invoice_postal_code invoice_prefecture_id invoice_address1 invoice_address2 delivery_last_name delivery_first_name delivery_phone delivery_postal_code delivery_prefecture_id delivery_address1 delivery_address2 invoice_address_id delivery_address_id credit_card_id).each do |elem|
+          - %i(cart_session_id guest_email use_another_address invoice_last_name invoice_first_name invoice_phone invoice_postal_code invoice_prefecture_id invoice_address1 invoice_address2 delivery_last_name delivery_first_name delivery_phone delivery_postal_code delivery_prefecture_id delivery_address1 delivery_address2 delivery_address_id credit_card_id).each do |elem|
             = f.hidden_field elem
           = f.fields_for :details do |d|
             - %i(item_id quantity).each do |elem|

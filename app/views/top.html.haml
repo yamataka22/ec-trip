@@ -5,15 +5,15 @@
 #top_slider.carousel.slide{'data-ride' => 'carousel', style: 'margin-top: -5rem;'}
   .carousel-inner
     - @sliders.each_with_index do |slider, i|
-      .carousel-item{class: "#{'active' if i == 0}"}
+      .carousel-item{class: "#{'active' if i == 0} #{'hover' if slider.link_url.present?}"}
         = image_tag slider.image.public_url(:original), class: 'd-block img-fluid'
         .carousel-caption{class: "text-#{slider.caption_position}"}
           - if slider.title.present?
             %h2{class: slider.caption_color}= slider.title
           - if slider.description.present?
-            %p{class: slider.caption_color}= slider.description
+            %p.view_pc{class: slider.caption_color}= slider.description
           - if slider.link_url.present?
-            = link_to 'VIEW', slider.link_url, class: 'btn btn-info btn-raised'
+            = link_to 'VIEW', slider.link_url, class: 'btn btn-info btn-raised view_pc'
   - if @sliders.size > 1
     %ol.carousel-indicators.view_pc
       - (@sliders.size).times do |i|
@@ -94,6 +94,13 @@
           target.removeClass('dropdown-optional');
         } else {
           target.addClass('dropdown-optional');
+        }
+      });
+
+      $('#top_slider').find('.carousel-item').click(function() {
+        if($(this).find('a').length) {
+          console.log($(this).find('a').attr('href'));
+          window.location = $(this).find('a').attr('href');
         }
       });
     });

@@ -12,7 +12,7 @@
               .card-header
                 = render 'addresses/head', address: address
               .card-body
-                %p= render 'addresses/body', address: address
+                = render 'addresses/body', address: address
       .col-md-6
         = link_to new_order_delivery_address_path, remote: true do
           .card{style: 'height: 190px; padding-top: 60px;'}

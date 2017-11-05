@@ -49,7 +49,7 @@
         - total_sales = total_count = 0
         - Date.current.downto(Date.current - 6.days).with_index do |date, i|
           :ruby
-            summary = @recent_purchase_summaries.find{|summary| summary.created_at.to_date == date}
+            summary = @recent_purchase_summaries.find{|summary| summary.purchased_date == date}
             if summary
               sales = summary.amount
               count = summary.count

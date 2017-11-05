@@ -41,7 +41,7 @@ class Member < ApplicationRecord
   end
 
   def main_credit_card_id=(value)
-    if self.credit_cards.find(value)
+    if self.credit_cards.find_by(id: value)
       write_attribute(:main_credit_card_id, value)
     end
   end
@@ -59,7 +59,7 @@ class Member < ApplicationRecord
   end
 
   def main_address_id=(value)
-    if self.addresses.find(value)
+    if self.addresses.find_by(id: value)
       write_attribute(:main_address_id, value)
     end
   end

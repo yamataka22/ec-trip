@@ -10,19 +10,19 @@
     - @purchase.errors.full_messages.each do |message|
       %p.mb-0= message
 .row
-  .col-md-8.mb-3
+  .col-md-7.col-lg-8.mb-3
     .card
       %h6.card-header
         ご注文内容
       .card-body
         .row
-          .col-md-6.mb-4
+          .col-lg-6.mb-4
             %h6
               ご請求先
               %span.small.ml-2= link_to '変更', order_invoice_address_path
             %hr.mt-2.mb-2
             %p= render 'order/purchases/address', purchase: @purchase, prefix: 'invoice'
-          .col-md-6.mb-4
+          .col-lg-6.mb-4
             %h6
               お届け先
               %span.small.ml-2= link_to '変更', order_delivery_addresses_path
@@ -42,12 +42,10 @@
         %h6 商品・数量
         %hr.mt-0
         = render partial: '/purchases/detail', collection: @purchase.details, as: :detail, locals: {remote: true}
-  .col-md-4
+  .col-md-5.col-lg-4
     .sticky-top{style: 'z-index: 0'}
       = form_for @purchase, url: order_purchases_path do |f|
-        - %i(invoice_last_name invoice_first_name invoice_phone invoice_postal_code invoice_prefecture_id invoice_address1 invoice_address2 delivery_last_name delivery_first_name delivery_phone delivery_postal_code delivery_prefecture_id delivery_address1 delivery_address2 invoice_address_id delivery_address_id credit_card_id).each do |elem|
-          = f.hidden_field elem
-        - %i(invoice_address_id delivery_address_id credit_card_id).each do |elem|
+        - %i(invoice_last_name invoice_first_name invoice_phone invoice_postal_code invoice_prefecture_id invoice_address1 invoice_address2 delivery_last_name delivery_first_name delivery_phone delivery_postal_code delivery_prefecture_id delivery_address1 delivery_address2 delivery_address_id credit_card_id).each do |elem|
           = f.hidden_field elem
         = f.fields_for :details do |d|
           - %i(item_id quantity).each do |elem|

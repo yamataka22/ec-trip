@@ -22,6 +22,7 @@ class CreatePurchases < ActiveRecord::Migration[5.0]
       t.string :guest_email
       t.string :cart_session_id
       t.string :stripe_charge_id, null: false
+      t.date :purchased_date, null: false
       t.text :remarks
       t.boolean :delivered, null: false, default: false
       t.datetime :delivered_at
