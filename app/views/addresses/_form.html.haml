@@ -1,40 +1,41 @@
+- prefix ||= ''
 .row
   .col-6.pr-1
     .form-group
-      = f.label :last_name, class: 'form-control-label required'
-      = f.text_field :last_name, class: 'form-control'
-      = error_label_tag(f.object, :last_name)
+      = f.label eval(":#{prefix}last_name"), class: 'form-control-label required'
+      = f.text_field eval(":#{prefix}last_name"), class: 'form-control'
+      = error_label_tag(f.object, eval(":#{prefix}last_name"))
   .col-6
     .form-group
-      = f.label :first_name, class: 'form-control-label required'
-      = f.text_field :first_name, class: 'form-control'
-      = error_label_tag(f.object, :first_name)
+      = f.label eval(":#{prefix}first_name"), class: 'form-control-label required'
+      = f.text_field eval(":#{prefix}first_name"), class: 'form-control'
+      = error_label_tag(f.object, eval(":#{prefix}first_name"))
 .form-group
-  = f.label :phone, class: 'form-control-label required'
-  = f.phone_field :phone, class: 'form-control'
-  = error_label_tag(f.object, :phone)
+  = f.label eval(":#{prefix}phone"), class: 'form-control-label required'
+  = f.phone_field eval(":#{prefix}phone"), class: 'form-control'
+  = error_label_tag(f.object, eval(":#{prefix}phone"))
 .row
   .col-lg-6.pr-0
     %table
       %tr
         %td{width: '200px'}
           .form-group
-            = f.label :postal_code, class: 'form-control-label required'
-            = f.text_field :postal_code, class: 'form-control'
-            = error_label_tag(f.object, :postal_code)
+            = f.label eval(":#{prefix}postal_code"), class: 'form-control-label required'
+            = f.text_field eval(":#{prefix}postal_code"), class: 'form-control'
+            = error_label_tag(f.object, eval(":#{prefix}postal_code"))
         %td
           %button.btn.btn-outline-info.btn-sm.ml-3
             住所検索
   .col-lg-6
     .form-group.bmd-form-group.is-filled
-      = f.label :prefecture_id, class: 'bmd-label-floating required'
-      = f.select :prefecture_id, Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, {include_blank: true}, {class: 'form-control'}
-      = error_label_tag(f.object, :prefecture_id)
+      = f.label eval(":#{prefix}prefecture_id"), class: 'bmd-label-floating required'
+      = f.select eval(":#{prefix}prefecture_id"), Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, {include_blank: true}, {class: 'form-control'}
+      = error_label_tag(f.object, eval(":#{prefix}prefecture_id"))
 .form-group
-  = f.label :address1, class: 'form-control-label required'
-  = f.text_field :address1, class: 'form-control'
-  = error_label_tag(f.object, :address1)
+  = f.label eval(":#{prefix}address1"), class: 'form-control-label required'
+  = f.text_field eval(":#{prefix}address1"), class: 'form-control'
+  = error_label_tag(f.object, eval(":#{prefix}address1"))
 .form-group
-  = f.label :address2, class: 'form-control-label'
-  = f.text_field :address2, class: 'form-control'
-  = error_label_tag(f.object, :address2)
+  = f.label eval(":#{prefix}address2"), class: 'form-control-label'
+  = f.text_field eval(":#{prefix}address2"), class: 'form-control'
+  = error_label_tag(f.object, eval(":#{prefix}address2"))

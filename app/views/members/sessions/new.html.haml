@@ -1,46 +1,61 @@
 .container
-  .text-center
+  .text-center.view_pc
     %h1 LOG IN
     %h6.text-muted.mb-4 ログイン
-  .row.justify-content-md-center
-    .col-md-8.col-lg-6.col-xl-5.mb-3
-      .card
-        %h6.card-header.text-center
-          メールアドレスでログイン
-        .card-body
-          - flash_messages
-          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-            .form-group
-              = f.label :email, class: 'form-control-label'
-              = f.text_field :email, class: 'form-control'
-              = error_label_tag(f.object, :email)
-            .form-group
-              = f.label :password, class: 'form-control-label'
-              = f.password_field :password, class: 'form-control'
-              = error_label_tag(f.object, :password)
-              = link_to 'パスワードを忘れた方はこちら', new_password_path(resource_name), class: 'small'
-            .float-left
-              .checkbox.mt-3
-                %label
-                  = f.check_box :remember_me
-                  ログインしたままにする
-            .float-right
-              = button_tag class: 'btn btn-info bmd-btn-fab', id: 'btn_submit', onclick: '$(this).parent("form").submit();' do
-                %i.material-icons arrow_forward
-    .col-md-4
-      .card.mb-4
-        %h6.card-header.text-center
-          SNSでログイン
-        .card-body
-          .mb-4
-            = link_to member_facebook_omniauth_authorize_path do
-              = button_tag class: 'btn btn-primary btn-block btn-lg btn_facebook' do
-                %i.fa.fa-facebook.fa-fw
-                Facebook
-          .mb-1
-            = link_to member_twitter_omniauth_authorize_path do
-              = button_tag class: 'btn btn-primary btn-block btn-lg btn_twitter' do
-                %i.fa.fa-twitter.fa-fw
-                Twitter
-      .text-center
-        = link_to '新規会員登録はこちら', members_sign_up_select_path, class: 'btn btn-sm btn-info'
+  .row.justify-content-center
+    .col-md-7.col-lg-8
+      .row.mb-3
+        .col-lg-7.mb-3
+          .card
+            %h6.card-header.text-center
+              メールアドレスでログイン
+            .card-body
+              - flash_messages
+              = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+                .form-group
+                  = f.label :email, class: 'form-control-label'
+                  = f.text_field :email, class: 'form-control'
+                  = error_label_tag(f.object, :email)
+                .form-group
+                  = f.label :password, class: 'form-control-label'
+                  = f.password_field :password, class: 'form-control'
+                  = error_label_tag(f.object, :password)
+                  = link_to 'パスワードを忘れた方はこちら', new_password_path(:member), class: 'small'
+                .float-left
+                  .checkbox.mt-3
+                    %label
+                      = f.check_box :remember_me
+                      ログインしたままにする
+                .float-right
+                  = button_tag class: 'btn btn-info bmd-btn-fab', id: 'btn_submit', onclick: '$(this).parent("form").submit();' do
+                    %i.material-icons arrow_forward
+          = link_to '新規会員登録はこちら', members_sign_up_select_path, class: 'btn btn-sm btn-info mt-2'
+        .col-lg-5
+          .card
+            %h6.card-header.text-center
+              SNSでログイン
+            .card-body
+              .row
+                .col-6.col-md-12
+                  = link_to member_facebook_omniauth_authorize_path do
+                    = button_tag class: 'btn btn-primary btn-block btn-lg btn_facebook' do
+                      %i.fa.fa-facebook.fa-fw
+                      Facebook
+                .col-6.col-md-12
+                  = link_to member_twitter_omniauth_authorize_path do
+                    = button_tag class: 'btn btn-primary btn-block btn-lg btn_twitter' do
+                      %i.fa.fa-twitter.fa-fw
+                      Twitter
+    - if params[:purchase]
+      .col-md-5.col-lg-4
+        .card
+          %h6.card-header.text-center
+            GUEST
+          .card-body
+            %p.text-justify
+              会員登録をせずに購入されたい方は、下記よりお進みください。
+            %p.text-justify.text-danger.mb-3
+              なお、GUEST購入の場合は領収書発行などができません。
+            = link_to new_order_guest_path, class: 'btn btn-secondary btn-block' do
+              %i.fa.fa-arrow-right.fa-fw
+              GUEST購入

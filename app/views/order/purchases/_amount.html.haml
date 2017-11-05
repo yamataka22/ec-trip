@@ -1,0 +1,13 @@
+%table.table.mb-0
+  %tr
+    %td 商品の小計:
+    %td.text-right= jpy(purchase.item_amount, prefix: true)
+  %tr
+    %td 送料:
+    %td.text-right= jpy(purchase.delivery_fee, prefix: true)
+  %tr
+    %td 消費税:
+    %td.text-right= jpy(purchase.tax, prefix: true)
+  %tr.text-info
+    %td ご請求金額合計:
+    %td.text-right= jpy(purchase.total_amount, prefix: true)

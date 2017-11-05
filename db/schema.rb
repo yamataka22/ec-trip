@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(version: 20171103060847) do
   end
 
   create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "member_id",              null: false
+    t.integer  "member_id"
+    t.string   "session_id"
     t.integer  "item_id",                null: false
     t.integer  "quantity",   default: 0, null: false
     t.datetime "created_at",             null: false
@@ -154,7 +155,7 @@ ActiveRecord::Schema.define(version: 20171103060847) do
     t.string   "last_sign_in_ip"
     t.string   "last_name",                              null: false
     t.string   "first_name",                             null: false
-    t.boolean  "admin",                  default: false, null: false
+    t.boolean  "mail_accept",            default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.index ["email"], name: "index_managers_on_email", unique: true, using: :btree

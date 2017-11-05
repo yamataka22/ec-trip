@@ -8,7 +8,7 @@
       - @addresses.each do |address|
         .col-md-6.mb-3
           = link_to new_order_purchase_path(delivery_address_id: address.id) do
-            .card
+            .card.address_card
               .card-header
                 = render 'addresses/head', address: address
               .card-body

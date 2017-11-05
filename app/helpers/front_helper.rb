@@ -20,4 +20,15 @@ module FrontHelper
   def select_months
     1..12
   end
+
+  def ceil_cart_quantity(cart)
+    default_max = 5
+    if cart.item.stock_quantity < default_max
+      cart.item.stock_quantity
+    elsif cart.quantity > default_max
+      cart.quantity
+    else
+      default_max
+    end
+  end
 end

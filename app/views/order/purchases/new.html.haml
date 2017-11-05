@@ -3,7 +3,8 @@
 .text-center
   %h4.mb-2
     ご注文内容の確認
-  %p.text-muted.mb-5 内容をご確認のうえ「注文を確定する」ボタンをクリックしてください。
+  %p.text-muted.mb-5
+    内容をご確認のうえ「注文を確定する」ボタンをクリックしてください。
 - if @purchase.errors.present?
   .alert.alert-danger
     - @purchase.errors.full_messages.each do |message|
@@ -14,43 +15,47 @@
       %h6.card-header
         ご注文内容
       .card-body
-        .row.mb-4
-          .col-md-6
+        .row
+          .col-md-6.mb-4
             %h6
               ご請求先
               %span.small.ml-2= link_to '変更', order_invoice_address_path
             %hr.mt-2.mb-2
-            %p.pl-2= render '/addresses/body', address: @purchase.invoice_address
-          .col-md-6
+            %p= render 'order/purchases/address', purchase: @purchase, prefix: 'invoice'
+          .col-md-6.mb-4
             %h6
               お届け先
               %span.small.ml-2= link_to '変更', order_delivery_addresses_path
             %hr.mt-2.mb-2
-            %p.pl-2
-              - if @purchase.invoice_address.id == @purchase.delivery_address.id
-                ご請求先と同じ
+            %p
+              - if @purchase.use_another_address?
+                = render 'order/purchases/address', purchase: @purchase, prefix: 'delivery'
               - else
-                = render '/addresses/body', address: @purchase.delivery_address
-        .mb-5
+                %span.view_pc 左記ご請求先と同じ
+                %span.view_sp 上記ご請求先と同じ
+        .mb-4
           %h6
-            お支払い方法
+            クレジットカード
             %span.small.ml-2= link_to '変更', order_credit_cards_path
           %hr.mt-2.mb-2
-            %p.pl-2= @purchase.credit_card_info
-        %h6 ご注文商品・数量
+            %p= @purchase.credit_card.card_info
+        %h6 商品・数量
+        %hr.mt-0
         = render partial: '/purchases/detail', collection: @purchase.details, as: :detail, locals: {remote: true}
   .col-md-4
     .sticky-top{style: 'z-index: 0'}
       = form_for @purchase, url: order_purchases_path do |f|
         - %i(invoice_last_name invoice_first_name invoice_phone invoice_postal_code invoice_prefecture_id invoice_address1 invoice_address2 delivery_last_name delivery_first_name delivery_phone delivery_postal_code delivery_prefecture_id delivery_address1 delivery_address2 invoice_address_id delivery_address_id credit_card_id).each do |elem|
           = f.hidden_field elem
+        - %i(invoice_address_id delivery_address_id credit_card_id).each do |elem|
+          = f.hidden_field elem
         = f.fields_for :details do |d|
-          - %i(item_id item_name price quantity).each do |elem|
+          - %i(item_id quantity).each do |elem|
             = d.hidden_field elem
-        .card
+        .card.mb-3
           .card-body
-            = f.submit '注文を確定する', class: 'btn btn-raised btn-warning btn-block'
-            %table.table.mt-4
+            = f.submit '注文を確定する', class: 'btn btn-raised btn-warning btn-block mb-4'
+            %table.table.mb-0
               %tr
                 %td 商品の小計:
                 %td.text-right= jpy(@purchase.item_amount, prefix: true)
@@ -64,7 +69,7 @@
                 %td ご請求金額合計:
                 %td.text-right= jpy(@purchase.total_amount, prefix: true)
         .text-center.mt-3
-          = link_to member_carts_path, class: 'btn btn-outline-secondary' do
+          = link_to carts_path, class: 'btn btn-outline-secondary' do
             %i.fa.fa-shopping-cart.fa-fw
             カート画面に戻る
 .modal.fade.item_detail_dialog

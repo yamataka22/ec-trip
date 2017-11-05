@@ -1,7 +1,7 @@
 class CreatePurchases < ActiveRecord::Migration[5.0]
   def change
     create_table :purchases do |t|
-      t.references :member, foreign_key: true, null: false
+      t.references :member, foreign_key: true
       t.integer :item_amount, null: false, default: 0
       t.integer :tax, null: false
       t.integer :delivery_fee, null: false
@@ -19,7 +19,8 @@ class CreatePurchases < ActiveRecord::Migration[5.0]
       t.integer :invoice_prefecture_id, null: false
       t.string :invoice_address1, null: false
       t.string :invoice_address2
-      t.string :credit_card_info, null: false
+      t.string :guest_email
+      t.string :cart_session_id
       t.string :stripe_charge_id, null: false
       t.text :remarks
       t.boolean :delivered, null: false, default: false

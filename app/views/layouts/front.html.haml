@@ -31,28 +31,25 @@
                 %i.fa.fa-fw.fa-lg.fa-search
                 商品を探す
             - if member_signed_in?
-              %li.nav-item
-                = link_to member_carts_path, class: 'nav-link' do
-                  %i.fa.fa-shopping-cart.fa-fw.fa-lg
-                  カート
-                  - cart_quantity = current_member.carts.sum(:quantity)
-                  - if cart_quantity > 0
-                    %span.badge.badge-warning.py-1= cart_quantity
+              = link_to member_favorites_path, class: 'nav-link' do
+                %i.fa.fa-fw.fa-heart
+                お気に入り
+            %li.nav-item
+              = link_to carts_path, class: 'nav-link' do
+                %i.fa.fa-shopping-cart.fa-fw.fa-lg
+                カート
+                - cart_quantity = Cart.current_quantity(current_member, session[:cart_session_id])
+                - if cart_quantity > 0
+                  %span.badge.badge-warning.py-1= cart_quantity
+            - if member_signed_in?
               %li.nav-item.dropdown{style: 'height: 40px;'}
                 %a.nav-link.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', id: 'account_dropdown'}
                   %i.fa.fa-user.fa-lg.fa-fw
                   = "#{current_member.account_name} さん"
                 .dropdown-menu{'aria-labelledby' => 'account_dropdown'}
-                  = link_to member_favorites_path, class: 'dropdown-item small' do
-                    %i.fa.fa-fw.fa-heart
-                    お気に入り
-                  = link_to member_purchases_path, class: 'dropdown-item small' do
-                    %i.fa.fa-fw.fa-credit-card
-                    購入履歴
                   = link_to member_path, class: 'dropdown-item small' do
-                    %i.fa.fa-fw.fa-user
-                    会員情報
-                  .dropdown-divider
+                    %i.fa.fa-fw.fa-id-card-o
+                    マイページ
                   = link_to destroy_member_session_path, method: :delete, class: 'dropdown-item small' do
                     %i.fa.fa-fw.fa-lock
                     ログアウト

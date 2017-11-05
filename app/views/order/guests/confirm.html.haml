@@ -1,0 +1,56 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/item'
+- @step = 'step2'
+.text-center
+  %h4.mb-2
+    クレジットカードの入力
+  %p.text-muted.mb-5
+    内容をご確認のうえ、クレジットカード番号を入力して「注文を確定する」ボタンをクリックしてください。
+- if @purchase.errors.present?
+  .alert.alert-danger
+    - @purchase.errors.full_messages.each do |message|
+      %p.mb-0= message
+.row
+  .col-md-8.mb-3
+    .card
+      %h6.card-header
+        ご注文内容
+      .card-body
+        .row
+          .col-md-6.mb-4
+            %h6 ご請求先
+            %hr.mt-2.mb-2
+            %p= render 'order/purchases/address', purchase: @purchase, prefix: 'invoice'
+          .col-md-6.mb-4
+            %h6 お届け先
+            %hr.mt-2.mb-2
+            %p
+              - if @purchase.use_another_address?
+                = render 'order/purchases/address', purchase: @purchase, prefix: 'delivery'
+              - else
+                %span.view_pc 左記ご請求先と同じ
+                %span.view_sp 上記ご請求先と同じ
+        %h6 商品・数量
+        %hr.mt-0
+        = render partial: '/purchases/detail', collection: @purchase.details, as: :detail, locals: {remote: true}
+  .col-md-4
+    .card.mb-3
+      .card-body
+        = render '/order/purchases/amount', purchase: @purchase
+    .card#stripe_wrapper
+      %h6.card-header
+        クレジットカード番号
+      .card-body
+        = render '/credit_cards/form'
+        = form_for @purchase, url: order_guests_path do |f|
+          - %i(cart_session_id guest_email use_another_address invoice_last_name invoice_first_name invoice_phone invoice_postal_code invoice_prefecture_id invoice_address1 invoice_address2 delivery_last_name delivery_first_name delivery_phone delivery_postal_code delivery_prefecture_id delivery_address1 delivery_address2 invoice_address_id delivery_address_id credit_card_id).each do |elem|
+            = f.hidden_field elem
+          = f.fields_for :details do |d|
+            - %i(item_id quantity).each do |elem|
+              = d.hidden_field elem
+          = button_tag '注文を確定する', class: 'btn btn-raised btn-warning btn-block mb-3', onclick: 'if (window.confirm("確定してよろしいでしょうか？")) {stripe_js.createToken();} return false;'
+          = f.submit '', style: 'display: none', id: 'stripe_submit'
+          = f.submit '住所入力画面に戻る', name: 'page_back', class: 'btn btn-outline-secondary btn-block'
+.modal.fade.item_detail_dialog
+  .modal-dialog
+    .modal-content

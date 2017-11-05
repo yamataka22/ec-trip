@@ -1,20 +1,20 @@
 var stripe_js = {};
 // stripe_js.showModal = function() {
-//     var modal = $('#stripe_form');
+//     var modal = $('#stripe_wrapper');
 //     modal.find('.card_input').val('');
 //     modal.find('.stripe_err_message').hide();
 //     modal.modal();
 // };
 
 stripe_js.createToken = function() {
-    var stripe_form = $('#stripe_form');
-    stripe_form.find('.stripe_err_message').hide();
+    var stripe_wrapper = $('#stripe_wrapper');
+    stripe_wrapper.find('.stripe_err_message').hide();
 
-    var card_number = stripe_form.find('#card_number').val();
-    var card_exp_month = stripe_form.find('#card_exp_month').val();
-    var card_exp_year = stripe_form.find('#card_exp_year').val();
-    var card_cvc = stripe_form.find('#card_cvc').val();
-    var card_name = stripe_form.find('#card_name').val();
+    var card_number = stripe_wrapper.find('#card_number').val();
+    var card_exp_month = stripe_wrapper.find('#card_exp_month').val();
+    var card_exp_year = stripe_wrapper.find('#card_exp_year').val();
+    var card_cvc = stripe_wrapper.find('#card_cvc').val();
+    var card_name = stripe_wrapper.find('#card_name').val();
 
     var err_message = null;
     if (!card_number) err_message = 'カード番号を入力してください。';
@@ -23,10 +23,10 @@ stripe_js.createToken = function() {
     else if (!card_name) err_message = 'カード名義を入力してください。';
 
     if (err_message) {
-        stripe_form.find('.stripe_err_message').text(err_message);
-        stripe_form.find('.stripe_err_message').show();
+        stripe_wrapper.find('.stripe_err_message').text(err_message);
+        stripe_wrapper.find('.stripe_err_message').show();
     } else {
-        stripe_form.find('.btn').prop('disabled', true);
+        stripe_wrapper.find('.btn').prop('disabled', true);
         Stripe.card.createToken({
             number:     card_number,
             cvc:        card_cvc,
@@ -39,16 +39,16 @@ stripe_js.createToken = function() {
 };
 
 stripe_js.responseHandler = function(status, response) {
-    var stripe_form = $('#stripe_form');
+    var stripe_wrapper = $('#stripe_wrapper');
     if (response.error) {
-        stripe_form.find('.stripe_err_message').text(
+        stripe_wrapper.find('.stripe_err_message').text(
             stripe_js.ja_message[response.error.message] || "このカードは使用できません。"
         );
-        stripe_form.find('.stripe_err_message').show();
-        stripe_form.find('.btn').prop('disabled', false);
+        stripe_wrapper.find('.stripe_err_message').show();
+        stripe_wrapper.find('.btn').prop('disabled', false);
     } else {
-        stripe_form.find('form').append($('<input type="hidden" name="stripe_token" />').val(response.id));
-        stripe_form.find('#stripe_submit').click();
+        stripe_wrapper.find('form').append($('<input type="hidden" name="stripe_token" />').val(response.id));
+        stripe_wrapper.find('#stripe_submit').click();
     }
 };
 

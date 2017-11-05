@@ -20,3 +20,8 @@
 .form-group
   %label.form-control-label.required{for: 'card_name'} カード名義
   %input#card_name.form-control.card_input{type: 'text', placeholder: 'TARO YAMADA'}
+- content_for :javascript do
+  %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}
+  :javascript
+    Stripe.setPublishableKey('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
+  = javascript_include_tag 'stripe_operate'

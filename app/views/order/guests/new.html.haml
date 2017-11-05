@@ -1,0 +1,35 @@
+- @step = 'step1'
+= form_for @purchase, url: confirm_order_guests_path, method: :post do |f|
+  = f.hidden_field :cart_session_id
+  .row.justify-content-center
+    .col-md-10.col-lg-8.col-xl-7
+      - flash_messages
+      .card
+        %h5.card-header
+          お客様情報を入力してください
+        .card-body
+          .form-group
+            = f.label :guest_email, class: 'form-control-label required'
+            = f.email_field :guest_email, class: 'form-control'
+            = error_label_tag(f.object, :guest_email)
+          = render 'addresses/form', f: f, prefix: 'invoice_'
+          .checkbox
+            %label
+              = f.check_box :use_another_address, {}, '1', ''
+              お客様の住所とは別の住所に配送する
+        .delivery_address{style: "display: #{@purchase.use_another_address.blank? ? 'none' : 'block'}"}
+          %h5.card-header
+            配送先住所を入力してください
+          .card-block
+            = render 'addresses/form', f: f, prefix: 'delivery_'
+        .card-footer.text-center
+          = f.submit '次へ', class: 'btn btn-info btn-raised'
+- content_for :javascript do
+  :javascript
+    $('#purchase_use_another_address').click(function() {
+      if ($(this).is(':checked')) {
+        $('.delivery_address').show();
+      } else {
+        $('.delivery_address').hide();
+      }
+    });

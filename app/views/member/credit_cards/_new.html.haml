@@ -1,4 +1,4 @@
-.card#stripe_form
+.card#stripe_wrapper
   .card-header
     クレジットカード情報
   .card-body
@@ -10,4 +10,4 @@
       = button_tag '登録', class: 'btn btn-info btn-raised', onclick: 'stripe_js.createToken(); return false;'
       %button.btn.btn-secondary.ml-2{'data-dismiss' => 'modal', 'aria-label' => 'Close'} キャンセル
 :javascript
-  $('#stripe_form').bootstrapMaterialDesign();
+  $('#stripe_wrapper').bootstrapMaterialDesign();

@@ -1,9 +1,9 @@
-# Preview all emails at http://localhost:3000/rails/mailers/member_mailer
-class MemberMailerPreview < ActionMailer::Preview
+# Preview all emails at http://localhost:3000/rails/mailers/front_mailer
+class FrontMailerPreview < ActionMailer::Preview
 
-  # Preview this email at http://localhost:3000/rails/mailers/member_mailer/purchase_complete
+  # Preview this email at http://localhost:3000/rails/mailers/front_mailer/purchase_complete
   def purchase_complete
-    MemberMailerMailer.purchase_complete
+    FrontMailer.purchase_complete
   end
 
 end

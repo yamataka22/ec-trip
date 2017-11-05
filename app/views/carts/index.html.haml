@@ -1,6 +1,8 @@
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/cart'
-.cart_index
+.container.cart_index
+  - unless member_signed_in?
+    %h3.text-center.mb-3 ショッピングカート
   - flash_messages
   - if @carts.size == 0
     .alert.alert-primary カートに商品がありません
@@ -14,14 +16,15 @@
           = "#{cart.item.name}は販売終了となりました。申し訳ございませんが、カートから削除してください。" if item_error == :item_end
           = "#{cart.item.name}は一時的に在庫切れとなっています。申し訳ございませんが、カートから削除してください。" if item_error == :zero
           = "#{cart.item.name}は残り#{cart.item.stock_quantity}点となりました。申し訳ございませんが、数量を変更してください。" if item_error == :minus
-      .text-center.mt-5.mb-4
-        %h5.mb-4
-          = "合計（#{current_member.carts.sum(:quantity)}点）:#{jpy(current_member.total_cart_amount, prefix: true, tax: :exclude)}"
-        = link_to new_order_purchase_path, class: 'btn btn-warning btn-raised' do
-          %i.fa.fa-arrow-right
-          レジへ進む
+    .text-center.mb-4
+      %h5.mb-3
+        = "合計（#{Cart.current_quantity(current_member, session[:cart_session_id])}点）:#{jpy(Cart.current_amount(current_member, session[:cart_session_id]), prefix: true, tax: :exclude)}"
+      = link_to new_order_purchase_path, class: 'btn btn-warning btn-raised mx-1' do
+        %i.fa.fa-arrow-right
+        レジへ進む
+      = link_to 'お買い物を続ける', items_path, class: 'btn btn-outline-secondary mx-1'
     .card
-      .card-body
+      .card-body.py-0
         %table.table.cart_list.table-hover.mb-0
           %thead
             %tr
@@ -32,7 +35,7 @@
             - @carts.each do |cart|
               %tr{class: "#{'table-warning' if cart.item_error.present?}"}
                 %td.text-center
-                  = link_to member_cart_path(cart), method: :delete, data: {confirm: 'カートから削除してよろしいでしょうか？'} do
+                  = link_to cart_path(cart), method: :delete, data: {confirm: 'カートから削除してよろしいでしょうか？'} do
                     %i.fa.fa-times.fa-lg
                 %td.img_td
                   = link_to item_path(cart.item) do
@@ -43,9 +46,8 @@
                   %p.text-muted= jpy(cart.item.price, prefix: true)
                   %p.view_pc= cart.item.description
                 %td
-                  = form_for cart, url: member_cart_path(cart), class: 'form-inline' do |f|
-                    - max_quantity = cart.item.stock_quantity < 5 ? cart.item.stock_quantity : 5
-                    = f.select :quantity, options_for_select(1..max_quantity, selected: cart.quantity), {include_blank: cart.item_error.present?}, {class: 'form-control quantity_select'}
+                  = form_for cart, url: cart_path(cart), class: 'form-inline' do |f|
+                    = f.select :quantity, options_for_select(1..ceil_cart_quantity(cart), selected: cart.quantity), {include_blank: cart.item_error.present?}, {class: 'form-control quantity_select'}
 - content_for :javascript do
   :javascript
     $(document).ready(function(){

@@ -1,0 +1,24 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag 'front/purchase'
+= content_for :content do
+  .purchase_wrap
+    .purchase_flow.clearfix
+      .flow_line.step3
+        %ul.list-unstyled.list-inline
+          %li.view_pc &nbsp;
+          %li{class: "#{'active' if @step == 'step1'} "}
+            = link_to new_order_guest_path do
+              %i.fa.fa-user.flow_number
+              %br/
+              %span.view_pc.small お客様の情報
+          %li{class: "#{'active' if @step == 'step2'} "}
+            %i.fa.fa-credit-card.flow_number
+            %br/
+            %span.view_pc.small クレジットカード
+          %li
+            %i.fa.fa-check.flow_number
+            %br/
+            %span.view_pc.small 完了
+    .container
+      = yield
+= render template: 'layouts/front'

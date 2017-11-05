@@ -1,9 +1,10 @@
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/item'
-- if current_member.favorites&.size > 0
-  .row
-    = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: current_member.favorites}
-- else
-  .alert.alert-primary お気に入り商品がありません
-  .text-center
-    = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'
+.container
+  - if current_member.favorites&.size > 0
+    .row
+      = render partial: 'items/card', collection: @items, as: :item, locals: {favorites: current_member.favorites}
+  - else
+    .alert.alert-primary お気に入り商品がありません
+    .text-center
+      = link_to '商品を探す', items_path, class: 'btn btn-info btn-raised'

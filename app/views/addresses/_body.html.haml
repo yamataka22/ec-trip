@@ -1,7 +1,7 @@
-= "〒#{address.postal_code}"
-%br/
-= address.address1
-%br/
-= address.address2
-%br/
-= "電話番号：#{address.phone}"
+%p
+  = "〒#{address.postal_code}"
+  %br/
+  = address.address1
+  %br/
+  = address.address2.present? ? address.address2 : '　'
+%p= "電話番号：#{address.phone}"

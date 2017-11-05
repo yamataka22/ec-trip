@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe MemberMailer, type: :mailer do
+RSpec.describe FrontMailer, type: :mailer do
   describe "purchase_complete" do
-    let(:mail) { MemberMailer.purchase_complete }
+    let(:mail) { FrontMailer.purchase_complete }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Purchase complete")

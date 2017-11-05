@@ -1,5 +1,4 @@
 - favorite = current_member&.favorites&.find{|favorite| favorite.item_id == @item.id}
-- cart_added = current_member&.carts&.find{|cart| cart.item_id == @item.id}
 - content_for :stylesheet do
   = stylesheet_link_tag 'front/item'
   = stylesheet_link_tag 'magnific-popup/dist/magnific-popup'
@@ -15,13 +14,13 @@
           .alert.alert-danger この商品は一時的に在庫切れとなっています。
         - if flash[:error].present?
           .alert.alert-danger= flash[:error]
-        - if cart_added
+        - if Cart.search(current_member, session[:cart_session_id]).find_by(item_id: @item.id).present?
           .alert.alert-primary
             .clearfix.pt-1
               .float-left
                 %p.pt-1.mb-0= params[:cart_added] ? 'カートに追加しました' : 'この商品はカートに追加されています'
               .float-right
-                = link_to 'カートを編集', member_carts_path, class: 'btn btn-info'
+                = link_to 'カートを編集', carts_path, class: 'btn btn-info'
                 = link_to 'レジに進む', new_order_purchase_path, class: 'btn btn-warning btn-raised'
         .row
           .col-md-8
@@ -33,12 +32,11 @@
                 = @item.about.try(:html_safe)
                 %a.image-link{href: '#'}
               .card-footer.text-center.pt-3
-                - cart_path = member_signed_in? ? member_carts_path(item_id: @item.id) : new_session_path(:member)
                 = link_to items_path, class: 'btn btn-outline-secondary mx-2' do
                   %i.fa.fa-fw.fa-arrow-left
                   一覧に戻る
                 - if @item.can_sell?
-                  = link_to cart_path, method: :post, class: 'btn btn-outline-warning mx-2' do
+                  = link_to carts_path(item_id: @item.id), method: :post, class: 'btn btn-outline-warning mx-2' do
                     %i.fa.fa-fw.fa-cart-plus
                     カートに追加する
           .col-md-4

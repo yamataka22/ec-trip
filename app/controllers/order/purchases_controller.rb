@@ -1,26 +1,23 @@
 class Order::PurchasesController < FrontBase
-  before_action :authenticate_member!
+  before_action :authenticate_member!, except: [:new, :complete]
   layout 'order'
 
   def new
-    redirect_to member_carts_path and return if current_member.carts.blank? || current_member.carts.find {|cart| cart.item_error.present? }
+    redirect_to sign_in_order_guests_path and return unless member_signed_in?
+    redirect_to carts_path and return if current_member.carts.blank? || current_member.carts.find {|cart| cart.item_error.present? }
 
     session[:purchase] ||= {}
-    if params[:delivery_address_id].present? &&
-        current_member.delivery_addresses.find_by(params[:delivery_address_id])
-      session[:purchase]['delivery_address_id'] = params[:delivery_address_id]
-    end
-    if params[:credit_card_id].present? &&
-        current_member.credit_cards.find_by(params[:credit_card_id])
-      session[:purchase]['credit_card_id'] = params[:credit_card_id]
-    end
+    session[:purchase]['delivery_address_id'] = params[:delivery_address_id]
+    session[:purchase]['credit_card_id'] = params[:credit_card_id]
 
     redirect_to order_invoice_address_path and return if current_member.invoice_address.blank?
     redirect_to order_delivery_addresses_path and return if current_member.delivery_addresses.blank?
     redirect_to order_credit_cards_path and return if current_member.credit_cards.blank?
 
     @purchase = current_member.purchases.build
-    @purchase.set_attribute(session[:purchase]['delivery_address_id'], session[:purchase]['credit_card_id'])
+    @purchase.delivery_address_id = session[:purchase]['delivery_address_id'] || @purchase.member.main_address.id
+    @purchase.credit_card_id = session[:purchase]['credit_card_id'] || @purchase.member.main_credit_card.id
+    @purchase.set_attribute
   end
 
   def create
@@ -37,7 +34,12 @@ class Order::PurchasesController < FrontBase
   end
 
   def complete
-    @purchase = current_member.purchases.find(params[:id])
+    if member_signed_in?
+      @purchase = current_member.purchases.find(params[:id])
+    else
+      @purchase = Purchase.find_by(cart_session_id: params[:cart_session_id])
+      raise ActiveRecord::RecordNotFound if @purchase.nil?
+    end
     render :complete, layout: 'front'
   end
 
@@ -48,7 +50,7 @@ class Order::PurchasesController < FrontBase
         :invoice_prefecture_id, :invoice_address1, :invoice_address2, :delivery_last_name, :delivery_first_name,
         :delivery_phone, :delivery_postal_code, :delivery_prefecture_id, :delivery_address1, :delivery_address2,
         :invoice_address_id, :delivery_address_id, :credit_card_id,
-        details_attributes: [:item_id, :item_name, :price, :quantity]
+        details_attributes: [:item_id, :quantity]
     )
   end
 

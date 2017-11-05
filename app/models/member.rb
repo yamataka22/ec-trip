@@ -20,14 +20,6 @@ class Member < ApplicationRecord
     find_by(provider: auth.provider, uid: auth.uid)
   end
 
-  def total_cart_amount
-    amount = 0
-    self.carts.each do |cart|
-      amount = amount + cart.item.price * cart.quantity
-    end
-    amount
-  end
-
   def invoice_address
     self.addresses.find_by(invoice: true)
   end

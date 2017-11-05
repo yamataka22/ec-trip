@@ -4,7 +4,7 @@
       .card-header
         = render 'addresses/head', address: address
       .card-body.pb-0
-        %p= render 'addresses/body', address: address
+        = render 'addresses/body', address: address
       .card-footer.text-right
         - unless current_member.main_address_id == address.id
           = link_to '規定の住所にする', change_main_member_delivery_address_path(address), method: :post
@@ -13,7 +13,7 @@
         &nbsp;/&nbsp;
         = link_to '削除', member_delivery_address_path(address), method: :delete, data: {confirm: '削除してよろしいでしょうか？'}
 .col-lg-6
-  .card{style: 'height: 216px; padding-top: 55px;'}
+  .card{style: 'height: 228px; padding-top: 60px;'}
     .card-body.text-center
       = link_to new_member_delivery_address_path, remote: true do
         %button.btn.btn-info.bmd-btn-fab

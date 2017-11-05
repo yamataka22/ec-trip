@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
 
+  resources :carts, only: [:index, :create, :update, :destroy]
   namespace :order, path: 'order' do
     resources :purchases, only: [:new, :create] do
       member { get :complete }
@@ -22,6 +23,12 @@ Rails.application.routes.draw do
     resource :invoice_address, only: [:show, :create, :update]
     resources :delivery_addresses, only: [:index, :new, :create]
     resources :credit_cards, only: [:index, :new, :create]
+    resources :guests, only: [:new, :create] do
+      collection do
+        get :sign_in
+        post :confirm
+      end
+    end
   end
 
   resource :member, only: [:show, :update, :destroy] do
@@ -31,7 +38,6 @@ Rails.application.routes.draw do
     end
   end
   namespace :member, path: 'member' do
-    resources :carts, only: [:index, :create, :update, :destroy]
     resources :favorites, only: [:index, :create, :destroy]
     resource :invoice_address, only: [:show, :create, :update]
     resources :delivery_addresses do

@@ -9,9 +9,12 @@ class Members::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super do
+      # ログイン前のカート情報をログイン状態にする
+      Cart.merge_session(current_member, session[:cart_session_id])
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy

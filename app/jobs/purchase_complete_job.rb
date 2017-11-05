@@ -2,7 +2,7 @@ class PurchaseCompleteJob < ApplicationJob
   queue_as :default
 
   def perform(purchase)
-    MemberMailer.purchase_complete(purchase).deliver_later
+    FrontMailer.purchase_complete(purchase).deliver_later
     Manager.where(mail_accept: true).each do |manager|
       AdminMailer.new_ordered(purchase, manager.email).deliver_later
     end

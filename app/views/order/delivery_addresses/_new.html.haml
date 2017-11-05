@@ -1,0 +1,12 @@
+= form_for address, url: order_delivery_addresses_path, method: :post, remote: true, html: {class: 'mb-0 new_delivery_address_form'} do |f|
+  = hidden_field_tag :purchase, params[:purchase]
+  .card
+    .card-header
+      住所
+    .card-body
+      = render 'addresses/form', f: f
+    .card-footer.text-right
+      = f.submit '登録', class: 'btn btn-info btn-raised'
+      %button.btn.btn-secondary.ml-2{'data-dismiss' => 'modal', 'aria-label' => 'Close'} キャンセル
+:javascript
+  $('.new_delivery_address_form').bootstrapMaterialDesign();

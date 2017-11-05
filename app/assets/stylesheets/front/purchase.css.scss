@@ -1,6 +1,14 @@
 .purchase_wrap {
   .purchase_flow {
     margin-bottom: 40px;
+    .flow_line.step3 ul::before {
+      width: 40%;
+      left: 30%;
+      @media (max-width: 767px) {
+        width: 70%;
+        left: 15%;
+      }
+    }
     .flow_line.step5 ul::before {
       width: 80%;
       left: 10%;
@@ -10,13 +18,19 @@
       height: 4px;
       background: #D3D3D3;
       position: absolute;
-      top: 121px;
+      top: 115px;
       margin: 0;
       border-radius: 2px;
       z-index: 0;
     }
     .flow_line.step5 ul li {
       width: 20%;
+    }
+    .flow_line.step3 ul li {
+      width: 20%;
+      @media (max-width: 767px) {
+        width: 33.3%;
+      }
     }
     .flow_line li {
       float: left;
@@ -54,6 +68,10 @@
     .flow_line li.active .flow_number {
       background: #4496EC;
     }
+  }
+
+  .address_card {
+    color: #3F4550;
   }
 }
 
