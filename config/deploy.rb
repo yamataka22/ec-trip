@@ -2,7 +2,7 @@
 lock "3.8.2"
 
 set :application, "ec-trip"
-set :repo_url, "github:yamataka22/ec-trip.git"
+set :repo_url, "github:yamataka22/EC-TRIP.git"
 
 # Default branch is :master
 ask :branch, "master"
