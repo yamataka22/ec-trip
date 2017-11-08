@@ -396,6 +396,7 @@ DEPENDENCIES
   capistrano3-unicorn (~> 0.2.1)
   capybara (~> 2.14)
   coffee-rails (~> 4.2)
+  daemons (~> 1.2.4)
   delayed_job_active_record (~> 4.1.1)
   devise (~> 4.3.0)
   dotenv-rails (~> 2.1.1)
