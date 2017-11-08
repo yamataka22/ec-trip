@@ -4,7 +4,7 @@
 = f.hidden_field target_id, class: target_class
 .preview.mt-1{style: "display: #{image_id ? 'block' : 'none'}"}
   - if image_id
-    = image_tag eval("f.object.#{target_id.to_s.slice(0, target_id.to_s.size-3)}.public_url"), width: '100%'
+    = image_tag eval("f.object.#{target_id.to_s.slice(0, target_id.to_s.size-3)}.public_url(:thumb)"), width: '100%'
   - else
     %img{style: 'width: 100%;'}
   %p.text-right
