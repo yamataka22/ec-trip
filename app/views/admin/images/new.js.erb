@@ -1,5 +1,5 @@
-var modal = $('.image_select_dialog');
-modal.find('.input_file').val('');
+var modal = $('#image_select_dialog');
+modal.find('.image_file').val('');
 modal.find('.target_class').val('<%= @image.target_class %>');
 var error_message = modal.find('.error_message');
 <% if @image.errors.present? %>
@@ -8,4 +8,4 @@ var error_message = modal.find('.error_message');
 <% else %>
     error_message.css('display', 'none');
 <% end %>
-modal.modal();
+modal.modal({backdrop: 'static'});

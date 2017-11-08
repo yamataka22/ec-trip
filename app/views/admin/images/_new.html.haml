@@ -1,31 +1,16 @@
-.modal.fade.image_select_dialog
+.modal.fade#image_select_dialog
   .modal-dialog
     .modal-content
-      = form_for Image.new, url: admin_images_path, method: :post, remote: true, authenticity_token: true, multipart: true, html: {class: 'image_upload_form'} do |f|
-        .modal-header
-          %h5.modal-title ファイル選択
-          %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
-            %span{'aria-hidden' => 'true'} &times;
-        .modal-body
-          = f.file_field :image, class: 'input_file'
-          .error_message.text-danger{style: 'display: none'}
-          = f.hidden_field :target_class, class: 'target_class'
-        .modal-footer
-          = f.submit '選択', class: 'btn btn-primary', data: {disable_with: '処理中...'}
-          %button.btn.btn-light{'data-dismiss' => 'modal'} キャンセル
+      .modal-header
+        %h5.modal-title ファイル選択
+        %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
+          %span{'aria-hidden' => 'true'} &times;
+      .modal-body
+        %input.image_file{type: 'file'}
+        %input.target_class{type: 'hidden'}
+      .modal-footer
+        %button.btn.btn-primary.btn_select{onclick: 'image_select.upload();'} 選択
+        %button.btn.btn-light{'data-dismiss' => 'modal'} キャンセル
 - content_for :javascript do
   = javascript_include_tag 'image_upload.js'
-  :javascript
-    $('.image_select_dialog').find('.image_upload_form').submit(function() {
-      var file = $('.image_select_dialog').find('.input_file');
-      if (file_blank(file)) {
-        alert('ファイルを指定してください');
-        return false;
-      }
-      if (!check_size_and_type(file)) {
-        alert('ファイルは3MB以内,jpg/png/gifのみ指定可能です。');
-        return false;
-      }
-      return true;
-    });
 

@@ -16,4 +16,3 @@
 //= require popper.js/dist/umd/popper.js
 //= require tether/dist/js/tether
 //= require bootstrap-material-design/js/bootstrap-material-design
-//= require jquery.remotipart
