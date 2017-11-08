@@ -29,6 +29,8 @@ module ErrorHandlers
 
   def rescue500(e)
     @exception = e
+    logger.fatal e.message
+    logger.fatal e.backtrace.join("\n")
     render '/errors/internal_server_error', status: 500, layout: layout
   end
 
