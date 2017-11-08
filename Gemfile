@@ -54,6 +54,7 @@ gem 'active_hash', '~> 1.5.2'
 gem 'remotipart', '~> 1.2'
 gem 'bower-rails'
 gem 'bootstrap', '~> 4.0.0.beta2'
+gem 'haml-rails'
 
 group :production do
   gem 'unicorn', '~> 5.3.0'
@@ -92,7 +93,6 @@ group :development do
   gem 'hirb'
   gem 'hirb-unicode'
 
-  gem 'haml-rails'
   gem 'erb2haml'
 
   # Capistrano
