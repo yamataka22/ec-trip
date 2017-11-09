@@ -21,21 +21,21 @@
         %td{width: '200px'}
           .form-group
             = f.label eval(":#{prefix}postal_code"), class: 'form-control-label required'
-            = f.text_field eval(":#{prefix}postal_code"), class: 'form-control'
+            = f.text_field eval(":#{prefix}postal_code"), class: 'form-control input_postal_code'
             = error_label_tag(f.object, eval(":#{prefix}postal_code"))
         %td
-          %button.btn.btn-outline-info.btn-sm.ml-3
+          %button.btn.btn-outline-info.btn-sm.ml-3{onclick: 'search_address($(".input_postal_code").val(), ".input_prefecture", ".input_address1", ".input_address2"); return false;'}
             住所検索
   .col-lg-6
     .form-group.bmd-form-group.is-filled
       = f.label eval(":#{prefix}prefecture_id"), class: 'bmd-label-floating required'
-      = f.select eval(":#{prefix}prefecture_id"), Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, {include_blank: true}, {class: 'form-control'}
+      = f.select eval(":#{prefix}prefecture_id"), Prefecture.all.map{|prefecture| [prefecture.name, prefecture.id]}, {include_blank: true}, {class: 'form-control input_prefecture'}
       = error_label_tag(f.object, eval(":#{prefix}prefecture_id"))
 .form-group
   = f.label eval(":#{prefix}address1"), class: 'form-control-label required'
-  = f.text_field eval(":#{prefix}address1"), class: 'form-control'
+  = f.text_field eval(":#{prefix}address1"), class: 'form-control input_address1'
   = error_label_tag(f.object, eval(":#{prefix}address1"))
 .form-group
   = f.label eval(":#{prefix}address2"), class: 'form-control-label'
-  = f.text_field eval(":#{prefix}address2"), class: 'form-control'
+  = f.text_field eval(":#{prefix}address2"), class: 'form-control input_address2'
   = error_label_tag(f.object, eval(":#{prefix}address2"))

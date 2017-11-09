@@ -55,6 +55,7 @@ gem 'active_hash', '~> 1.5.2'
 gem 'bower-rails'
 gem 'bootstrap', '~> 4.0.0.beta2'
 gem 'haml-rails'
+gem 'httpclient'
 
 group :production do
   gem 'unicorn', '~> 5.3.0'

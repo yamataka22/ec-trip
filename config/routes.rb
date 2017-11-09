@@ -80,6 +80,8 @@ Rails.application.routes.draw do
 
   get 'static_pages/:name' => 'static_pages#show', as: :static_page
 
+  # 郵便番号検索
+  get 'postal_codes/:code' => 'postal_codes#show'
   post '/tinymce_assets' => 'admin/images#create'
   root 'top#index'
   get '*anything' => 'errors#routing_error'
