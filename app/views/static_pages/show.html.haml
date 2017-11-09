@@ -1,12 +1,10 @@
 .container
   - if controller.controller_path == 'admin/static_pages'
     .alert.alert-primary これはプレビュー表示です。登録は完了していません。
-  %h1.h2= @static_page.title
-  %hr/
+  %h1.py-4.text-center= @static_page.title
   .row.justify-content-lg-center
     .col-lg-10.col-xl-8
       %p
         = @static_page.content.try(:html_safe)
-  .text-center.mt-5
-    %hr/
+  .text-center.mt-4
     = link_to 'トップに戻る', root_path, class: 'btn btn-info'
