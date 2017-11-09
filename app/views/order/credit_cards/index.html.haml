@@ -18,7 +18,7 @@
     %div
       = link_to '他のカードを利用する', new_order_credit_card_path, class: 'btn btn-info btn-raised', remote: true
 .modal.fade.card_form_dialog
-  .modal-dialog.modal-sm
+  .modal-dialog
     .modal-content
 - content_for :javascript do
   %script{:src => 'https://js.stripe.com/v2/', :type => 'text/javascript'}

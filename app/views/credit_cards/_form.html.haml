@@ -1,5 +1,32 @@
 .alert.alert-danger.stripe_err_message{style: 'display: none'}
 .credit_card_input
+  .alert.alert-info.mb-1
+    デモ環境では以下のカード番号がご利用いただけます
+  %table.table.table-bordered.table-sm.small
+    %tr
+      %th ブランド
+      %th カード番号
+      %th 期限
+      %th コード
+      %th 名義
+    %tr
+      %th Visa
+      %td 4242 4242 4242 4242
+      %td 12/2020
+      %td 000
+      %td TARO YAMADA
+    %tr
+      %th Master
+      %td 5555 5555 5555 4444
+      %td 12/2020
+      %td 000
+      %td TARO YAMADA
+    %tr
+      %th Amex
+      %td 3782 822463 10005
+      %td 12/2020
+      %td 0000
+      %td TARO YAMADA
   .form-group
     %label.form-control-label.required{for: 'card_number'} カード番号
     %input#card_number.form-control.card_input{type: 'number', placeholder: '0000 0000 0000 0000'}
