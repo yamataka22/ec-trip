@@ -1,4 +1,6 @@
 class Members::PasswordsController < Devise::PasswordsController
+  layout 'front'
+  after_action :clear_flash, only:[:update]
   # GET /resource/password/new
   # def new
   #   super
@@ -29,4 +31,10 @@ class Members::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+
+  private
+  def clear_flash
+    flash.delete(:notice) if flash[:notice].present?
+    flash.delete(:success) if flash[:success].present?
+  end
 end

@@ -42,8 +42,7 @@ class Members::SessionsController < Devise::SessionsController
   end
 
   def clear_flash
-    if flash[:notice].present?
-      flash.delete(:notice)
-    end
+    flash.delete(:notice) if flash[:notice].present?
+    flash.delete(:success) if flash[:success].present?
   end
 end

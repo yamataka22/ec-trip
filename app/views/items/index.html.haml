@@ -3,47 +3,48 @@
 .container
   .row
     .col-md-4.col-xl-3
-      = form_for @search_form, url: items_path, method: :get do |f|
-        .card
-          .card-body.pt-2
-            .form-group.bmd-form-group.is-filled
-              = f.label :category_id, 'カテゴリー', class: 'bmd-label-floating'
-              = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : "　#{c.name}", c.id]},
-                {include_blank: true}, {class: 'form-control'}
-            .checkbox
-              %label
-                = f.check_box :pickup
-                %span.small おすすめ商品
-            .checkbox
-              %label
-                = f.check_box :arrival_new
-                %span.small 新着商品
-            .row.align-items-end
-              .col-5.pr-0
-                .form-group.bmd-form-group.is-filled
-                  = f.label :price_floor, '価格(下限)', class: 'bmd-label-floating'
-                  - prices = [1000, 5000, 10000, 30000]
-                  = f.select :price_floor, prices.map{|p| [jpy(p, prefix: true), p]}, {include_blank: true}, {class: 'form-control'}
-              .col-2.mb-3.text-center.px-0
-                %span.text-muted 〜
-              .col-5.pl-0
-                .form-group.bmd-form-group.is-filled
-                  = f.label :price_ceil, '価格(上限)', class: 'bmd-label-floating'
-                  - prices = [1000, 5000, 10000, 30000]
-                  = f.select :price_ceil, prices.map{|p| [jpy(p, prefix: true), p]}, {include_blank: true}, {class: 'form-control'}
-            .form-group
-              = f.label :keyword, 'キーワード', class: 'form-control-label'
-              = f.text_field :keyword, class: 'form-control'
-            .form-group.bmd-form-group.is-filled
-              = f.label :sort_type, '表示順', class: 'bmd-label-floating'
-              = f.select :sort_type, [['新着順', ''], ['価格が安い順', 'price_asc'], ['価格が高い順', 'price_desc']],
-                {include_blank: false}, {class: 'form-control'}
-            .checkbox.mt-4
-              %label
-                = f.check_box :sold_out
-                %span.small 販売が終了した商品も見つける
-          .card-footer
-            = f.submit '検 索', class: 'btn btn-info btn-block'
+      .sticky-top
+        = form_for @search_form, url: items_path, method: :get do |f|
+          .card
+            .card-body.pt-2
+              .form-group.bmd-form-group.is-filled
+                = f.label :category_id, 'カテゴリー', class: 'bmd-label-floating'
+                = f.select :category_id, Category.sorted_all.map{|c| [c.root? ? c.name : "　#{c.name}", c.id]},
+                  {include_blank: true}, {class: 'form-control'}
+              .checkbox
+                %label
+                  = f.check_box :pickup
+                  %span.small おすすめ商品
+              .checkbox
+                %label
+                  = f.check_box :arrival_new
+                  %span.small 新着商品
+              .row.align-items-end
+                .col-5.pr-0
+                  .form-group.bmd-form-group.is-filled
+                    = f.label :price_floor, '価格(下限)', class: 'bmd-label-floating'
+                    - prices = [1000, 5000, 10000, 30000]
+                    = f.select :price_floor, prices.map{|p| [jpy(p, prefix: true), p]}, {include_blank: true}, {class: 'form-control'}
+                .col-2.mb-3.text-center.px-0
+                  %span.text-muted 〜
+                .col-5.pl-0
+                  .form-group.bmd-form-group.is-filled
+                    = f.label :price_ceil, '価格(上限)', class: 'bmd-label-floating'
+                    - prices = [1000, 5000, 10000, 30000]
+                    = f.select :price_ceil, prices.map{|p| [jpy(p, prefix: true), p]}, {include_blank: true}, {class: 'form-control'}
+              .form-group
+                = f.label :keyword, 'キーワード', class: 'form-control-label'
+                = f.text_field :keyword, class: 'form-control'
+              .form-group.bmd-form-group.is-filled
+                = f.label :sort_type, '表示順', class: 'bmd-label-floating'
+                = f.select :sort_type, [['新着順', ''], ['価格が安い順', 'price_asc'], ['価格が高い順', 'price_desc']],
+                  {include_blank: false}, {class: 'form-control'}
+              .checkbox.mt-4
+                %label
+                  = f.check_box :sold_out
+                  %span.small 販売が終了した商品も見つける
+            .card-footer
+              = f.submit '検 索', class: 'btn btn-info btn-block'
     .col-md-8.col-xl-9
       - if @total_count.present? && @total_count > 0
         .alert.alert-secondary= "#{@total_count}件の商品が見つかりました"

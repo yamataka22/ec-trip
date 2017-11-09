@@ -1,10 +1,19 @@
-%h2 Forgot your password?
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .actions
-    = f.submit "Send me reset password instructions"
-= render "members/shared/links"
+.container
+  .text-center.mb-4
+    %h1.h2.mb-3 パスワード再設定
+    %p
+      パスワードをお忘れの方は、パスワードの再発行をしてください。
+      %br/
+      ご入力いただいたアドレスに再発行手続きのメールをお送りいたします。
+  .row.justify-content-center
+    .col-md-8.col-lg-6
+      .card
+        .card-body
+          - flash_messages
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'mb-0' }) do |f|
+            .form-group.mb-4
+              = f.label :email, class: 'form-control-label'
+              = f.email_field :email, class: 'form-control'
+              = error_label_tag(f.object, :email)
+            .text-center.mb-0
+              = f.submit '送 信', class: 'btn btn-info btn-raised'
