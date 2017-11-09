@@ -1,6 +1,7 @@
 class Address < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :member
-  belongs_to :prefecture
+  belongs_to_active_hash :prefecture
 
   accepts_nested_attributes_for :member
 

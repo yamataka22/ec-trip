@@ -2,7 +2,7 @@
 %p
   = '〒' + eval("purchase.#{prefix}_postal_code")
   %br/
-  = eval("purchase.#{prefix}_address1")
+  = "#{eval("purchase.#{prefix}_prefecture.name")} #{eval("purchase.#{prefix}_address1")}"
   %br/
   = eval("purchase.#{prefix}_address2")
 %p= '電話番号：' + eval("purchase.#{prefix}_phone")

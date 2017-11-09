@@ -16,7 +16,7 @@
           = "#{cart.item.name}は残り#{cart.item.stock_quantity}点となりました。申し訳ございませんが、数量を変更してください。" if item_error == :minus
     .jumbotron
       - unless member_signed_in?
-        %h3.text-center.mb-3 ショッピングカートの中身
+        %h3.text-center.mb-3 ショッピングカート
       .text-center
         %h5.mb-3
           = "合計（#{Cart.current_quantity(current_member, session[:cart_session_id])}点）:#{jpy(Cart.current_amount(current_member, session[:cart_session_id]), prefix: true, tax: :exclude)}"

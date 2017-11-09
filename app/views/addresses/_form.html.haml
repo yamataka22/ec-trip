@@ -24,7 +24,7 @@
             = f.text_field eval(":#{prefix}postal_code"), class: 'form-control input_postal_code'
             = error_label_tag(f.object, eval(":#{prefix}postal_code"))
         %td
-          %button.btn.btn-outline-info.btn-sm.ml-3{onclick: 'search_address($(".input_postal_code").val(), ".input_prefecture", ".input_address1", ".input_address2"); return false;'}
+          %button.btn.btn-outline-info.btn-sm.ml-1{onclick: 'search_address($(".input_postal_code").val(), ".input_prefecture", ".input_address1", ".input_address2"); return false;'}
             住所検索
   .col-lg-6
     .form-group.bmd-form-group.is-filled
