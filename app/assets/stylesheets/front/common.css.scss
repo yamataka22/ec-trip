@@ -78,10 +78,14 @@ body {
   height: 220px;
   //line-height: 100px; /* Vertically center the text there */
   padding-top: 20px;
-  background-color: #f5f5f5;
+  background-color: #282B30;
+  color: #fff !important;
   a {
     font-size: 0.9rem;
-    color: #4B5057;
+    color: #fff !important;
+  }
+  h3 {
+    color: #fff !important;
   }
 }
 
