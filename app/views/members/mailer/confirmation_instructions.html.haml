@@ -2,4 +2,4 @@
   この度はEC-TRIPにご登録いただき、誠にありがとうございます。<br>
   以下のリンクをクリックいただきますと、会員登録が完了いたします。
 
-%p= link_to '会員登録', member_confirmation_url(@resource, confirmation_token: @token)
+%p= link_to '会員登録', confirmation_url(@resource, confirmation_token: @token)
