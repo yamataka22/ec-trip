@@ -21,8 +21,9 @@ class Members::RegistrationsController < Devise::RegistrationsController
         # 通常SignUpでも任意の値をuidに設定しておく
         resource.uid = SecureRandom.uuid
       end
-
-      resource.save
+      if resource.save
+        session['omniauth'] = nil
+      end
     end
   end
 
@@ -37,7 +38,7 @@ class Members::RegistrationsController < Devise::RegistrationsController
   end
 
   def select
-    session['omniauth_data'] = nil
+    session['omniauth'] = nil
   end
 
   def inactive
