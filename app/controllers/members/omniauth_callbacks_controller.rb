@@ -1,6 +1,7 @@
 class Members::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
+  after_action :clear_flash, only:[:facebook, :twitter]
 
   def facebook
     @member = Member.from_omniauth(request.env['omniauth.auth'])
@@ -49,5 +50,10 @@ class Members::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       }
       redirect_to new_member_registration_url
     end
+  end
+
+  def clear_flash
+    flash.delete(:notice) if flash[:notice].present?
+    flash.delete(:success) if flash[:success].present?
   end
 end
