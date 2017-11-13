@@ -4,6 +4,8 @@
     %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
     %meta{:content => 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0', :name => 'viewport'}/
     %meta{:content => 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
+    - if ENV['DEMO'].present?
+      %meta{:content => 'noindex', name: 'robots'}
     %title
       = "#{@crumbs.last[:title]} | " if @crumbs.present?
       EC-TRIP
