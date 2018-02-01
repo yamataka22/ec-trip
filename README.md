@@ -12,10 +12,6 @@ Ruby on Railsで作られたECサイトプラットフォームです。
 * MySQL 5.7
 * 決済プラットフォーム: <a href="https://stripe.com/jp" target="_blank">Stripe</a>
 * アカウント認証: <a href="https://github.com/plataformatec/devise" target="_blank">Device<a/>
-
-### インストール
-開発環境の構築手順は<a href="http://ec-trip.site/development.html" target="_blank">こちら</a>をご参照ください。
-
 ### AWSへの環境構築
 AWSへの本番環境の構築手順は<a href="http://ec-trip.site/aws-introduction.html" target="_blank">こちら</a>をご参照ください。
 
