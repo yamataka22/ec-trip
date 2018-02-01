@@ -1,0 +1,27 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db/mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --innodb-ft-min-token-size=2
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  web:
+    build: .
+    command: bash -c 'rm -f tmp/pids/server.pid && bundle exec rails server --port 3000 --binding 0.0.0.0'
+    volumes:
+      - .:/ec-trip
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: "password"
+      DATABASE_HOST: db
+      DATABASE_SOCKET: /var/run/mysqld/mysqld.sock
+    links:
+      - db
+    tty: true
+    stdin_open: true

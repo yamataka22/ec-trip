@@ -46,6 +46,10 @@
 /vendor/assets/bower_components
 node_modules
 
+# for mysql_docker
+/db/mysql_data/*
+!/db/mysql_data/.keep
+
 # etc
 .DS_Store
 *.pem
