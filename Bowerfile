@@ -1,4 +1,4 @@
-asset 'bootstrap-material-design', '~> 4.0.0-beta.3'
+asset 'bootstrap-material-design', '4.0.0-beta.4'
 asset 'scrollup'
 asset 'popper.js'
 asset 'tether'

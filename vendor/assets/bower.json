@@ -1,7 +1,7 @@
 {
   "name": "dsl-generated-dependencies",
   "dependencies": {
-    "bootstrap-material-design": "~> 4.0.0-beta.3",
+    "bootstrap-material-design": "4.0.0-beta.4",
     "scrollup": "latest",
     "popper.js": "latest",
     "tether": "latest",
